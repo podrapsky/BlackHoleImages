@@ -92,7 +92,7 @@ return
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Radial Roots*)
 
 
@@ -118,7 +118,7 @@ z=Sqrt[(\[Omega]2+\[Omega]1-A/3)/2];
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Radial Motion*)
 
 
@@ -226,7 +226,7 @@ RedIt = Function[{Global`\[Lambda]}, Evaluate[Re[4/(rp-rm) (rp(rp - (a \[ScriptL
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Equator Intersections*)
 
 
@@ -236,8 +236,9 @@ u1=\[CapitalDelta]\[Theta]-Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; u2=\[Capi
 G\[Theta]o=-1/Sqrt[-u1 a^2] EllipticF[Re[ArcSin[Cos[\[Theta]o]/Sqrt[u2]]], u2/u1]; (*Sometimes the ArcSin argument is slightly over 1 probably due to numerical errors*)
 equator\[Lambda] = {};
 If[(-\[Nu]\[Theta] G\[Theta]o) < 0, j0=1, j0=0];
-For[j=j0, True, j++,
-t=1/Sqrt[-u1 a^2] EllipticF[j \[Pi], u2/u1]-\[Nu]\[Theta] G\[Theta]o;
+K = EllipticK[u2/u1];
+For[j=j0, j<=10, j++,
+t=2 j K/Sqrt[-u1 a^2]-\[Nu]\[Theta] G\[Theta]o;
 If[t>\[Lambda]x, Break[]];
 equator\[Lambda] = Append[equator\[Lambda], t]];
 equator\[Lambda]
