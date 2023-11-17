@@ -41,22 +41,22 @@ Options[OrdinaryPolarMotion] = {"ReturnValues" -> "All"}
 Options[VorticalPolarMotion] = {"ReturnValues" -> "All"}
 
 
-OrdinaryPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, OptionsPattern[]] := Module[{\[CapitalDelta]\[Theta], u1, u2, EPrime, G\[Theta]o, Gto, G\[Phi]o, \[CapitalPsi], \[Theta], Gt, G\[Phi], return}, 
+OrdinaryPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_, OptionsPattern[]] := Module[{\[CapitalDelta]\[Theta], u1, u2, EPrime, G\[Theta]o, Gto, G\[Phi]o, \[CapitalPsi], \[Theta], Gt, G\[Phi], return}, 
 \[CapitalDelta]\[Theta]= 1/2 (1-(\[Eta]+\[ScriptL]^2)/a^2);
 u1=\[CapitalDelta]\[Theta]-Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; u2=\[CapitalDelta]\[Theta]+Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; 
 G\[Theta]o=-1/Sqrt[-u1 a^2] EllipticF[Re[ArcSin[Cos[\[Theta]o]/Sqrt[u2]]], u2/u1];
 \[CapitalPsi][\[Lambda]_] := JacobiAmplitude[Sqrt[-u1 a^2] (\[Lambda] + \[Nu]\[Theta] G\[Theta]o), u2/u1];
 
 G\[Phi]o=-1/Sqrt[-u1 a^2] EllipticPi[u2, Re[ArcSin[Cos[\[Theta]o]/Sqrt[u2]]], u2/u1];
-G\[Phi]= Function[{Global`\[Lambda]}, Evaluate[1/Sqrt[-u1 a^2] EllipticPi[u2, \[CapitalPsi][Global`\[Lambda]], u2/u1]-\[Nu]\[Theta] G\[Phi]o], Listable]; 
+G\[Phi]= Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[1/Sqrt[-u1 a^2] EllipticPi[u2, \[CapitalPsi][Global`\[Lambda]], u2/u1]-\[Nu]\[Theta] G\[Phi]o]], Listable]; 
 
-\[Theta] = Function[{Global`\[Lambda]}, Evaluate[ArcCos[-\[Nu]\[Theta] Sqrt[u2] Sin[\[CapitalPsi][Global`\[Lambda]]]]], Listable];
+\[Theta] = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[ArcCos[-\[Nu]\[Theta] Sqrt[u2] Sin[\[CapitalPsi][Global`\[Lambda]]]]]], Listable];
 
 If[OptionValue["ReturnValues"]!="OmmitT", 
 
   EPrime[\[Phi]_, k_] := (EllipticE[\[Phi], k]-EllipticF[\[Phi], k])/(2 k);
   Gto=2 u2/Sqrt[-u1 a^2] EPrime[Re[ArcSin[Cos[\[Theta]o]/Sqrt[u2]]], u2/u1];
-  Gt=Function[{Global`\[Lambda]}, Evaluate[-2 u2/Sqrt[-u1 a^2] EPrime[\[CapitalPsi][Global`\[Lambda]], u2/u1] - \[Nu]\[Theta] Gto], Listable];
+  Gt=Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[-2 u2/Sqrt[-u1 a^2] EPrime[\[CapitalPsi][Global`\[Lambda]], u2/u1] - \[Nu]\[Theta] Gto]], Listable];
   return = <|"\[Theta]" -> \[Theta], "Gt" -> Gt, "G\[Phi]" -> G\[Phi]|>,
 
   return = <|"\[Theta]" -> \[Theta], "G\[Phi]" -> G\[Phi]|>
@@ -66,7 +66,7 @@ return
 ]
 
 
-VorticalPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, OptionsPattern[]] := Module[{h, \[CapitalDelta]\[Theta], u1, u2, \[CapitalUpsilon], \[CapitalUpsilon]\[Lambda], G\[Theta]o, Gto, G\[Phi]o,\[Theta], Gt, G\[Phi], return},
+VorticalPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_ OptionsPattern[]] := Module[{h, \[CapitalDelta]\[Theta], u1, u2, \[CapitalUpsilon], \[CapitalUpsilon]\[Lambda], G\[Theta]o, Gto, G\[Phi]o,\[Theta], Gt, G\[Phi], return},
 h = Sign[Cos[\[Theta]o]];
 \[CapitalDelta]\[Theta]= 1/2 (1-(\[Eta]+\[ScriptL]^2)/a^2);
 u1=\[CapitalDelta]\[Theta]-Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; u2=\[CapitalDelta]\[Theta]+Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2];
@@ -75,14 +75,14 @@ G\[Theta]o = -(h/Sqrt[u1 a^2]) EllipticF[\[CapitalUpsilon][\[Theta]o], 1-u2/u1];
 \[CapitalUpsilon]\[Lambda][\[Lambda]_] := JacobiAmplitude[Sqrt[u1 a^2] (\[Lambda] + \[Nu]\[Theta] G\[Theta]o), 1-u2/u1];
 
 G\[Phi]o = -(h/((1-u1) Sqrt[u1 a^2])) EllipticPi[(u2-u1)/(1-u1), \[CapitalUpsilon][\[Theta]o], 1-u2/u1];
-G\[Phi] = Function[{Global`\[Lambda]}, Evaluate[1/((1-u1) Sqrt[u1 a^2]) EllipticPi[(u2-u1)/(1-u1), \[CapitalUpsilon]\[Lambda][Global`\[Lambda]], 1-u2/u1]-\[Nu]\[Theta] G\[Phi]o], Listable];
+G\[Phi] = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[1/((1-u1) Sqrt[u1 a^2]) EllipticPi[(u2-u1)/(1-u1), \[CapitalUpsilon]\[Lambda][Global`\[Lambda]], 1-u2/u1]-\[Nu]\[Theta] G\[Phi]o]], Listable];
 
-\[Theta] = Function[{Global`\[Lambda]}, Evaluate[ArcCos[h Sqrt[u1+(u2-u1) (Sin[\[CapitalUpsilon]\[Lambda][Global`\[Lambda]]])^2]]], Listable];
+\[Theta] = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[ArcCos[h Sqrt[u1+(u2-u1) (Sin[\[CapitalUpsilon]\[Lambda][Global`\[Lambda]]])^2]]]], Listable];
 
 If[OptionValue["ReturnValues"]!="OmmitT",
   
   Gto = -h Sqrt[u1/a^2] EllipticE[\[CapitalUpsilon][\[Theta]o], 1-u2/u1];
-  Gt = Function[{Global`\[Lambda]}, Evaluate[Sqrt[u1/a^2] EllipticE[\[CapitalUpsilon]\[Lambda][Global`\[Lambda]], 1-u2/u1]-\[Nu]\[Theta] Gto], Listable];
+  Gt = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Sqrt[u1/a^2] EllipticE[\[CapitalUpsilon]\[Lambda][Global`\[Lambda]], 1-u2/u1]-\[Nu]\[Theta] Gto]], Listable];
   return = <|"\[Theta]" -> \[Theta], "Gt" -> Gt, "G\[Phi]" -> G\[Phi]|>,
 
   return = <|"\[Theta]" -> \[Theta], "G\[Phi]" -> G\[Phi]|>
@@ -141,7 +141,7 @@ If[r4<rm,
 ];
 X[\[Lambda]_] := Sqrt[(r3-r1) (r4-r2)]/2 (\[Lambda]-I0o);
 
-r = Function[{Global`\[Lambda]}, Evaluate[Re[(r4 (r3-r1) - r3 (r4-r1) (JacobiSN[X[Global`\[Lambda]], k])^2)/((r3-r1) - (r4-r1) (JacobiSN[X[Global`\[Lambda]], k])^2)]], Listable];
+r = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[(r4 (r3-r1) - r3 (r4-r1) (JacobiSN[X[Global`\[Lambda]], k])^2)/((r3-r1) - (r4-r1) (JacobiSN[X[Global`\[Lambda]], k])^2)]]], Listable];
 
 RedPi1[\[Lambda]_] := 2/Sqrt[(r3-r1) (r4-r2)](EllipticPi[(r4-r1)/(r3-r1), JacobiAmplitude[X[\[Lambda]], k], k] + EllipticF[ArcSin[Sqrt[(r3-r1)/(r4-r1)]], k] - EllipticPi[(r3-r2)/(r4-r2), ArcSin[Sqrt[(r3-r1)/(r4-r1)]], k] + 1/(2 Sqrt[(1-(r3-r2)/(r4-r2))((r4-r1)/(r3-r1)-1)]) Log[4/(r3-r1+r4-r2)]);
 E\[Lambda][\[Lambda]_] := Sqrt[(r3-r1)(r4-r2)](EllipticE[JacobiAmplitude[X[\[Lambda]], k], k] + EllipticE[ArcSin[xo], k]);
@@ -152,8 +152,8 @@ RedI1[\[Lambda]_] := r3 \[Lambda] + (r4-r3) RedPi1[\[Lambda]];
 deriv[expr_, var_] := expr'[var] /. Re'[e_]:> 1;
 RedI2[\[Lambda]_] := deriv[r, \[Lambda]]/(r[\[Lambda]]-r3) + r3 - (r1 r4 + r2 r3)/2 \[Lambda] - E\[Lambda][\[Lambda]];
 
-I\[Phi] = Function[{Global`\[Lambda]}, Evaluate[Re[(2 a)/(rp-rm) ((rp - a \[ScriptL]/2) Ip[Global`\[Lambda]] - (rm- a \[ScriptL]/2) Iminus[Global`\[Lambda]])]], Listable];
-RedIt = Function[{Global`\[Lambda]}, Evaluate[Re[4/(rp-rm) (rp(rp - (a \[ScriptL])/2) Ip[Global`\[Lambda]] - rm(rm - (a \[ScriptL])/2)Iminus[Global`\[Lambda]]) +4 Global`\[Lambda] + 2 RedI1[Global`\[Lambda]] + RedI2[Global`\[Lambda]] + 2 Log[2]]], Listable];
+I\[Phi] = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[(2 a)/(rp-rm) ((rp - a \[ScriptL]/2) Ip[Global`\[Lambda]] - (rm- a \[ScriptL]/2) Iminus[Global`\[Lambda]])]]], Listable];
+RedIt = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[4/(rp-rm) (rp(rp - (a \[ScriptL])/2) Ip[Global`\[Lambda]] - rm(rm - (a \[ScriptL])/2)Iminus[Global`\[Lambda]]) +4 Global`\[Lambda] + 2 RedI1[Global`\[Lambda]] + RedI2[Global`\[Lambda]] + 2 Log[2]]]], Listable];
 
 <|"r" -> r, "I\[Phi]" -> I\[Phi], "RedIt" -> RedIt, "\[Lambda]x" -> Re[\[Lambda]x]|>
 ]
@@ -173,7 +173,7 @@ I0o = 1/Sqrt[A B] EllipticF[ArcCos[xo], k];
 \[Lambda]x = I0o - 1/Sqrt[A B] EllipticF[ArcCos[(A (rp-r1) - B (rp-r2))/(A (rp-r1) + B (rp-r2))], k];
 X[\[Lambda]_] := Sqrt[A B] (\[Lambda] - I0o);
 
-r = Function[{Global`\[Lambda]}, Evaluate[Re[((B r2 - A r1) + (B r2 + A r1) JacobiCN[X[Global`\[Lambda]], k])/((B-A) + (B+A) JacobiCN[X[Global`\[Lambda]], k])]], Listable];
+r = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[((B r2 - A r1) + (B r2 + A r1) JacobiCN[X[Global`\[Lambda]], k])/((B-A) + (B+A) JacobiCN[X[Global`\[Lambda]], k])]]], Listable];
 
 \[Alpha]0 = (B+A)/(B-A);
 \[Alpha]p = (B (rp - r2) + A (rp - r1))/(B (rp - r2) - A (rp - r1)); \[Alpha]m = (B (rm - r2) + A (rm - r1))/(B (rm - r2) - A (rm - r1));
@@ -185,8 +185,8 @@ Ip[\[Lambda]_] := -((B+A) \[Lambda] + Pip[\[Lambda]])/(B (rp-r2) + A (rp-r1)); I
 RedI1[\[Lambda]_] := ((B r2 + A r1)/(B + A))\[Lambda] + RedPi1[\[Lambda]];
 RedI2[\[Lambda]_] := ((B r2 + A r1)/(B + A))^2 \[Lambda] + 2((B r2 + A r1)/(B + A)) (2(r2-r1)Sqrt[A B])/(B^2-A^2) R1[\[Alpha]0, JacobiAmplitude[X[\[Lambda]], k], k] + Sqrt[A B] RedPi2[\[Lambda]] + (A^2-B^2)/(2 (r2-r1))-(r1+r2)+(B r2 + A r1)/(B + A);
 
-I\[Phi] = Function[{Global`\[Lambda]}, Evaluate[Re[(2 a)/(rp-rm) ((rp - a \[ScriptL]/2) Ip[Global`\[Lambda]] - (rm- a \[ScriptL]/2) Iminus[Global`\[Lambda]])]], Listable];
-RedIt = Function[{Global`\[Lambda]}, Evaluate[Re[4/(rp-rm) (rp(rp - (a \[ScriptL])/2) Ip[Global`\[Lambda]] - rm(rm - (a \[ScriptL])/2)Iminus[Global`\[Lambda]]) +4 Global`\[Lambda] + 2 RedI1[Global`\[Lambda]] + RedI2[Global`\[Lambda]] + 2 Log[2]]], Listable];
+I\[Phi] = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[(2 a)/(rp-rm) ((rp - a \[ScriptL]/2) Ip[Global`\[Lambda]] - (rm- a \[ScriptL]/2) Iminus[Global`\[Lambda]])]]], Listable];
+RedIt = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[4/(rp-rm) (rp(rp - (a \[ScriptL])/2) Ip[Global`\[Lambda]] - rm(rm - (a \[ScriptL])/2)Iminus[Global`\[Lambda]]) +4 Global`\[Lambda] + 2 RedI1[Global`\[Lambda]] + RedI2[Global`\[Lambda]] + 2 Log[2]]]], Listable];
 
 <|"r" -> r, "I\[Phi]" -> I\[Phi], "RedIt" -> RedIt, "\[Lambda]x" -> Re[\[Lambda]x]|>
 ]
@@ -207,7 +207,7 @@ S1[\[Gamma]_, \[Xi]_, j_] := 1/(1+\[Gamma]^2) (EllipticF[\[Xi],j] +\[Gamma]^2 El
 RedS2[\[Gamma]_, \[Xi]_, j_] := -1/((1+\[Gamma]^2)(1-j+\[Gamma]^2)) ((1-j)EllipticF[\[Xi], j] + \[Gamma]^2 EllipticE[\[Xi], j] - \[Gamma]^3);
 S2[\[Gamma]_, \[Xi]_, j_] := -1/((1+\[Gamma]^2)(1-j+\[Gamma]^2)) ((1-j)EllipticF[\[Xi], j] + \[Gamma]^2 EllipticE[\[Xi], j] + (\[Gamma]^2 Sqrt[1-j (Sin[\[Xi]])^2](\[Gamma]-Tan[\[Xi]]))/(1+\[Gamma] Tan[\[Xi]]) - \[Gamma]^3) + (1/(1+\[Gamma]^2)+(1-j)/(1-j+\[Gamma]^2))S1[\[Gamma], \[Xi], j];
 
-r = Function[{Global`\[Lambda]}, Evaluate[Re[-a2 ((g0-JacobiSC[X[Global`\[Lambda]], k])/(1+g0 JacobiSC[X[Global`\[Lambda]], k])) - b1]], Listable];
+r = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[-a2 ((g0-JacobiSC[X[Global`\[Lambda]], k])/(1+g0 JacobiSC[X[Global`\[Lambda]], k])) - b1]]], Listable];
 
 Pip[\[Lambda]_] := -(2/(C+D)) ((1+g0^2)/(g0 (g0+x[rp]))) (S1[(g0 x[rp] - 1)/(g0 + x[rp]), JacobiAmplitude[X[\[Lambda]], k], k] - S1[(g0 x[rp] - 1)/(g0 + x[rp]), \[Pi]/2+ArcTan[g0], k]);
 Pim[\[Lambda]_] := -(2/(C+D)) ((1+g0^2)/(g0 (g0+x[rm]))) (S1[(g0 x[rm] - 1)/(g0 + x[rm]), JacobiAmplitude[X[\[Lambda]], k], k] - S1[(g0 x[rm] - 1)/(g0 + x[rm]), \[Pi]/2+ArcTan[g0], k]);
@@ -219,14 +219,14 @@ RedI1[\[Lambda]_] := (a2/g0-b1)\[Lambda] - RedPi1[\[Lambda]];
 RedI2[\[Lambda]_] := (a2/g0-b1)^2 \[Lambda] + 4 (a2/g0-b1) 1/(C+D) a2/g0 (1+g0^2) S1[g0, JacobiAmplitude[X[\[Lambda]], k], k] + RedPi2[\[Lambda]]+b1-(2 g0 C D)/(Sqrt[g0^2+1] Sqrt[(C-D)^2+g0^2 (C+D)^2]);
 
 
-I\[Phi] = Function[{Global`\[Lambda]}, Evaluate[Re[(2 a)/(rp-rm) ((rp - a \[ScriptL]/2) Ip[Global`\[Lambda]] - (rm- a \[ScriptL]/2) Iminus[Global`\[Lambda]])]], Listable];
-RedIt = Function[{Global`\[Lambda]}, Evaluate[Re[4/(rp-rm) (rp(rp - (a \[ScriptL])/2) Ip[Global`\[Lambda]] - rm(rm - (a \[ScriptL])/2)Iminus[Global`\[Lambda]]) +4 Global`\[Lambda] + 2 RedI1[Global`\[Lambda]] + RedI2[Global`\[Lambda]] + 2 Log[2]]], Listable];
+I\[Phi] = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[(2 a)/(rp-rm) ((rp - a \[ScriptL]/2) Ip[Global`\[Lambda]] - (rm- a \[ScriptL]/2) Iminus[Global`\[Lambda]])]]], Listable];
+RedIt = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[4/(rp-rm) (rp(rp - (a \[ScriptL])/2) Ip[Global`\[Lambda]] - rm(rm - (a \[ScriptL])/2)Iminus[Global`\[Lambda]]) +4 Global`\[Lambda] + 2 RedI1[Global`\[Lambda]] + RedI2[Global`\[Lambda]] + 2 Log[2]]]], Listable];
 
 <|"r" -> r, "I\[Phi]" -> I\[Phi], "RedIt" -> RedIt, "\[Lambda]x" -> Re[\[Lambda]x]|>
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Equator Intersections*)
 
 
@@ -249,10 +249,10 @@ equator\[Lambda]
 (*Public Functions*)
 
 
-Options[KerrNullGeoDistant] = {"Rotation" -> "Counterclockwise"}
+Options[KerrNullGeoDistant] = {"Rotation" -> "Counterclockwise", "PhiRange" -> {-\[Infinity], \[Infinity]}}
 SyntaxInformation[KerrNullGeoDistant] = {"ArgumentsPattern"->{_,_,_,_}};
 
-KerrNullGeoDistant[a_, \[Theta]o_, \[Alpha]_, \[Beta]_, OptionsPattern[]] := Module[ {consts, \[Eta], \[ScriptL], roots, r1, r2, r3, r4, rp, rm, k, r, \[Theta], \[Phi], G\[Phi], I\[Phi], \[CapitalDelta]v, Gt, RedIt, \[Lambda]x, assoc, equator\[Lambda], type},
+KerrNullGeoDistant[a_, \[Theta]o_, \[Alpha]_, \[Beta]_, OptionsPattern[]] := Module[ {consts, \[Eta], \[ScriptL], roots, r1, r2, r3, r4, rp, rm, k, r, \[Theta], \[Phi], G\[Phi], I\[Phi], \[CapitalDelta]v, Gt, RedIt, \[Lambda]x, \[Phi]x, \[Theta]x, assoc, equator\[Lambda], type},
 
 If[a<=0 || a>=1, Message[KerrNullGeoDistantDistant::OutOfBounds, "Parameter a must be between 0 and 1."]; Return[];];
 If[\[Theta]o<0 || \[Theta]o>\[Pi], Message[KerrNullGeoDistantDistant::OutOfBounds, "Parameter \[Theta]o must be between 0 and \[Pi]."]; Return[];];
@@ -262,10 +262,6 @@ If[OptionValue["Rotation"]=="Clockwise", \[Alpha]=-\[Alpha]];
 consts = DistantNullConstantsOfMotion[a, \[Theta]o, \[Alpha], \[Beta]];
 {\[ScriptL], \[Eta]} = {"\[ScriptL]", "\[Eta]"} /. consts;
 If[Abs[\[Eta]]< 10 $MachineEpsilon || Abs[\[Eta]+(Abs[\[ScriptL]]-a)^2]< 10 $MachineEpsilon, \[Eta]=\[Eta] + 10 $MachineEpsilon]; (*To avoid undefined expresions in polar motion*)
-If[\[Eta]>0, 
-  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. OrdinaryPolarMotion[a, \[Eta], \[ScriptL], \[Theta]o, -Sign[\[Beta]]],
-  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. VorticalPolarMotion[a, \[Eta], \[ScriptL], \[Theta]o, -Sign[\[Beta]]]; (*Minus Sign[\[Beta]] because we use negative Mino time*)
-];
 
 roots = RadialRoots[a, \[Eta], \[ScriptL]];
 {r1, r2, r3, r4} = {"r1", "r2", "r3", "r4"} /. roots;
@@ -281,12 +277,23 @@ If[Im[r2] != 0,
 ];
 
 If[\[Eta]>0, 
+  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. OrdinaryPolarMotion[a, \[Eta], \[ScriptL], \[Theta]o, -Sign[\[Beta]], \[Lambda]x],
+  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. VorticalPolarMotion[a, \[Eta], \[ScriptL], \[Theta]o, -Sign[\[Beta]], \[Lambda]x]; (*Minus Sign[\[Beta]] because we use negative Mino time*)
+];
+
+
+If[\[Eta]>0, 
 equator\[Lambda] = EquatorIntersectionMinoTimes[a, \[Eta], \[ScriptL], \[Theta]o, -Sign[\[Beta] + $MachineEpsilon], \[Lambda]x],
 equator\[Lambda] = {}
 ];
 
-\[Phi]=Function[{Global`\[Lambda]}, Evaluate[I\[Phi][Global`\[Lambda]]+\[ScriptL] G\[Phi][Global`\[Lambda]]], Listable];
+If[OptionValue["PhiRange"][[2]]==\[Infinity], 
+  \[Phi]=Function[{Global`\[Lambda]}, Evaluate[I\[Phi][Global`\[Lambda]]+\[ScriptL] G\[Phi][Global`\[Lambda]]], Listable],
+  \[Phi]=Function[{Global`\[Lambda]}, Evaluate[Mod[I\[Phi][Global`\[Lambda]]+\[ScriptL] G\[Phi][Global`\[Lambda]], OptionValue["PhiRange"][[2]]-OptionValue["PhiRange"][[1]], OptionValue["PhiRange"][[1]]]], Listable]
+];
 \[CapitalDelta]v=Function[{Global`\[Lambda]}, Evaluate[RedIt[Global`\[Lambda]]+a^2 Gt[Global`\[Lambda]] + r[Global`\[Lambda]] + 2 Log[r[Global`\[Lambda]]/2]], Listable];
+
+If[type == "PhotonEscape", \[Theta]x=\[Theta][\[Lambda]x]; \[Phi]x=\[Phi][\[Lambda]x], \[Theta]x=-1; \[Phi]x=-1];
 
 assoc = <|
 	"Trajectory" -> {\[CapitalDelta]v, r, \[Theta], \[Phi]},
@@ -294,7 +301,8 @@ assoc = <|
 	"RadialRoots" -> {r1, r2, r3, r4},
 	"EquatorIntersectionMinoTimes" -> equator\[Lambda],
 	"TrajectoryType" -> type,
-	"MinoTimeOfCapture" -> \[Lambda]x
+	"MinoTimeOfCapture" -> \[Lambda]x,
+	"EscapeCoordinates" -> {\[Theta]x, \[Phi]x}
 |>;
 
 KerrNullGeoDistantFunction[a, \[Theta]o, \[Alpha], \[Beta], assoc]
