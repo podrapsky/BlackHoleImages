@@ -52,7 +52,7 @@ G\[Phi]= Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\
 
 \[Theta] = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[ArcCos[-\[Nu]\[Theta] Sqrt[u2] Sin[\[CapitalPsi][Global`\[Lambda]]]]]], Listable];
 
-If[OptionValue["ReturnValues"]!="OmmitT", 
+If[OptionValue["ReturnValues"]!="OmitT", 
 
   EPrime[\[Phi]_, k_] := (EllipticE[\[Phi], k]-EllipticF[\[Phi], k])/(2 k);
   Gto=2 u2/Sqrt[-u1 a^2] EPrime[Re[ArcSin[Cos[\[Theta]o]/Sqrt[u2]]], u2/u1];
@@ -66,7 +66,7 @@ return
 ]
 
 
-VorticalPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_ OptionsPattern[]] := Module[{h, \[CapitalDelta]\[Theta], u1, u2, \[CapitalUpsilon], \[CapitalUpsilon]\[Lambda], G\[Theta]o, Gto, G\[Phi]o,\[Theta], Gt, G\[Phi], return},
+VorticalPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_, OptionsPattern[]] := Module[{h, \[CapitalDelta]\[Theta], u1, u2, \[CapitalUpsilon], \[CapitalUpsilon]\[Lambda], G\[Theta]o, Gto, G\[Phi]o,\[Theta], Gt, G\[Phi], return},
 h = Sign[Cos[\[Theta]o]];
 \[CapitalDelta]\[Theta]= 1/2 (1-(\[Eta]+\[ScriptL]^2)/a^2);
 u1=\[CapitalDelta]\[Theta]-Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; u2=\[CapitalDelta]\[Theta]+Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2];
@@ -79,7 +79,7 @@ G\[Phi] = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`
 
 \[Theta] = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[ArcCos[h Sqrt[u1+(u2-u1) (Sin[\[CapitalUpsilon]\[Lambda][Global`\[Lambda]]])^2]]]], Listable];
 
-If[OptionValue["ReturnValues"]!="OmmitT",
+If[OptionValue["ReturnValues"]!="OmitT",
   
   Gto = -h Sqrt[u1/a^2] EllipticE[\[CapitalUpsilon][\[Theta]o], 1-u2/u1];
   Gt = Function[{Global`\[Lambda]}, If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Sqrt[u1/a^2] EllipticE[\[CapitalUpsilon]\[Lambda][Global`\[Lambda]], 1-u2/u1]-\[Nu]\[Theta] Gto]], Listable];
@@ -246,13 +246,42 @@ equator\[Lambda]
 
 
 (* ::Section:: *)
+(*Emission Parameters*)
+
+
+(* ::Text:: *)
+(*Only applicable for the thin disk approximation with matter orbiting on the direct circular equatorial orbits.*)
+(*The parameter \[Kappa] represents the ratio between the frequency of observed and emitted photons. \[Theta]loc, \[Phi]loc are the angles of emitted photon in emitter's local spherical coordinate system.*)
+
+
+EmissionParameters[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, rem_, \[Theta]em_] := Module[{Z1, Z2, rms, A, B, \[CapitalDelta], \[Omega], \[CapitalOmega], utcg, R, \[CapitalTheta], ploct, plocr, ploc\[Theta], \[Kappa], \[Theta]loc, \[Phi]loc},
+Z1=1+(1-a^2)^(1/3) ((1+a)^(1/3) + (1-a)^(1/3)); Z2=(3 a^2 + Z1^2)^(1/2); rms=3+Z2-((3-Z1) (3+Z1+2 Z2))^(1/2);
+If[rem<rms, <|"\[Kappa]" -> -1, "\[Theta]loc" -> -1, "\[Phi]loc" -> -1|>,
+A = rem^2; \[CapitalDelta] = rem^2-2 rem + a^2; B = (rem^2 + a^2)^2 - \[CapitalDelta] a^2; \[Omega] = (2 a rem)/B;
+\[CapitalOmega] =1/(Sqrt[rem^3]+ a); utcg=((\[CapitalDelta] A)/B - (\[Omega]-\[CapitalOmega])^2 B/A)^(-1/2);
+R = (rem^2 + a^2 - a \[ScriptL])^2 - \[CapitalDelta] (\[Eta] + (\[ScriptL]-a)^2);
+\[CapitalTheta] = \[Eta] + a^2 (Cos[\[Theta]em])^2 - \[ScriptL]^2/(Tan[\[Theta]em])^2;
+
+ploct = -utcg (1- \[CapitalOmega] \[ScriptL]);
+plocr = -Sqrt[(R/(\[CapitalDelta] A))];
+ploc\[Theta] = Sign[\[Pi]/2 - \[Theta]o] Sqrt[\[CapitalTheta]/A];
+
+\[Kappa] = -1/ploct;
+\[Theta]loc = ArcCos[ploc\[Theta]/-ploct];
+\[Phi]loc = ArcCos[plocr/Sqrt[ploct^2-ploc\[Theta]^2]];
+
+<|"\[Kappa]" -> \[Kappa], "\[Theta]loc" -> \[Theta]loc, "\[Phi]loc" -> \[Phi]loc|>
+ ]]
+
+
+(* ::Section::Closed:: *)
 (*Public Functions*)
 
 
 Options[KerrNullGeoDistant] = {"Rotation" -> "Counterclockwise", "PhiRange" -> {-\[Infinity], \[Infinity]}}
 SyntaxInformation[KerrNullGeoDistant] = {"ArgumentsPattern"->{_,_,_,_}};
 
-KerrNullGeoDistant[a_, \[Theta]o_, \[Alpha]_, \[Beta]_, OptionsPattern[]] := Module[ {consts, \[Eta], \[ScriptL], roots, r1, r2, r3, r4, rp, rm, k, r, \[Theta], \[Phi], G\[Phi], I\[Phi], \[CapitalDelta]v, Gt, RedIt, \[Lambda]x, \[Phi]x, \[Theta]x, assoc, equator\[Lambda], type},
+KerrNullGeoDistant[a_, \[Theta]o_, \[Alpha]_, \[Beta]_, OptionsPattern[]] := Module[ {consts, \[Eta], \[ScriptL], roots, r1, r2, r3, r4, rp, rm, k, r, \[Theta], \[Phi], G\[Phi], I\[Phi], \[CapitalDelta]v, Gt, RedIt, \[Lambda]x, \[Phi]x, \[Theta]x, assoc, equator\[Lambda], type, \[Kappa], \[Theta]loc, \[Phi]loc},
 
 If[a<=0 || a>=1, Message[KerrNullGeoDistantDistant::OutOfBounds, "Parameter a must be between 0 and 1."]; Return[];];
 If[\[Theta]o<0 || \[Theta]o>\[Pi], Message[KerrNullGeoDistantDistant::OutOfBounds, "Parameter \[Theta]o must be between 0 and \[Pi]."]; Return[];];
@@ -276,9 +305,11 @@ If[Im[r2] != 0,
   ]
 ];
 
+ssign[x_] := If[x<0, -1, 1];
+
 If[\[Eta]>0, 
-  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. OrdinaryPolarMotion[a, \[Eta], \[ScriptL], \[Theta]o, -Sign[\[Beta]], \[Lambda]x],
-  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. VorticalPolarMotion[a, \[Eta], \[ScriptL], \[Theta]o, -Sign[\[Beta]], \[Lambda]x]; (*Minus Sign[\[Beta]] because we use negative Mino time*)
+  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. OrdinaryPolarMotion[a, \[Eta], \[ScriptL], \[Theta]o, -ssign[\[Beta]], \[Lambda]x],
+  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. VorticalPolarMotion[a, \[Eta], \[ScriptL], \[Theta]o, -ssign[\[Beta]], \[Lambda]x]; (*Minus Sign[\[Beta]] because we use negative Mino time*)
 ];
 
 
@@ -295,6 +326,11 @@ If[OptionValue["PhiRange"][[2]]==\[Infinity],
 
 If[type == "PhotonEscape", \[Theta]x=\[Theta][\[Lambda]x]; \[Phi]x=\[Phi][\[Lambda]x], \[Theta]x=-1; \[Phi]x=-1];
 
+If[Length[equator\[Lambda]] == 0, 
+  {\[Kappa], \[Theta]loc, \[Phi]loc} = {-1, -1, -1}, 
+  {\[Kappa], \[Theta]loc, \[Phi]loc} = {"\[Kappa]", "\[Theta]loc", "\[Phi]loc"} /. EmissionParameters[a, \[Eta], \[ScriptL], \[Theta]o, r[equator\[Lambda][[1]]], \[Theta][equator\[Lambda][[1]]]]
+];
+
 assoc = <|
 	"Trajectory" -> {\[CapitalDelta]v, r, \[Theta], \[Phi]},
 	"ConstantsOfMotion" -> consts,
@@ -302,7 +338,8 @@ assoc = <|
 	"EquatorIntersectionMinoTimes" -> equator\[Lambda],
 	"TrajectoryType" -> type,
 	"MinoTimeOfCapture" -> \[Lambda]x,
-	"EscapeCoordinates" -> {\[Theta]x, \[Phi]x}
+	"EscapeCoordinates" -> {\[Theta]x, \[Phi]x},
+	"EmissionParameters" -> {\[Kappa], \[Theta]loc, \[Phi]loc}
 |>;
 
 KerrNullGeoDistantFunction[a, \[Theta]o, \[Alpha], \[Beta], assoc]
