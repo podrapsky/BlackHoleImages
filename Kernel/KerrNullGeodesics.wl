@@ -4,11 +4,11 @@
 (*KerrNullGeodesics Package*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Define Usage for Public Functions*)
 
 
-BeginPackage["KerrNullGeodesics`"]
+BeginPackage["BlackHoleImages`KerrNullGeodesics`"]
 
 KerrNullGeo::usage = "KerrNullGeo[a,xs,ps] returns a KerrNullGeoFunction which stores information about the trajectory. a, xs, ps given in units of the BH mass, unless mass M is specified (optional argument).";
 KerrNullGeoFunction::usage = "KerrNullGeoFunction[a,xs,ps,M,assoc] an object for storing the trajectory and its parameters in the assoc Association.";
@@ -22,7 +22,7 @@ KerrNullGeo::OutOfBounds = "Out of bounds error: `1`"
 KerrNullGeo::ListSize = "Parameters `1` or `2` is not a list of length `3`."
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Constants of Motion*)
 
 
@@ -133,10 +133,6 @@ z=Sqrt[(\[Omega]2+\[Omega]1-A/3)/2];
 
 (* ::Text:: *)
 (*Taken from Gralla & Lupsasca, arXiv:1910.12881v3*)
-
-
-(* ::Subsection:: *)
-(*Finite Distance*)
 
 
 Options[RadialMotionCase2] = {"Observer" -> "Regular"}
@@ -319,7 +315,7 @@ I\[Phi] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x |
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Equator Intersections*)
 
 
@@ -338,7 +334,7 @@ equator\[Lambda]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Emission Parameters*)
 
 
@@ -350,7 +346,7 @@ equator\[Lambda]
 Options[EmissionParameters] = {"PhiRange" -> {-\[Pi], \[Pi]}}
 
 EmissionParameters[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, rem_, \[Theta]em_, OptionsPattern[]] := Module[{Z1, Z2, rms, A, B, \[CapitalDelta], \[Omega], \[CapitalOmega], utcg, R, \[CapitalTheta], ploct, plocr, ploc\[Theta], \[Kappa], \[Theta]loc, \[Phi]loc},
-Z1=1+(1-a^2)^(1/3) ((1+a)^(1/3) + (1-a)^(1/3)); Z2=(3 a^2 + Z1^2)^(1/2); rms=3+Z2-((3-Z1) (3+Z1+2 Z2))^(1/2);
+Z1=1+Surd[1-a^2,3] (Surd[1+a,3] + Surd[1-a,3]); Z2=Sqrt[3 a^2 + Z1^2]; rms=3+Z2-Sqrt[(3-Z1) (3+Z1+2 Z2)];
 If[rem<rms, <|"\[Kappa]" -> -1, "\[Theta]loc" -> -1, "\[Phi]loc" -> -1|>,
 A = rem^2; \[CapitalDelta] = rem^2-2 rem + a^2; B = (rem^2 + a^2)^2 - \[CapitalDelta] a^2; \[Omega] = (2 a rem)/B;
 \[CapitalOmega] =1/(Sqrt[rem^3]+ a); utcg=((\[CapitalDelta] A)/B - (\[Omega]-\[CapitalOmega])^2 B/A)^(-1/2);
@@ -391,7 +387,7 @@ p\[Phi] = - ((\[Omega] B)/A) vecpt + B/A vecp\[Phi];
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Public Functions*)
 
 
@@ -459,6 +455,7 @@ assoc = <|
 	"ConstantsOfMotion" -> consts,
 	"RadialRoots" -> {r1, r2, r3, r4},
 	"EquatorIntersectionMinoTimes" -> equator\[Lambda],
+	"EquatorIntersectionCoordinates" -> {t[equator\[Lambda]], r[equator\[Lambda]], \[Phi][equator\[Lambda]]},
 	"TrajectoryType" -> type,
 	"MinoTimeOfCapture" -> \[Lambda]x,
 	"EscapeCoordinates" -> {\[Theta]x, \[Phi]x},
@@ -521,7 +518,7 @@ If[type == "PhotonEscape", \[Theta]x=\[Theta][\[Lambda]x]; \[Phi]x=\[Phi][\[Lamb
 
 If[Length[equator\[Lambda]] == 0, 
   {\[Kappa], \[Theta]loc, \[Phi]loc} = {-1, -1, -1}, 
-  {\[Kappa], \[Theta]loc, \[Phi]loc} = {"\[Kappa]", "\[Theta]loc", "\[Phi]loc"} /. EmissionParameters[a, \[Eta], \[ScriptL], \[Theta]o, r[equator\[Lambda][[1]]], \[Theta][equator\[Lambda][[1]]], "PhiRange" -> If[OptionValue["PhiRange"][[2]]!=\[Infinity], OptionValue["PhiRange"]]]
+  {\[Kappa], \[Theta]loc, \[Phi]loc} = {"\[Kappa]", "\[Theta]loc", "\[Phi]loc"} /. EmissionParameters[a, \[Eta], \[ScriptL], \[Theta]o, r[equator\[Lambda][[1]]], \[Theta][equator\[Lambda][[1]]], "PhiRange" -> If[OptionValue["PhiRange"][[2]]!=\[Infinity], OptionValue["PhiRange"], {-\[Pi], \[Pi]}]]
 ];
 
 assoc = <|
@@ -529,6 +526,7 @@ assoc = <|
 	"ConstantsOfMotion" -> consts,
 	"RadialRoots" -> {r1, r2, r3, r4},
 	"EquatorIntersectionMinoTimes" -> equator\[Lambda],
+	"EquatorIntersectionCoordinates" -> {\[CapitalDelta]v[equator\[Lambda]], r[equator\[Lambda]], \[Phi][equator\[Lambda]]},
 	"TrajectoryType" -> type,
 	"MinoTimeOfCapture" -> \[Lambda]x,
 	"EscapeCoordinates" -> {\[Theta]x, \[Phi]x},
