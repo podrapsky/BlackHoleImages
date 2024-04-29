@@ -4,16 +4,24 @@
 (*KerrNullGeodesics Package*)
 
 
+(* ::Text:: *)
+(*The  KerrNullGeodesics  package  generates  null  geodesics in the exterior of a Kerr black hole (BH) based on the expression of the analytical solution as given by Gralla & Lupsasca (2020). Null geodesics of the Kerr exterior. Physical Review D, 101(4), 044032,  arXiv:1910.12881. *)
+(**)
+(*At intermediate steps the package uses the \[Alpha],\[Beta] parametrization of the null geodesic parameters as introduced by Bardeen, J. M. (1973). Timelike and null geodesics in the Kerr metric. Black holes, 215.*)
+(**)
+(*The primary use case for the package is the imaging of accretion disks near black holes. As such, the public functions return objects that include lists of intersections through the equatorial plane for convenience. However, the package is written as flexible enough to find many other use cases.*)
+
+
 (* ::Section:: *)
 (*Define Usage for Public Functions*)
 
 
 BeginPackage["BlackHoleImages`KerrNullGeodesics`"]
 
-KerrNullGeo::usage = "KerrNullGeo[a,xs,ps] returns a KerrNullGeoFunction which stores information about the trajectory. a, xs, ps given in units of the BH mass, unless mass M is specified (optional argument).";
-KerrNullGeoFunction::usage = "KerrNullGeoFunction[a,xs,ps,M,assoc] an object for storing the trajectory and its parameters in the assoc Association.";
-KerrNullGeoDistant::usage = "KerrNullGeoDistant[a,\[Theta]o,\[Alpha],\[Beta]] returns a KerrNullGeoFunction which stores information about the trajectory. a, \[Alpha], \[Beta] given in units of the BH mass";
-KerrNullGeoDistantFunction::usage = "KerrNullGeoDistantFunction[a,\[Theta]o,\[Alpha],\[Beta],assoc] an object for storing the trajectory and its parameters in the assoc Association.";
+KerrNullGeo::usage = "KerrNullGeo[a,xs,ps] returns a KerrNullGeoFunction which stores information about the trajectory of a light-ray starting from specified initial conditions. The black hole spin a, position xs, and wavevector ps  are assumed to be given in units of the BH mass, unless mass M is specified (optional argument).";
+KerrNullGeoFunction::usage = "KerrNullGeoFunction[a,xs,ps,M,assoc] is an object for storing the trajectory and its parameters in the assoc Association.";
+KerrNullGeoDistant::usage = "KerrNullGeoDistant[a,\[Theta]o,\[Alpha],\[Beta]] returns a KerrNullGeoDistantFunction which stores information about the trajectory of a light-ray scattering off the black hole from infinity. The spin a, and Bardeen's impact parameters \[Alpha], \[Beta] are assumed to be given in units of the BH mass";
+KerrNullGeoDistantFunction::usage = "KerrNullGeoDistantFunction[a,\[Theta]o,\[Alpha],\[Beta],assoc] is an object for storing the trajectory and its parameters in the assoc Association.";
 
 Begin["`Private`"];
 
@@ -27,12 +35,15 @@ KerrNullGeo::ListSize = "Parameters `1` or `2` is not a list of length `3`."
 
 
 NullConstantsOfMotion[a_, \[Theta]s_, pts_, p\[Theta]s_, p\[Phi]s_] := <|
+	(*Specific angular momentum wrt spin axis:*)
 	"\[ScriptL]" -> -p\[Phi]s/pts,
+	(*"Vertical" part of specific angular momentum squared, also Carter constant per energy squared:*)
 	"\[Eta]" -> (p\[Theta]s^2 - (Cos[\[Theta]s])^2 (a^2 pts^2 - p\[Phi]s^2/(Sin[\[Theta]s])^2))/pts^2 
 |>
 
 
 DistantNullConstantsOfMotion[a_, \[Theta]o_, \[Alpha]_, \[Beta]_] := <|
+	(*Bardeen's \[Alpha],\[Beta], \[Theta]o is the angle at which the observer is viewing the BH or the \[Theta] angle to which the lightray asymptotes*)
 	"\[ScriptL]" ->  -\[Alpha] Sin[\[Theta]o],
 	"\[Eta]" -> \[Beta]^2+(\[Alpha]^2-a^2) (Cos[\[Theta]o])^2
 |>
@@ -43,7 +54,7 @@ DistantNullConstantsOfMotion[a_, \[Theta]o_, \[Alpha]_, \[Beta]_] := <|
 
 
 (* ::Text:: *)
-(*Taken from Gralla & Lupsasca, arXiv:1910.12881v3*)
+(*Polar motion takes two forms, ordinary motion, and vortical motion as described in Section III of  Gralla & Lupsasca, arXiv:1910.12881v3 (we follow their notation closely with equation numbers in comments).*)
 
 
 Options[OrdinaryPolarMotion] = {"ReturnValues" -> "All"}
@@ -51,11 +62,14 @@ Options[VorticalPolarMotion] = {"ReturnValues" -> "All"}
 
 
 OrdinaryPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_, OptionsPattern[]] := Module[{\[CapitalDelta]\[Theta], u1, u2, EPrime, G\[Theta]o, Gto, G\[Phi]o, \[CapitalPsi], \[Theta], Gt, G\[Phi], return}, 
+(*Eq. (19):*)
 \[CapitalDelta]\[Theta]= 1/2 (1-(\[Eta]+\[ScriptL]^2)/a^2);
 u1=\[CapitalDelta]\[Theta]-Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; u2=\[CapitalDelta]\[Theta]+Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; 
+(*Eq. (29):*)
 G\[Theta]o=-1/Sqrt[-u1 a^2] EllipticF[Re[ArcSin[Cos[\[Theta]o]/Sqrt[u2]]], u2/u1];
+(*Eq. (46):*)
 \[CapitalPsi][\[Lambda]_] := JacobiAmplitude[Sqrt[-u1 a^2] (\[Lambda] + \[Nu]\[Theta] G\[Theta]o), u2/u1];
-
+(*Eq.(30):*)
 G\[Phi]o=-1/Sqrt[-u1 a^2] EllipticPi[u2, Re[ArcSin[Cos[\[Theta]o]/Sqrt[u2]]], u2/u1];
 G\[Phi]= Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[1/Sqrt[-u1 a^2] EllipticPi[u2, \[CapitalPsi][Global`\[Lambda]], u2/u1]-\[Nu]\[Theta] G\[Phi]o]]], Listable]; 
 
@@ -64,6 +78,7 @@ G\[Phi]= Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x ||
 If[OptionValue["ReturnValues"]!="OmitT", 
 
   EPrime[\[Phi]_, k_] := (EllipticE[\[Phi], k]-EllipticF[\[Phi], k])/(2 k);
+  (*Eq. (31):*)
   Gto=2 u2/Sqrt[-u1 a^2] EPrime[Re[ArcSin[Cos[\[Theta]o]/Sqrt[u2]]], u2/u1];
   Gt=Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[-2 u2/Sqrt[-u1 a^2] EPrime[\[CapitalPsi][Global`\[Lambda]], u2/u1] - \[Nu]\[Theta] Gto]]], Listable];
   return = <|"\[Theta]" -> \[Theta], "Gt" -> Gt, "G\[Phi]" -> G\[Phi]|>,
@@ -76,20 +91,26 @@ return
 
 
 VorticalPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_, OptionsPattern[]] := Module[{h, \[CapitalDelta]\[Theta], u1, u2, \[CapitalUpsilon], \[CapitalUpsilon]\[Lambda], G\[Theta]o, Gto, G\[Phi]o,\[Theta], Gt, G\[Phi], return},
+(*Eq. (54)*)
 h = Sign[Cos[\[Theta]o]];
+(*Eq. (19):*)
 \[CapitalDelta]\[Theta]= 1/2 (1-(\[Eta]+\[ScriptL]^2)/a^2);
 u1=\[CapitalDelta]\[Theta]-Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; u2=\[CapitalDelta]\[Theta]+Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2];
+(*Eq. (59):*)
 \[CapitalUpsilon][\[CapitalTheta]_] := ArcSin[Sqrt[((Cos[\[CapitalTheta]])^2-u1)/(u2-u1)]];
+(*Eq. (56):*)
 G\[Theta]o = -(h/Sqrt[u1 a^2]) EllipticF[\[CapitalUpsilon][\[Theta]o], 1-u2/u1];
+(*Eq. (66):*)
 \[CapitalUpsilon]\[Lambda][\[Lambda]_] := JacobiAmplitude[Sqrt[u1 a^2] (\[Lambda] + \[Nu]\[Theta] G\[Theta]o), 1-u2/u1];
 
+(*Eq. (57):*)
 G\[Phi]o = -(h/((1-u1) Sqrt[u1 a^2])) EllipticPi[(u2-u1)/(1-u1), \[CapitalUpsilon][\[Theta]o], 1-u2/u1];
 G\[Phi] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[1/((1-u1) Sqrt[u1 a^2]) EllipticPi[(u2-u1)/(1-u1), \[CapitalUpsilon]\[Lambda][Global`\[Lambda]], 1-u2/u1]-\[Nu]\[Theta] G\[Phi]o]]], Listable];
 
 \[Theta] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[ArcCos[h Sqrt[u1+(u2-u1) (Sin[\[CapitalUpsilon]\[Lambda][Global`\[Lambda]]])^2]]]]], Listable];
 
 If[OptionValue["ReturnValues"]!="OmitT",
-  
+  (*Eq. (58):*)
   Gto = -h Sqrt[u1/a^2] EllipticE[\[CapitalUpsilon][\[Theta]o], 1-u2/u1];
   Gt = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Sqrt[u1/a^2] EllipticE[\[CapitalUpsilon]\[Lambda][Global`\[Lambda]], 1-u2/u1]-\[Nu]\[Theta] Gto]]], Listable];
   return = <|"\[Theta]" -> \[Theta], "Gt" -> Gt, "G\[Phi]" -> G\[Phi]|>,
@@ -106,19 +127,23 @@ return
 
 
 (* ::Text:: *)
-(*Taken from Gralla & Lupsasca, arXiv:1910.12881v3*)
+(*Taken from Section IV-A of Gralla & Lupsasca, arXiv:1910.12881v3. The computation uses Ferrari's method to find the roots of the radial potential. This yields a more transparent structure of real and imaginary parts of the roots than e.g. the brute-force Mathematica implementation.*)
 
 
 RadialRoots[a_, \[Eta]_, \[ScriptL]_] := Module[{A, B, C, P, Q, \[CapitalOmega]1, \[CapitalOmega]2, \[Omega]1, \[Omega]2, z},
+(*Eq. (79)-(81):*)
 A=a^2-\[Eta]-\[ScriptL]^2; B=2(\[Eta]+(\[ScriptL]-a)^2); C=-a^2 \[Eta];
+(*Eq. (85)-(86):*)
 P= -A^2/12 - C; Q=-A/3 ((A/6)^2-C) - B^2/8;
+(*Eq. (90):*)
 \[CapitalOmega]1 = -Q/2 - Sqrt[(P/3)^3+(Q/2)^2];
 \[CapitalOmega]2 = -Q/2 + Sqrt[(P/3)^3+(Q/2)^2];
 \[Omega]1=If[Element[\[CapitalOmega]1, Reals], Surd[\[CapitalOmega]1, 3], Power[\[CapitalOmega]1, 1/3]];
 \[Omega]2=If[Element[\[CapitalOmega]2, Reals], Surd[\[CapitalOmega]2, 3] , Power[\[CapitalOmega]2, 1/3]];
+(*Eq. (94):*)
 z=Sqrt[(\[Omega]2+\[Omega]1-A/3)/2];
 
-<|
+<|(*Eq. (95):*)
   "r1" -> -z-Sqrt[-A/2-z^2+B/(4 z)],
   "r2" -> -z+Sqrt[-A/2-z^2+B/(4 z)],
   "r3" -> +z-Sqrt[-A/2-z^2-B/(4 z)],
@@ -127,12 +152,12 @@ z=Sqrt[(\[Omega]2+\[Omega]1-A/3)/2];
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Radial Motion*)
 
 
 (* ::Text:: *)
-(*Taken from Gralla & Lupsasca, arXiv:1910.12881v3*)
+(*There are various cases for the values of the four roots of the radial potential for null geodesics as discussed in Section IV B of Gralla & Lupsasca, arXiv:1910.12881v3 (Equation numbers below). The various cases correspond to light-rays "oscillating" between a white-hole and black-hole horizon (Case I), approaching from past null infinity and scattering back to future null infinity (Case II),  ?? (Case III), and a light-ray approaching from past null infinity, plunging into the BH, and emerging from the white-hole horizon and approaching future null infinity.  TODO*)
 
 
 Options[RadialMotionCase2] = {"Observer" -> "Regular"}
@@ -317,6 +342,10 @@ I\[Phi] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x |
 
 (* ::Section:: *)
 (*Equator Intersections*)
+
+
+(* ::Text:: *)
+(*This is a convenience function for rendering images of thin disks in the equatorial plane of the Kerr BH. Thanks to the symmetries of the Elliptic integrals, one is able to find all the values of Mino time at which a null geodesic intersects the equatorial plane \[Theta]=\[Pi]/2. *)
 
 
 EquatorIntersectionMinoTimes[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_] := Module[{\[CapitalDelta]\[Theta], u1, u2, G\[Theta]o, equator\[Lambda], j0, j, t},
