@@ -5,14 +5,17 @@
 
 
 (* ::Text:: *)
-(*The  KerrNullGeodesics  package  generates  null  geodesics in the exterior of a Kerr black hole (BH) based on the expression of the analytical solution as given by Gralla & Lupsasca (2020). Null geodesics of the Kerr exterior. Physical Review D, 101(4), 044032,  arXiv:1910.12881. *)
+(*The  KerrNullGeodesics  package  generates  null  geodesics in the exterior of a Kerr black hole (BH) based on the expression of the analytical solution as given by Gralla & Lupsasca: *)
+(*Gralla & Lupsasca (2020). Null geodesics of the Kerr exterior. Physical Review D, 101(4), 044032,  arXiv:1910.12881. *)
+(*(we are referring to the arXiv version arXiv:1910.12881v3 below)*)
 (**)
-(*At intermediate steps the package uses the \[Alpha],\[Beta] parametrization of the null geodesic parameters as introduced by Bardeen, J. M. (1973). Timelike and null geodesics in the Kerr metric. Black holes, 215.*)
+(*At intermediate steps the package uses the \[Alpha],\[Beta] parametrization of the null geodesic parameters as introduced by Bardeen:*)
+(*Bardeen, J. M. (1973). Timelike and null geodesics in the Kerr metric. Black holes, 215.*)
 (**)
 (*The primary use case for the package is the imaging of accretion disks near black holes. As such, the public functions return objects that include lists of intersections through the equatorial plane for convenience. However, the package is written as flexible enough to find many other use cases.*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Define Usage for Public Functions*)
 
 
@@ -30,14 +33,18 @@ KerrNullGeo::OutOfBounds = "Out of bounds error: `1`"
 KerrNullGeo::ListSize = "Parameters `1` or `2` is not a list of length `3`."
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Constants of Motion*)
 
 
+(* ::Text:: *)
+(*Unlike in the case of time-like geodesics, null geodesics are determined only by two "specific" constants of motion since one can always rescale the affine parameter so that -Subscript[p, t]=1. We use specific angular momenta for "local" dynamics of light-rays, and Bardeen's impact parameters for scattering. *)
+
+
 NullConstantsOfMotion[a_, \[Theta]s_, pts_, p\[Theta]s_, p\[Phi]s_] := <|
-	(*Specific angular momentum wrt spin axis:*)
+	(*Specific angular momentum wrt spin axis, eq. (3-5):*)
 	"\[ScriptL]" -> -p\[Phi]s/pts,
-	(*"Vertical" part of specific angular momentum squared, also Carter constant per energy squared:*)
+	(*"Vertical" part of specific angular momentum squared, also known as Carter constant per energy squared, eq. (3-5):*)
 	"\[Eta]" -> (p\[Theta]s^2 - (Cos[\[Theta]s])^2 (a^2 pts^2 - p\[Phi]s^2/(Sin[\[Theta]s])^2))/pts^2 
 |>
 
@@ -152,12 +159,20 @@ z=Sqrt[(\[Omega]2+\[Omega]1-A/3)/2];
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Radial Motion*)
 
 
 (* ::Text:: *)
-(*There are various cases for the values of the four roots of the radial potential for null geodesics as discussed in Section IV B of Gralla & Lupsasca, arXiv:1910.12881v3 (Equation numbers below). The various cases correspond to light-rays "oscillating" between a white-hole and black-hole horizon (Case I), approaching from past null infinity and scattering back to future null infinity (Case II),  ?? (Case III), and a light-ray approaching from past null infinity, plunging into the BH, and emerging from the white-hole horizon and approaching future null infinity.  TODO*)
+(*There are various cases for the values of the four roots of the radial potential for null geodesics as discussed in Section IV.B and Appendix B of Gralla & Lupsasca, arXiv:1910.12881v3 (Equation numbers below). *)
+(**)
+(*The various cases correspond to: *)
+(*- light-rays "oscillating" between a white-hole and black-hole horizon (Case 1), *)
+(*- approaching from past null infinity and scattering back to future null infinity (Case 2),  *)
+(*- a light-ray approaching from past null infinity, plunging into the BH, and emerging from the white-hole horizon and approaching future null infinity (Case 3), *)
+(*- and a light-ray that plunges into the black hole and its ring singularity, and emerges in the antigravitating r<0 universe, or a time-reversed process with a white-hole (Case 4). *)
+(**)
+(*The resulting formulas for the motion are similar in all cases, but various identities and branch choices need to be used to obtain manifestly real results at all times.  The important point is that Case 2,3,4 have light rays that reach null infinity, so they can be observed by "distant" observers. This corresponds to the option "Distant" dealt with in the corresponding functions.  *)
 
 
 Options[RadialMotionCase2] = {"Observer" -> "Regular"}
@@ -167,8 +182,12 @@ Options[RadialMotionCase4] = {"Observer" -> "Regular"}
 
 RadialMotionCase1[roots_, a_, \[Eta]_, \[ScriptL]_, rs_, \[Nu]r_] := Module[{r1, r2, r3, r4, rp, rm, xs, k,  I0s, \[Lambda]x, X, r, Pi1, E\[Lambda], Pip, Pim, Ip, Iminus, I1, deriv, I2, I\[Phi], It},
 {r1, r2, r3, r4} = {"r1", "r2", "r3", "r4"} /. roots;
-xs=Sqrt[(rs-r2)/(rs-r1) (r3-r1)/(r3-r2)]; k=((r3-r2) (r4-r1))/((r3-r1) (r4-r2)); rp = 1+Sqrt[1-a^2]; rm = 1-Sqrt[1-a^2];
+(*Eq. (B13-B15):*)
+xs=Sqrt[(rs-r2)/(rs-r1) (r3-r1)/(r3-r2)]; k=((r3-r2) (r4-r1))/((r3-r1) (r4-r2)); 
+(*Horizon radii Subscript[r, +],Subscript[r, -]:*)
+rp = 1+Sqrt[1-a^2]; rm = 1-Sqrt[1-a^2];
 
+(*Eq. (B16,B20):*)
 I0s = 2/Sqrt[(r3-r1) (r4-r2)] EllipticF[ArcSin[xs], k];
 If[\[Nu]r<0,
   \[Lambda]x = -(2/Sqrt[(r3-r1) (r4-r2)] EllipticF[ArcSin[Sqrt[((rp-r2) (r3-r1))/((rp-r1) (r3-r2))]], k] - I0s),
@@ -176,8 +195,10 @@ If[\[Nu]r<0,
 ];
 X[\[Lambda]_] := Sqrt[(r3-r1) (r4-r2)]/2 (\[Lambda] + \[Nu]r I0s);
 
+(*Eq. (B27):*)
 r = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[(r2 (r3-r1) - r1 (r3-r2) (JacobiSN[X[Global`\[Lambda]], k])^2)/((r3-r1) - (r3-r2) (JacobiSN[X[Global`\[Lambda]], k])^2)]]]], Listable];
 
+(*Eq. (B30-B34):*)
 Pi1[\[Lambda]_] := 2/Sqrt[(r3-r1) (r4-r2)](EllipticPi[(r3-r2)/(r3-r1), JacobiAmplitude[X[\[Lambda]], k], k] -\[Nu]r EllipticPi[(r3-r2)/(r3-r1), ArcSin[xs], k]);
 E\[Lambda][\[Lambda]_] := Sqrt[(r3-r1)(r4-r2)](EllipticE[JacobiAmplitude[X[\[Lambda]], k], k] - \[Nu]r EllipticE[ArcSin[xs], k]);
 Pip[\[Lambda]_] := 2/Sqrt[(r3-r1) (r4-r2)] (r2-r1)/((rp-r1) (rp-r2)) (EllipticPi[((rp-r1) (r3-r2))/((rp-r2) (r3-r1)), JacobiAmplitude[X[\[Lambda]], k], k] - \[Nu]r EllipticPi[((rp-r1) (r3-r2))/((rp-r2) (r3-r1)), ArcSin[xs], k]);
@@ -187,6 +208,7 @@ I1[\[Lambda]_] := r1 \[Lambda] + (r2-r1) Pi1[\[Lambda]];
 deriv[expr_, var_] := expr'[var] /. Re'[e_]:> 1;
 I2[\[Lambda]_] := deriv[r, \[Lambda]]/(r[\[Lambda]]-r1) - \[Nu]r Sqrt[(rs^2+a^2-a \[ScriptL])^2-(rs^2-2 rs + a^2) (\[Eta]+(\[ScriptL]-a)^2)]/(rs-r1)- (r1 r4 + r2 r3)/2 \[Lambda] - E\[Lambda][\[Lambda]];
 
+(*Eq. (B2-B3):*)
 I\[Phi] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[(2 a)/(rp-rm) ((rp - a \[ScriptL]/2) Ip[Global`\[Lambda]] - (rm- a \[ScriptL]/2) Iminus[Global`\[Lambda]])]]]], Listable];
 It = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[4/(rp-rm) (rp(rp - (a \[ScriptL])/2) Ip[Global`\[Lambda]] - rm(rm - (a \[ScriptL])/2)Iminus[Global`\[Lambda]]) +4 Global`\[Lambda] + 2 I1[Global`\[Lambda]] + I2[Global`\[Lambda]]]]]], Listable];
 
@@ -197,10 +219,15 @@ It = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Glo
 RadialMotionCase2[roots_, a_, \[Eta]_, \[ScriptL]_, Optional[rs_/; NumberQ[rs], 1], Optional[\[Nu]r_/; NumberQ[\[Nu]r], -1], OptionsPattern[]] := Module[{Distant, r1, r2, r3, r4, rp, rm, xo, k, I0o, \[Lambda]x, X, r, Pi1, E\[Lambda], Pip, Pim, Ip, Iminus, I1, deriv, I2, I\[Phi], It},
 Distant=If[OptionValue["Observer"]=="Distant", True, False];
 {r1, r2, r3, r4} = {"r1", "r2", "r3", "r4"}/. roots;
-k=((r3-r2) (r4-r1))/((r3-r1) (r4-r2)); rp = 1+Sqrt[1-a^2]; rm = 1-Sqrt[1-a^2];
+(*Eq. (B15):*)
+k=((r3-r2) (r4-r1))/((r3-r1) (r4-r2)); 
+(*Horizon radii Subscript[r, +],Subscript[r, -]:*)
+rp = 1+Sqrt[1-a^2]; rm = 1-Sqrt[1-a^2];
 
+(*Eq. (B35), rs infinity limit in case of distant observer:*)
 xo= If[Distant, Sqrt[(r3-r1)/(r4-r1)],Sqrt[(rs-r4)/(rs-r3) (r3-r1)/(r4-r1)]]; 
 
+(*Eq. (B36,B40):*)
 I0o = 2/Sqrt[(r3-r1) (r4-r2)] EllipticF[ArcSin[xo], k];
 \[Lambda]x = Re[
 If[\[Nu]r<0, 
@@ -214,22 +241,27 @@ If[\[Nu]r<0,
   2/Sqrt[(r3-r1) (r4-r2)] EllipticF[ArcSin[Sqrt[(r3-r1)/(r4-r1)]], k] - I0o;
 ]
 ];
+(*Eq. (B45):*)
 X[\[Lambda]_] := Sqrt[(r3-r1) (r4-r2)]/2 (\[Lambda] + \[Nu]r I0o);
-
+(*Eq. (B46):*)
 r = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[(r4 (r3-r1) - r3 (r4-r1) (JacobiSN[X[Global`\[Lambda]], k])^2)/((r3-r1) - (r4-r1) (JacobiSN[X[Global`\[Lambda]], k])^2)]]]], Listable];
 
+(*Eq. (B51-B54):*)
 E\[Lambda][\[Lambda]_] := Sqrt[(r3-r1)(r4-r2)](EllipticE[JacobiAmplitude[X[\[Lambda]], k], k] - \[Nu]r EllipticE[ArcSin[xo], k]);
 Pip[\[Lambda]_] := 2/Sqrt[(r3-r1) (r4-r2)] (r4-r3)/((rp-r3) (rp-r4)) (EllipticPi[((rp-r3) (r4-r1))/((rp-r4) (r3-r1)), JacobiAmplitude[X[\[Lambda]], k], k] - \[Nu]r EllipticPi[((rp-r3) (r4-r1))/((rp-r4) (r3-r1)), ArcSin[xo], k]);
 Pim[\[Lambda]_] := 2/Sqrt[(r3-r1) (r4-r2)] (r4-r3)/((rm-r3) (rm-r4)) (EllipticPi[((rm-r3) (r4-r1))/((rm-r4) (r3-r1)), JacobiAmplitude[X[\[Lambda]], k], k] - \[Nu]r EllipticPi[((rm-r3) (r4-r1))/((rm-r4) (r3-r1)), ArcSin[xo], k]);
 Ip[\[Lambda]_] := -\[Lambda]/(rp-r3)-Pip[\[Lambda]]; Iminus[\[Lambda]_] := -\[Lambda]/(rm-r3)-Pim[\[Lambda]];
 deriv[expr_, var_] := expr'[var] /. Re'[e_]:> 1;
 
+(*Eq. (B2):*)
 I\[Phi] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[(2 a)/(rp-rm) ((rp - a \[ScriptL]/2) Ip[Global`\[Lambda]] - (rm- a \[ScriptL]/2) Iminus[Global`\[Lambda]])]]]], Listable];
 
 If[Distant,
+  (*Eq. (B51-B54):*)
   Pi1[\[Lambda]_] := 2/Sqrt[(r3-r1) (r4-r2)](EllipticPi[(r4-r1)/(r3-r1), JacobiAmplitude[X[\[Lambda]], k], k] + EllipticF[ArcSin[Sqrt[(r3-r1)/(r4-r1)]], k] - EllipticPi[(r3-r2)/(r4-r2), ArcSin[Sqrt[(r3-r1)/(r4-r1)]], k] + 1/(2 Sqrt[(1-(r3-r2)/(r4-r2))((r4-r1)/(r3-r1)-1)]) Log[4/(r3-r1+r4-r2)]);
   I1[\[Lambda]_] := r3 \[Lambda] + (r4-r3) Pi1[\[Lambda]];
   I2[\[Lambda]_] := deriv[r, \[Lambda]]/(r[\[Lambda]]-r3) + r3 - (r1 r4 + r2 r3)/2 \[Lambda] - E\[Lambda][\[Lambda]];
+  (*Eq. (B3):*) 
   It = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[4/(rp-rm) (rp(rp - (a \[ScriptL])/2) Ip[Global`\[Lambda]] - rm(rm - (a \[ScriptL])/2)Iminus[Global`\[Lambda]]) +4 Global`\[Lambda] + 2 I1[Global`\[Lambda]] + I2[Global`\[Lambda]] + 2 Log[2]]]]], Listable],
   (*else*)
   Pi1[\[Lambda]_] := 2/Sqrt[(r3-r1) (r4-r2)](EllipticPi[(r4-r1)/(r3-r1), JacobiAmplitude[X[\[Lambda]], k], k] -\[Nu]r EllipticPi[(r4-r1)/(r3-r1), ArcSin[xo], k]);
@@ -247,43 +279,63 @@ If[Distant,
 RadialMotionCase3[roots_, a_, \[Eta]_, \[ScriptL]_, Optional[rs_/; NumberQ[rs], 1], Optional[\[Nu]r_/; NumberQ[\[Nu]r], -1], OptionsPattern[]] := Module[{Distant, r1, r2, r3, r4, rp, rm, A, B, xo, k, p1, f1, RedR1, RedR2, R1, R2, I0o, \[Lambda]x, X, r, \[Alpha]0, \[Alpha]p, \[Alpha]m, Pip, Pim, Ip, Iminus, I\[Phi], Pi1, Pi2, I1, I2, It},
 If[OptionValue["Observer"]=="Distant", Distant=True, Distant=False];
 {r1, r2, r3, r4} = {"r1", "r2", "r3", "r4"} /. roots;
+(*Eq. (B57):*) 
 A = Abs[Sqrt[(r3-r2) (r4-r2)]]; B = Abs[Sqrt[(r3-r1) (r4-r1)]];
+(*Eq. (B59):*) 
 k = ((A+B)^2-(r2-r1)^2)/(4 A B); rp = 1+Sqrt[1-a^2]; rm = 1-Sqrt[1-a^2];
 
+(*Eq. (B58):*) 
 \[Alpha]0 = (B+A)/(B-A);
+(*Eq. (B66):*) 
 \[Alpha]p = (B (rp - r2) + A (rp - r1))/(B (rp - r2) - A (rp - r1)); \[Alpha]m = (B (rm - r2) + A (rm - r1))/(B (rm - r2) - A (rm - r1));
 
+(*Eq. (B65), notation \[Alpha]->\[Gamma], \[CurlyPhi]->\[Xi] to avoid conflicts:*) 
 p1[\[Gamma]_, j_] := Sqrt[(\[Gamma]^2-1)/(j+(1-j) \[Gamma]^2)];
 f1[\[Gamma]_, \[Xi]_, j_] := p1[\[Gamma], j]/2 Log[Abs[(p1[\[Gamma], j] Sqrt[1- j (Sin[\[Xi]])^2] + Sin[\[Xi]])/(p1[\[Gamma], j] Sqrt[1- j (Sin[\[Xi]])^2] - Sin[\[Xi]])]];
+(*Eq. (B62,B64), variant for distant observers, notation \[Alpha]->\[Gamma], \[CurlyPhi]->\[Xi] to avoid conflicts:*)  
 RedR1[\[Gamma]_, \[Xi]_, j_] := 1/(1-\[Gamma]^2) (EllipticF[\[Xi], j] - EllipticPi[(j(\[Gamma]^2-1))/\[Gamma]^2, \[Xi], j] - (\[Gamma] Sqrt[A B])/(r2-r1) Log[(4(r2-r1))/(B^2-A^2)] + (\[Gamma] Sqrt[A B])/(r2-r1) Log[(B^2-A^2)/(4(r2-r1))+(A B (r2-r1))/(B^2-A^2)]); 
 RedR2[\[Gamma]_, \[Xi]_, j_] := 1/(\[Gamma]^2-1) (EllipticF[\[Xi], j] -\[Gamma]^2/(j + (1-j)\[Gamma]^2) EllipticE[\[Xi], j]);
+(*Eq. (B62,B64), notation \[Alpha]->\[Gamma], \[CurlyPhi]->\[Xi] to avoid conflicts:*)  
 R1[\[Gamma]_, \[Xi]_, j_] := 1/(1-\[Gamma]^2) (EllipticPi[\[Gamma]^2/(\[Gamma]^2-1), \[Xi], j]-\[Gamma] f1[\[Gamma], \[Xi], j]);
 R2[\[Gamma]_, \[Xi]_, j_] := 1/(\[Gamma]^2-1) (EllipticF[\[Xi], j] -\[Gamma]^2/(j + (1-j)\[Gamma]^2) (EllipticE[\[Xi], j] - (\[Gamma] Sin[\[Xi]]Sqrt[1-j (Sin[\[Xi]])^2])/(1+\[Gamma] Cos[\[Xi]]))) + 1/(j + (1-j) \[Gamma]^2) (2j - \[Gamma]^2/(\[Gamma]^2-1))R1[\[Gamma], \[Xi], j];
 
+(*Eq. (B55):*)
 If[Distant,xo = (A-B)/(A+B), xo = (1 - (B (rs-r2))/(A (r-r1)))/(1 + (B (rs-r2))/(A (r-r1)))];
+(*Eq. (B67,B71):*)
 I0o = 1/Sqrt[A B] EllipticF[ArcCos[xo], k];
 \[Lambda]x = \[Nu]r (1/Sqrt[A B] EllipticF[ArcCos[(A (rp-r1) - B (rp-r2))/(A (rp-r1) + B (rp-r2))], k] - I0o);
+(*Eq. (B74):*) 
 X[\[Lambda]_] := Sqrt[A B] (\[Lambda] +\[Nu]r I0o);
 
+(*Eq. (B75):*) 
 r = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[((B r2 - A r1) + (B r2 + A r1) JacobiCN[X[Global`\[Lambda]], k])/((B-A) + (B+A) JacobiCN[X[Global`\[Lambda]], k])]]]], Listable];
-  
+
+(*Eq. (B81):*)   
 Pip[\[Lambda]_] := ((2 (r2-r1) Sqrt[A B])/(B (rp-r2) - A (rp-r1)))(R1[\[Alpha]p, JacobiAmplitude[X[\[Lambda]], k], k]-\[Nu]r R1[\[Alpha]p, ArcCos[xo], k]); 
 Pim[\[Lambda]_] := ((2 (r2-r1) Sqrt[A B])/(B (rm-r2) - A (rm-r1)))(R1[\[Alpha]m, JacobiAmplitude[X[\[Lambda]], k], k]-\[Nu]r R1[\[Alpha]m, ArcCos[xo], k]);
+(*Eq. (B80):*) 
 Ip[\[Lambda]_] := -((B+A) \[Lambda] + Pip[\[Lambda]])/(B (rp-r2) + A (rp-r1)); Iminus[\[Lambda]_] := -((B+A) \[Lambda] + Pim[\[Lambda]])/(B (rm-r2) + A (rm-r1));
 
+(*Eq. (B4):*) 
 I\[Phi] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[(2 a)/(rp-rm) ((rp - a \[ScriptL]/2) Ip[Global`\[Lambda]] - (rm- a \[ScriptL]/2) Iminus[Global`\[Lambda]])]]]], Listable];
 
 If[Distant,
+  (*Eq. (B72):*)
   Pi1[\[Lambda]_] := (2(r2-r1)Sqrt[A B])/(B^2-A^2) (R1[\[Alpha]0, JacobiAmplitude[X[\[Lambda]], k], k] + RedR1[\[Alpha]0, ArcCos[xo], k]);
   Pi2[\[Lambda]_] := ((2(r2-r1)Sqrt[A B])/(B^2-A^2))^2 (R2[\[Alpha]0, JacobiAmplitude[X[\[Lambda]], k], k] + RedR2[\[Alpha]0, ArcCos[xo], k]);
+  (*Eq. (B69-B70):*)
   I1[\[Lambda]_] := ((B r2 + A r1)/(B + A))\[Lambda] + Pi1[\[Lambda]];
   I2[\[Lambda]_] := ((B r2 + A r1)/(B + A))^2 \[Lambda] + 2((B r2 + A r1)/(B + A)) (2(r2-r1)Sqrt[A B])/(B^2-A^2) R1[\[Alpha]0, JacobiAmplitude[X[\[Lambda]], k], k] + Sqrt[A B] Pi2[\[Lambda]] + (A^2-B^2)/(2 (r2-r1))-(r1+r2)+(B r2 + A r1)/(B + A);
+  (*Eq. (B3):*)
   It = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[4/(rp-rm) (rp(rp - (a \[ScriptL])/2) Ip[Global`\[Lambda]] - rm(rm - (a \[ScriptL])/2)Iminus[Global`\[Lambda]]) +4 Global`\[Lambda] + 2 I1[Global`\[Lambda]] + I2[Global`\[Lambda]] + 2 Log[2]]]]], Listable],
   (*else*)
+  (*Eq. (B72):*)
   Pi1[\[Lambda]_] := (2(r2-r1)Sqrt[A B])/(B^2-A^2) (R1[\[Alpha]0, JacobiAmplitude[X[\[Lambda]], k], k] - \[Nu]r R1[\[Alpha]0, ArcCos[xo], k]);
   Pi2[\[Lambda]_] := ((2(r2-r1)Sqrt[A B])/(B^2-A^2))^2 (R2[\[Alpha]0, JacobiAmplitude[X[\[Lambda]], k], k] - \[Nu]r R2[\[Alpha]0, ArcCos[xo], k]);
+  (*Eq. (B69-B70):*)
   I1[\[Lambda]_] := ((B r2 + A r1)/(B + A))\[Lambda] + Pi1[\[Lambda]];
   I2[\[Lambda]_] := ((B r2 + A r1)/(B + A))^2 \[Lambda] + 2((B r2 + A r1)/(B + A)) Pi1[\[Lambda]] + Sqrt[A B] Pi2[\[Lambda]];
+  (*Eq. (B3):*)
   It = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[4/(rp-rm) (rp(rp - (a \[ScriptL])/2) Ip[Global`\[Lambda]] - rm(rm - (a \[ScriptL])/2)Iminus[Global`\[Lambda]]) +4 Global`\[Lambda] + 2 I1[Global`\[Lambda]] + I2[Global`\[Lambda]]]]]], Listable];
 ];
 
@@ -294,24 +346,35 @@ If[Distant,
 RadialMotionCase4[roots_, a_, \[Eta]_, \[ScriptL]_, Optional[rs_/; NumberQ[rs], 1], Optional[\[Nu]r_/; NumberQ[\[Nu]r], -1], OptionsPattern[]] := Module[{Distant, r1, r2, r3, r4, rp, rm, C, D, k, a2, b1, g0, I0o, \[Lambda]x, x, X, p2, f2, RedS1, S1, RedS2, S2, r, Pip, Pim, Pi1, Pi2, Ip, Iminus, I1, I2, It, I\[Phi]},
 If[OptionValue["Observer"]=="Distant", Distant=True, Distant=False];
 {r1, r2, r3, r4} = {"r1", "r2", "r3", "r4"} /. roots;
+(*Eq. (B85):*) 
 C = Sqrt[(r3-r1) (r4-r2)]; D = Sqrt[(r3-r2) (r4-r1)];
+(*Eq. (B87):*) 
 k=(4 C D)/(C + D)^2; a2=Sqrt[-((r2-r1)^2/4)]; b1= (r3+r4)/2; g0=Sqrt[(4 a2^2-(C-D)^2)/((C+D)^2-4 a2^2)]; 
+(*Horizon radii Subscript[r, +],Subscript[r, -]:*)
 rp = 1+Sqrt[1-a^2]; rm = 1-Sqrt[1-a^2];
 
+(*Eq. (B83):*) 
 x[\[Rho]_] = (\[Rho]+b1)/a2;
+(*Eq. (B95):*) 
 p2[\[Gamma]_, j_] := Sqrt[(\[Gamma]^2+1)/(1-j + \[Gamma]^2)];
 f2[\[Gamma]_, \[Xi]_, j_] := p2[\[Gamma], j]/2 Log[Abs[(1-p2[\[Gamma], j])/(1+p2[\[Gamma], j]) (1+p2[\[Gamma], j] Sqrt[1- j (Sin[\[Xi]])^2] )/(1-p2[\[Gamma], j] Sqrt[1- j (Sin[\[Xi]])^2])]];
+(*Eq. (B92), first formula is reduced for distant observers:*) 
 RedS1[\[Gamma]_, \[Xi]_, j_] := EllipticF[\[Xi], j] - 1/(1+\[Gamma]^2) (\[Gamma]^2 EllipticPi[j/(1+\[Gamma]^2), \[Xi], j] + (\[Gamma] (C+D))/(4 a2) Log[(64 a2^2)/((2 a2 + C + D)^2 (\[Gamma]^2 (C+D)^2 + 4 a2^2))]);
 S1[\[Gamma]_, \[Xi]_, j_] := 1/(1+\[Gamma]^2) (EllipticF[\[Xi],j] +\[Gamma]^2 EllipticPi[1+\[Gamma]^2, \[Xi], j]-\[Gamma] f2[\[Gamma], \[Xi], j]);
+(*Eq. (B94), first formula is reduced for distant observers:*) 
 RedS2[\[Gamma]_, \[Xi]_, j_] := -1/((1+\[Gamma]^2)(1-j+\[Gamma]^2)) ((1-j)EllipticF[\[Xi], j] + \[Gamma]^2 EllipticE[\[Xi], j] - \[Gamma]^3);
 S2[\[Gamma]_, \[Xi]_, j_] := -1/((1+\[Gamma]^2)(1-j+\[Gamma]^2)) ((1-j)EllipticF[\[Xi], j] + \[Gamma]^2 EllipticE[\[Xi], j] + (\[Gamma]^2 Sqrt[1-j (Sin[\[Xi]])^2](\[Gamma]-Tan[\[Xi]]))/(1+\[Gamma] Tan[\[Xi]]) - \[Gamma]^3) + (1/(1+\[Gamma]^2)+(1-j)/(1-j+\[Gamma]^2))S1[\[Gamma], \[Xi], j];
 
+(*Eq. (B97,B101):*) 
 If[Distant, I0o = 2/(C+D) EllipticF[\[Pi]/2+ArcTan[g0], k], I0o = 2/(C+D) EllipticF[ArcTan[x[rs]]+ArcTan[g0], k]];
 \[Lambda]x = \[Nu]r (2/(C+D) EllipticF[ArcTan[(rp+b1)/a2]+ArcTan[g0], k] - I0o);
+(*Eq. (B104):*) 
 X[\[Lambda]_] = (C + D)/2 (\[Nu]r \[Lambda]+I0o);
 
+(*Eq. (B109):*) 
 r = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[-a2 ((g0-JacobiSC[X[Global`\[Lambda]], k])/(1+g0 JacobiSC[X[Global`\[Lambda]], k])) - b1]]]], Listable];
 
+(*Eq. (B112-B116,B3):*) 
 If[Distant,
   Pip[\[Lambda]_] := -(2/(C+D)) ((1+g0^2)/(g0 (g0+x[rp]))) (S1[(g0 x[rp] - 1)/(g0 + x[rp]), JacobiAmplitude[X[\[Lambda]], k], k] - S1[(g0 x[rp] - 1)/(g0 + x[rp]), \[Pi]/2+ArcTan[g0], k]);
   Pim[\[Lambda]_] := -(2/(C+D)) ((1+g0^2)/(g0 (g0+x[rm]))) (S1[(g0 x[rm] - 1)/(g0 + x[rm]), JacobiAmplitude[X[\[Lambda]], k], k] - S1[(g0 x[rm] - 1)/(g0 + x[rm]), \[Pi]/2+ArcTan[g0], k]);
@@ -334,36 +397,43 @@ If[Distant,
   It = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[4/(rp-rm) (rp(rp - (a \[ScriptL])/2) Ip[Global`\[Lambda]] - rm(rm - (a \[ScriptL])/2)Iminus[Global`\[Lambda]]) +4 Global`\[Lambda] + 2 I1[Global`\[Lambda]] + I2[Global`\[Lambda]]]]]], Listable]
 ];
 
+(*Eq. (B4):*) 
 I\[Phi] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Re[(2 a)/(rp-rm) ((rp - a \[ScriptL]/2) Ip[Global`\[Lambda]] - (rm- a \[ScriptL]/2) Iminus[Global`\[Lambda]])]]]], Listable];
  
 <|"r" -> r, "I\[Phi]" -> I\[Phi], "It" -> It, "\[Lambda]x" -> Re[\[Lambda]x]|>
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Equator Intersections*)
 
 
 (* ::Text:: *)
-(*This is a convenience function for rendering images of thin disks in the equatorial plane of the Kerr BH. Thanks to the symmetries of the Elliptic integrals, one is able to find all the values of Mino time at which a null geodesic intersects the equatorial plane \[Theta]=\[Pi]/2. *)
+(*This is a convenience function for rendering images of thin disks in the equatorial plane of the Kerr BH. Thanks to the symmetries of the elliptic integrals, one is able to find all the values of Mino time at which a null geodesic intersects the equatorial plane \[Theta]=\[Pi]/2. *)
 
 
 EquatorIntersectionMinoTimes[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_] := Module[{\[CapitalDelta]\[Theta], u1, u2, G\[Theta]o, equator\[Lambda], j0, j, t},
+(*Eq. (19):*)
 \[CapitalDelta]\[Theta]= 1/2 (1-(\[Eta]+\[ScriptL]^2)/a^2);
 u1=\[CapitalDelta]\[Theta]-Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; u2=\[CapitalDelta]\[Theta]+Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; 
+(*Eq. (29):*)
 G\[Theta]o=-1/Sqrt[-u1 a^2] EllipticF[Re[ArcSin[Cos[\[Theta]o]/Sqrt[u2]]], u2/u1]; (*Sometimes the ArcSin argument is slightly over 1 probably due to numerical errors*)
+(*Now generate the list of intersections*)
 equator\[Lambda] = {};
 If[(-\[Nu]\[Theta] G\[Theta]o) < 0, j0=1, j0=0];
 K = EllipticK[u2/u1];
+(*Here a hard-coded cutoff of j=10 intersections has been imposed. We do not expect to need more in practice.*)
 For[j=j0, j<=10, j++,
-t=2 j K/Sqrt[-u1 a^2]-\[Nu]\[Theta] G\[Theta]o;
-If[t>\[Lambda]x, Break[]];
-equator\[Lambda] = Append[equator\[Lambda], t]];
+	(*From the properties of eq. (38) we know that \[Theta]=\[Pi]/2 will occur at the following Mino times:*)
+	t=2 j K/Sqrt[-u1 a^2]-\[Nu]\[Theta] G\[Theta]o;
+	If[t>\[Lambda]x, Break[]];
+	equator\[Lambda] = Append[equator\[Lambda], t]
+];
 equator\[Lambda]
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Emission Parameters*)
 
 
@@ -416,7 +486,7 @@ p\[Phi] = - ((\[Omega] B)/A) vecpt + B/A vecp\[Phi];
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Public Functions*)
 
 
