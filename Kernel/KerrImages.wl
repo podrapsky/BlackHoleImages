@@ -39,6 +39,10 @@ step = 2 imax/x;
 row={};
 template={};
 
+(*show progress*)
+j=-jmax;
+Print[Dynamic[N[100 (j+jmax)/(2 jmax)]], " %"];
+
 (*generate the template*)
 For[j=-jmax, j<jmax,j+=step,
 	For[i=-imax, i<imax ,i+=step,
@@ -57,7 +61,7 @@ Export[file, template];
 ]
 
 
-Options[DiskImage] = {"InputUnits" -> "ShakuraSunyaev", "OutputUnits" -> "SI", "rUnits" -> "BHMass",  (*BlackHoleImages`AlphaDiskModel`DiskParams options*)
+Options[DiskImage] = {"InputUnits" -> "NovikovThorne", "OutputUnits" -> "SI", "rUnits" -> "BHMass",  (*BlackHoleImages`AlphaDiskModel`DiskParams options*)
 					"Rotation" -> "Counterclockwise", "PhiRange" -> {-\[Pi], \[Pi]}, (*BlackHoleImages`KerrNullGeodesics`KerrNullGeoDistant options*)
 					"Output" -> {"MaximalFrequency"} (*Specifies what information is requested in the form {"information1", "information 2",...},
 													where "informationN" must be element of the association returned by BlackHoleImages`AlphaDiskModel`ObservedDiskElement
@@ -80,7 +84,7 @@ matrix = Table[{}, length];
 row = Table[{}, length];
 
 (*generate parameters of the disk*)
-disk = BlackHoleImages`AlphaDiskModel`DiskParams[\[Alpha], m, mdot, "InputUnits" -> OptionValue["InputUnits"], "OutputUnits" -> OptionValue["OutputUnits"], "rUnits" -> OptionValue["rUnits"]];
+disk = BlackHoleImages`AlphaDiskModel`DiskParams[a, \[Alpha], m, mdot, "InputUnits" -> OptionValue["InputUnits"], "OutputUnits" -> OptionValue["OutputUnits"], "rUnits" -> OptionValue["rUnits"]];
 
 (*generate the requested data*)
 For[j=-jmax, j<jmax,j+=step,
@@ -98,13 +102,13 @@ matrix
 ]
 
 
-Options[DiskImageFromTemplate] = {"InputUnits" -> "ShakuraSunyaev", "OutputUnits" -> "SI", "rUnits" -> "BHMass",  (*BlackHoleImages`AlphaDiskModel`DiskParams options*)
+Options[DiskImageFromTemplate] = {"InputUnits" -> "NovikovThorne", "OutputUnits" -> "SI", "rUnits" -> "BHMass",  (*BlackHoleImages`AlphaDiskModel`DiskParams options*)
 								  "Output" -> {"MaximalFrequency"} (*Specifies what information is requested in the form {"information1", "information 2",...},
 																	where "informationN" must be element of the association returned by BlackHoleImages`AlphaDiskModel`ObservedDiskElement
 																	("PhysicalTemperature", "EffectiveTemperature", "SpectralFluxDensity", "FluxDensity" or "PeakFrequency") *)
 }		
 
-DiskImageFromTemplate[file_, \[Alpha]_, m_, mdot_, OptionsPattern[]] := Module[{template, i, j, imax, jmax, disk, length, matrix, row, shard, element},
+DiskImageFromTemplate[file_, a_, \[Alpha]_, m_, mdot_, OptionsPattern[]] := Module[{template, i, j, imax, jmax, disk, length, matrix, row, shard, element},
 (*import the template*)
 template = Import[file];
 
@@ -118,7 +122,7 @@ matrix = Table[{}, length];
 row = Table[{}, length];
 
 (*generate parameters of the disk*)
-disk = BlackHoleImages`AlphaDiskModel`DiskParams[\[Alpha], m, mdot, "InputUnits" -> OptionValue["InputUnits"], "OutputUnits" -> OptionValue["OutputUnits"], "rUnits" -> OptionValue["rUnits"]];
+disk = BlackHoleImages`AlphaDiskModel`DiskParams[a, \[Alpha], m, mdot, "InputUnits" -> OptionValue["InputUnits"], "OutputUnits" -> OptionValue["OutputUnits"], "rUnits" -> OptionValue["rUnits"]];
 
 (*generate the requested data*)
 For[j=1, j<=jmax,j+=1,

@@ -17,20 +17,35 @@ Begin["`Private`"];
 
 
 (* ::Section:: *)
+(*Definitions*)
+
+
+Msun = 1477;
+
+
+\[ScriptCapitalA][a_, r_] := 1 + (a/r)^2 + 2a^2/r^3; (*N&T 5.4.1a*)
+\[ScriptCapitalB][a_, r_] := 1 + a/r^(3/2); (*N&T 5.4.1b*)
+\[ScriptCapitalC][a_, r_] := 1 - 3/r + 2a/r^(3/2); (*N&T 5.4.1c*)
+\[ScriptCapitalD][a_, r_] := 1 - 2/r + a^2/r^2; (*N&T 5.4.1d*)
+\[ScriptCapitalE][a_, r_] := 1 + 4a^2/r^2 - 4a^3/r^3 + 3a^4/r^4; (*N&T 5.4.1e*)
+\[ScriptCapitalF][a_, r_] := 1 - 2a/r^(3/2) + a^2/r^2; (*N&T 5.4.1f*)
+\[ScriptCapitalG][a_, r_] := 1 - 2/r + a/r^(3/2); (*N&T 5.4.1g*)
+\[ScriptCapitalQ][a_, r_, M_, rISCO_, x1_, x2_, x3_] := (1+a r^(-3/2))/(r-3 + 2 a/r^(-1/2))^(1/2) (r^(1/2)-rISCO^(1/2) - (3/4) a Log[r/rISCO] - (3(x1-a)^2)/(x1 (x1 - x2) (x1 -x3)) Log[(r^(1/2)-x1)/(rISCO^(1/2)-x1)] - (3(x2-a)^2)/(x2 (x2 - x1) (x2 -x3)) Log[(r^(1/2)-x2)/(rISCO^(1/2)-x2)] - (3(x3-a)^2)/(x3 (x3 - x2) (x3 -x1)) Log[(r^(1/2)-x3)/(rISCO^(1/2)-x3)]); (*P&T (35)*)
+
+
+(* ::Section:: *)
 (*Temperature & Optical Depth Functions*)
 
 
-TSC[r_, \[Alpha]_, m_, mdot_] := 3 10^7 m^(-1/4) mdot^(1/4) r^(-3/4) (1-r^(-1/2))^(1/4); (*S&S (3.5)*)
-TSB[r_, \[Alpha]_, m_, mdot_] := 10^8 \[Alpha]^(1/75) mdot^(28/75) m^(-19/75) r^(-141/150) (1-r^(-1/2))^(28/75); (*S&S (3.6)*)
-TSA[r_, \[Alpha]_, m_, mdot_] := 1.4 10^9 \[Alpha]^(2/9) mdot^(8/9) m^(-2/9) r^(-5/3) (1-r^(-1/2))^(8/9); (*S&S (3.7)*)
-(*TSI[r_, \[Alpha]_, m_, mdot_] := 5 10^8 \[Alpha]^(1/5) mdot^(4/5) m^(-1/5) r^(-3/2) (1-r^(-1/2))^(4/5);*) (*S&S (3.8)*)
-TSII[r_, \[Alpha]_, m_, mdot_] := 10^14 \[Alpha]^(12/5) mdot^(24/5) r^(-36/5) (1-r^(-1/2))^(24/5); (*S&S (3.9)*)
+TSC[a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := 3 10^7 (M/(3 Msun))^(-1/2) mdot^(1/4) r^(-3/4) \[ScriptCapitalB][a,r]^(-1/4) \[ScriptCapitalC][a,r]^(-1/8) \[ScriptCapitalQ][a,r,M,rISCO, x1, x2, x3]^(1/4); (*N&T (5.10.1)*)
+TSB[a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := 5 10^7 \[Alpha]^(7/45) (M/(3 Msun))^(-29/45) mdot^(16/45) r^(-87/90) \[ScriptCapitalA][a,r]^(2/9) \[ScriptCapitalB][a,r]^(-14/45) \[ScriptCapitalC][a,r]^(-2/9) \[ScriptCapitalD][a,r]^(2/45) \[ScriptCapitalE][a,r]^(-1/9) \[ScriptCapitalQ][a,r,M,rISCO, x1, x2, x3]^(16/45); (*N&T (5.10.8)*)
+TSA[a_, r_, \[Alpha]_, M_, mdot_] := 6 10^8 \[Alpha]^(2/9) (M/(3 Msun))^(-10/9) mdot^(8/9) r^(-17/9) \[ScriptCapitalA][a,r]^(8/9) \[ScriptCapitalB][a,r]^(-16/9) \[ScriptCapitalC][a,r]^(-2/9) \[ScriptCapitalD][a,r]^(2/9) \[ScriptCapitalE][a,r]^(4/9) ; (*N&T (5.10.8)*)
 
-\[Tau]starA[r_, \[Alpha]_, m_, mdot_] := 8.4 10^-5 \[Alpha]^(-17/16) m^(-1/16) mdot^-2 r^(93/32) (1-r^(-1/2))^-2; (*S&S after (2.12), sign of r's exponent is changed*)
+mp = 1.672623099 10^-27 (*kg*)
+nA[a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := 0.1/mp \[Alpha]^-1 mdot^-2 (M/3/Msun) r^(3/2) \[ScriptCapitalA][a,r]^-4 \[ScriptCapitalB][a,r]^6 \[ScriptCapitalD][a,r] \[ScriptCapitalE][a,r]^2 \[ScriptCapitalQ][a,r,M,rISCO,x1,x2,x3]^-2; (*N&T (5.9.10)*)
 
-nA[r_, \[Alpha]_, m_, mdot_] := 4.3 10^23 \[Alpha]^-1 mdot^-2 m^-1 r^(3/2) (1-r^(-1/2))^-2; (*S&S (2.11)*)
-
-H0[T_, r_, \[Alpha]_, m_, mdot_] := 1.6696 10^-9 \[Alpha]^(1/10) m^(11/10) mdot^(-1/5) T r^(39/20) (1-r^(-1/2))^(-1/5); (*S&S after (2.28)*)
+hB[a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := 30 \[Alpha]^(-1/10) (M/3/Msun)^(7/10) mdot^(1/5) r^(21/20) \[ScriptCapitalA][a,r] \[ScriptCapitalB][a,r]^(-4/5) \[ScriptCapitalC][a,r]^(1/2) \[ScriptCapitalD][a,r]^(-3/5) \[ScriptCapitalE][a,r]^(-1/2) \[ScriptCapitalQ][a,r,M,rISCO,x1,x2,x3]^(1/5); (*N&T (5.9.8)*)
+H0[T_, a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] :=1.5362 10^-40 ((M r)^3 T)/(M mp hB[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3]); (*S&S after (2.28)*)
 
 
 (* ::Section:: *)
@@ -41,55 +56,71 @@ Xfct[\[Nu]_, T_] := 4.799243 10^-11 \[Nu]/T; (*h\[Nu]/(kT)*)
 \[Kappa]fct[\[Nu]_, T_] := (4.1 10^-33 (1-E^-Xfct[\[Nu], T]))/(T^(7/2) Xfct[\[Nu], T]^3); (*m^5*)
 B[\[Nu]_, T_] := (*2\[Pi]h/c^2*) 4.632276 10^-50 \[Nu]^3/(E^Xfct[\[Nu], T]-1); (*Applicable for Region C*)
 
-FC[\[Nu]_, r_, \[Alpha]_, m_, mdot_] := B[\[Nu], TSC[r, \[Alpha], m, mdot]];
-FB[\[Nu]_, r_, \[Alpha]_, m_, mdot_] := ((3 \[Kappa]fct[\[Nu], TSB[r, \[Alpha], m, mdot]])/((6.6524 10^-29)^2 H0[TSB[r, \[Alpha], m, mdot], r, \[Alpha], m, mdot]))^(1/3) B[\[Nu], TSB[r, \[Alpha], m, mdot]]; (*S&S (3.3)*)
-FA[\[Nu]_, r_, \[Alpha]_, m_, mdot_] := Sqrt[(3 \[Kappa]fct[\[Nu], TSA[r, \[Alpha], m, mdot]] nA[r, \[Alpha], m, mdot])/(6.6524 10^-29)]B[\[Nu], TSA[r, \[Alpha], m, mdot]] ; (*S&S (3.2)*)
-FII[\[Nu]_, r_, \[Alpha]_, m_, mdot_] := Null (*to be added*) ;
+FC[\[Nu]_, a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := B[\[Nu], TSC[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3]];
+FB[\[Nu]_, a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := ((3 \[Kappa]fct[\[Nu], TSB[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3]])/((6.6524 10^-29)^2 H0[TSB[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3], a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3]))^(1/3) B[\[Nu], TSB[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3]]; (*S&S (3.3)*)
+FA[\[Nu]_, a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := Sqrt[(3 \[Kappa]fct[\[Nu], TSA[a, r, \[Alpha], M, mdot]] nA[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3])/(6.6524 10^-29)]B[\[Nu], TSA[a, r, \[Alpha], M, mdot]] ; (*S&S (3.2)*)
 
-QC[r_, \[Alpha]_, m_, mdot_] := 5.67037 10^-8 TSC[r, \[Alpha], m, mdot]^4;
-QB[r_, \[Alpha]_, m_, mdot_] := 2.8 H0[TSB[r, \[Alpha], m, mdot], r, \[Alpha], m, mdot]^(-1/3) TSB[r, \[Alpha], m, mdot]^(17/6); (*S&S (3.3)*)
-QA[r_, \[Alpha]_, m_, mdot_] := 1.8 10^-10 Sqrt[nA[r, \[Alpha], m, mdot]] TSA[r, \[Alpha], m, mdot]^(9/4); (*S&S (3.2)*)
-QII[r_, \[Alpha]_, m_, mdot_] := Null (*to be added*) ;
+QC[a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := 5.67037 10^-8 TSC[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3]^4;
+QB[a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := 2.8 H0[TSB[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3], a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3]^(-1/3) TSB[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3]^(17/6); (*S&S (3.3)*)
+QA[a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := 1.8 10^-10 Sqrt[nA[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3]] TSA[a, r, \[Alpha], M, mdot]^(9/4); (*S&S (3.2)*)
 
 
 (* ::Section:: *)
 (*Regions*)
 
 
-Regions[\[Alpha]_, m_, mdot_] := Module[{rbc, rab, raii, RegionC, RegionB, RegionA, RegionII},
-	rbc = r/. NSolve[TSB[r, \[Alpha], m, mdot] == TSC[r, \[Alpha], m, mdot] && r>1, r, Reals];
-	rab = r/. NSolve[TSA[r, \[Alpha], m, mdot] == TSB[r, \[Alpha], m, mdot] && r>1, r, Reals];
-	raii = r/. NSolve[TSA[r, \[Alpha], m, mdot] == TSII[r, \[Alpha], m, mdot] && r>1, r, Reals];
-
+Regions[a_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := Module[{rbc1, rbc2, rbc, rab1, rab2, rab, RegionC, RegionB, RegionA},
+	For[i=-2, i<=1, i++,
+		rbc1 = r/.  Quiet[FindRoot[TSC[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3]== TSB[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3], {r,(1+10^i)rISCO, rISCO, \[Infinity]}]];
+		If[rbc1 != rISCO, Break[]];
+	];
+	If[rbc1 != rISCO,
+		For[i=-2, i<=1, i++,
+			rbc2 = r/.  Quiet[FindRoot[TSC[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3]== TSB[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3], {r,(1+10^i)rbc1, rbc1, \[Infinity]}]];
+			If[rbc2 != rbc1, Break[]];
+		];
+		If[rbc2!=rbc1,
+			rbc = {rbc1,rbc2},
+			rbc={}]
+			,
+		rbc={}
+	];
+	
+	For[i=-2, i<=1, i++,
+		rab1 = r/.  Quiet[FindRoot[TSA[a, r, \[Alpha], M, mdot]== TSB[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3], {r,(1+10^i)rISCO, rISCO, \[Infinity]}]];
+		If[rab1 != rISCO, Break[]];
+	];
+	If[rab1 != rISCO,
+		For[i=-2, i<=1, i++,
+			rab2 = r/.  Quiet[FindRoot[TSA[a, r, \[Alpha], M, mdot]== TSB[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3], {r,(1+10^i)rab1, rab1, \[Infinity]}]];
+			If[rab2 != rab1, Break[]];
+		];
+		If[rab2!=rab1,
+			rab = {rab1,rab2},
+			rab={}]
+			,
+		rab={}
+	];
+	
 	If[Length[rbc]==0, 
 		RegionC = Function[{Global`r}, Global`r>=1, Listable]; 
 		RegionA = Function[{Global`r}, False, Listable];
-		RegionB = Function[{Global`r}, False, Listable];
-		RegionII = Function[{Global`r}, False, Listable],
+		RegionB = Function[{Global`r}, False, Listable],
 		If [Length[rab]==0,
 			RegionC = Function[{Global`r}, (Global`r>=1 && Global`r<=rbc[[1]])||Global`r>=rbc[[2]], Listable];
 			RegionB = Function[{Global`r}, Global`r>=rbc[[1]] && Global`r<=rbc[[2]], Listable];
-			RegionA = Function[{Global`r}, False, Listable]; 
-			RegionII = Function[{Global`r}, False, Listable],
-			If[Length[raii]==0 || \[Tau]starA[raii[[1]]]>1,
-				RegionC = Function[{Global`r}, (Global`r>=1 && Global`r<=rbc[[1]])||Global`r>=rbc[[2]], Listable]; 
-				RegionB = Function[{Global`r}, (Global`r>=rbc[[1]] && Global`r<=rab[[1]])||(Global`r>=rab[[2]] && Global`r<=rbc[[2]]), Listable];
-				RegionA = Function[{Global`r}, Global`r>=rab[[1]] && Global`r<=rab[[2]], Listable];
-				RegionII = Function[{Global`r}, False, Listable],
-				(*else*)
-				RegionC = Function[{Global`r}, (Global`r>=1 && Global`r<=rbc[[1]])||Global`r>=rbc[[2]], Listable]; 
-				RegionB = Function[{Global`r}, (Global`r>=rbc[[1]] && Global`r<=rab[[1]])||(Global`r>=rab[[2]] && Global`r<=rbc[[2]]), Listable];
-				RegionA = Function[{Global`r}, (Global`r>=rab[[1]] && Global`r<=raii[[1]])||(Global`r>=raii[[2]] && Global`r<=rab[[2]]), Listable]; 
-				RegionII = Function[{Global`r}, Global`r>=raii[[1]] && Global`r<=raii[[2]], Listable];
-			]
+			RegionA = Function[{Global`r}, False, Listable],
+			(*else*)
+			RegionC = Function[{Global`r}, (Global`r>=1 && Global`r<=rbc[[1]])||Global`r>=rbc[[2]], Listable]; 
+			RegionB = Function[{Global`r}, (Global`r>=rbc[[1]] && Global`r<=rab[[1]])||(Global`r>=rab[[2]] && Global`r<=rbc[[2]]), Listable];
+			RegionA = Function[{Global`r}, Global`r>=rab[[1]] && Global`r<=rab[[2]], Listable];
 		]
 	];
 	
 	<| 
 		"RegionC" -> RegionC,
 		"RegionB" -> RegionB,
-		"RegionA" -> RegionA,
-		"RegionII" -> RegionII
+		"RegionA" -> RegionA
 	|>
 ]
 
@@ -102,68 +133,73 @@ Regions[\[Alpha]_, m_, mdot_] := Module[{rbc, rab, raii, RegionC, RegionB, Regio
 (**)
 
 
-Options[DiskParams] = {"InputUnits" -> "ShakuraSunyaev", "OutputUnits" -> "SI", "rUnits" -> "BHMass"}
+Options[DiskParams] = {"InputUnits" -> "NovikovThorne", "OutputUnits" -> "SI", "rUnits" -> "BHMass"}
 
 
-DiskParams[\[Alpha]_, m_, mdot_, OptionsPattern[]] := Module[{rFactor, RegionC, RegionB, RegionA, RegionII, TS, F, Q, \[Nu]max},
+DiskParams[a_, \[Alpha]_, M_, mdot_, OptionsPattern[]] := Module[{rFactor, Z1, Z2, rISCO, x1, x2, x3, RegionC, RegionB, RegionA, TS, F, Q, \[Nu]max},
 
 (*Units Conversion*)
 If[OptionValue["InputUnits"]=="SI",
-	mdot = mdot/(9.549 10^-16 m);
-	m = m/(1.988 10^30),
+	mdot = mdot/(10^-14);
+	M = M 7.4256 10^-28,
 	If[OptionValue["InputUnits"]=="CGS",
-		mdot = mdot/(9.549 10^-16 m);
-		m = m/(1.988 10^33),
-		If[OptionValue["InputUnits"]=="Geometrized",
-			mdot = mdot/(3.185 10^-24 m);
-			m = m/1480;
+		mdot = mdot/(10^-17);
+		M = M 7.4256 10^-31,
+		If[OptionValue["InputUnits"]=="ShakuraSunyaev",
+			M = M Msun;
+			mdot = 1.2859 10^12 mdot/(10^-14);
 		];
 	];
 ];
 
-rFactor = 1/6;
+rFactor = 1;
 If[OptionValue["rUnits"]=="ShakuraSunyaev",
-	rFactor = 1,
-	If[OptionValue["rUnits"]=="SI" || OptionValue["rUnits"]=="Geometrized",
-		rFactor = 1.1284 10^-4/m,
+	rFactor = 6,
+	If[OptionValue["rUnits"]=="SI",
+		rFactor = 1/M,
 		If[OptionValue["rUnits"]=="CGS",
-			rFactor = 1.1284 10^-6/m
+			rFactor = 10^-3/M
 		];
 	];
 ];
 
-{RegionC, RegionB, RegionA, RegionII} = {"RegionC", "RegionB", "RegionA", "RegionII"} /. Regions[\[Alpha], m, mdot];
+(*Innermost stable circular orbit*)
+Z1 = 1 + (1 - a^2)^(1/3) ((1+a)^(1/3)+(1-a)^(1/3)); (*N&T (5.4.8b)*)
+Z2 = (3 a^2 + Z1^2)^(1/2); (*N&T (5.4.8b)*)
+rISCO = 3 + Z2 - ((3-Z1)(3+Z1+2 Z2))^(1/2); (*N&T (5.4.8a)*)
+x1 = 2 Cos[1/3 ArcCos[a] - \[Pi]/3]; (*P&T (14)*)
+x2 = 2 Cos[1/3 ArcCos[a] + \[Pi]/3]; (*P&T (14)*)
+x3 = -2 Cos[1/3 ArcCos[a]]; (*P&T (14)*)
+
+(*Regions*)
+{RegionC, RegionB, RegionA} = {"RegionC", "RegionB", "RegionA"} /. Regions[a, \[Alpha], M, mdot, rISCO, x1, x2, x3];
 
 (*Surface Temperature*)
 TS = Function[{Global`r}, Piecewise[{
-				{TSC[rFactor Global`r, \[Alpha], m, mdot], RegionC[rFactor Global`r]},
-				{TSB[rFactor Global`r, \[Alpha], m, mdot], RegionB[rFactor Global`r]},
-				{TSA[rFactor Global`r, \[Alpha], m, mdot], RegionA[rFactor Global`r]},
-				{TSII[rFactor Global`r, \[Alpha], m, mdot], RegionII[rFactor Global`r]}
+				{TSC[a, rFactor Global`r, \[Alpha], M, mdot, rISCO, x1, x2, x3], RegionC[rFactor Global`r]},
+				{TSB[a, rFactor Global`r, \[Alpha], M, mdot, rISCO, x1, x2, x3], RegionB[rFactor Global`r]},
+				{TSA[a, rFactor Global`r, \[Alpha], M, mdot], RegionA[rFactor Global`r]}
 }], Listable];
 
 (*Spectral Flux Density*)
 F = Function[{Global`\[Nu], Global`r}, Piecewise[{
-				{FC[Global`\[Nu], rFactor Global`r, \[Alpha], m, mdot], RegionC[rFactor Global`r]},
-				{FB[Global`\[Nu], rFactor Global`r, \[Alpha], m, mdot], RegionB[rFactor Global`r]},
-				{FA[Global`\[Nu], rFactor Global`r, \[Alpha], m, mdot], RegionA[rFactor Global`r]},
-				{FII[Global`\[Nu], rFactor Global`r, \[Alpha], m, mdot], RegionII[rFactor Global`r]}
+				{FC[Global`\[Nu], a, rFactor Global`r, \[Alpha], M, mdot, rISCO, x1, x2, x3], RegionC[rFactor Global`r]},
+				{FB[Global`\[Nu], a, rFactor Global`r, \[Alpha], M, mdot, rISCO, x1, x2, x3], RegionB[rFactor Global`r]},
+				{FA[Global`\[Nu], a, rFactor Global`r, \[Alpha], M, mdot, rISCO, x1, x2, x3], RegionA[rFactor Global`r]}
 }], Listable];
 
 (*Integrated Flux Density*)
 Q = Function[{Global`r}, Piecewise[{
-			{QC[rFactor Global`r, \[Alpha], m, mdot], RegionC[rFactor Global`r]},
-			{QB[rFactor Global`r, \[Alpha], m, mdot], RegionB[rFactor Global`r]},
-			{QA[rFactor Global`r, \[Alpha], m, mdot], RegionA[rFactor Global`r]},
-			{QII[rFactor Global`r, \[Alpha], m, mdot], RegionII[rFactor Global`r]}
+			{QC[a, rFactor Global`r, \[Alpha], M, mdot, rISCO, x1, x2, x3], RegionC[rFactor Global`r]},
+			{QB[a, rFactor Global`r, \[Alpha], M, mdot, rISCO, x1, x2, x3], RegionB[rFactor Global`r]},
+			{QA[a, rFactor Global`r, \[Alpha], M, mdot, rISCO, x1, x2, x3], RegionA[rFactor Global`r]}
 }], Listable];
 
 (*Peak Frequency*)
 \[Nu]max = Function[{Global`r}, Piecewise[{
-			{5.8789 10^10 TSC[rFactor Global`r, \[Alpha], m, mdot], RegionC[rFactor Global`r]},
-			{3.6578 10^10 TSB[rFactor Global`r, \[Alpha], m, mdot], RegionB[rFactor Global`r]},
-			{2.6021 10^10 TSA[rFactor Global`r, \[Alpha], m, mdot], RegionA[rFactor Global`r]},
-			{None (*to be added*), RegionII[rFactor Global`r]}
+			{5.8789 10^10 TSC[a, rFactor Global`r, \[Alpha], M, mdot, rISCO, x1, x2, x3], RegionC[rFactor Global`r]},
+			{3.6578 10^10 TSB[a, rFactor Global`r, \[Alpha], M, mdot, rISCO, x1, x2, x3], RegionB[rFactor Global`r]},
+			{2.6021 10^10 TSA[a, rFactor Global`r, \[Alpha], M, mdot], RegionA[rFactor Global`r]}
 }], Listable];
 
 <|
@@ -171,19 +207,24 @@ Q = Function[{Global`r}, Piecewise[{
 	"SpectralFluxDensity" -> F,
 	"FluxDensity" -> Q,
 	"PeakFrequency" -> \[Nu]max,
-	"rDefinition" -> 1/(6 rFactor) (*If r-input comes in BHMasses, it must be multiplied by this*)
+	"rDefinition" -> 1/rFactor, (*If r-input comes in BHMasses, it must be multiplied by this*)
+	"rISCO" -> rISCO
 |>
 ]
 
 
-ObservedDiskElement[disk_Association, geodesic_] := Module[{\[Kappa], rs, rFactor, F, Q, TS, \[Nu]max, Teff},
+ObservedDiskElement[disk_Association, geodesic_] := Module[{rISCO, i, \[Kappa], rs, rFactor, F, Q, TS, \[Nu]max, Teff},
 
+rISCO = disk["rISCO"];
 rFactor = disk["rDefinition"];
 If[Length[geodesic["EquatorIntersectionCoordinates"][[2]]]==0||geodesic["EmissionParameters"][[1]]==-1, F=Q=TS=\[Nu]max=Teff=-1,
 	\[Kappa] = geodesic["EmissionParameters"][[1]];
-	rs = geodesic["EquatorIntersectionCoordinates"][[2, 1]];
-	F = Function[{Global`\[Nu]}, \[Kappa]^2 disk["SpectralFluxDensity"][Global`\[Nu]/\[Kappa], rFactor rs], Listable];
-	Q = \[Kappa]^3 disk["FluxDensity"][rFactor rs];
+	For[i=1, i<=Length[geodesic["EquatorIntersectionCoordinates"][[2]]], i++,
+		rs = geodesic["EquatorIntersectionCoordinates"][[2, i]];
+		If[rs>rISCO, Break]
+	];
+	F = Function[{Global`\[Nu]}, \[Kappa] disk["SpectralFluxDensity"][Global`\[Nu]/\[Kappa], rFactor rs], Listable];
+	Q = \[Kappa]^2 disk["FluxDensity"][rFactor rs];
 	TS = disk["Temperature"][rFactor rs];
 	\[Nu]max = \[Kappa] disk["PeakFrequency"][rFactor rs];
 	Teff = \[Nu]max/(5.879 10^10); (*Wien's displacement law*)
