@@ -7,7 +7,7 @@
 (* ::Text:: *)
 (*The  KerrNullGeodesics  package  generates  null  geodesics in the exterior of a Kerr black hole (BH) based on the expression of the analytical solution as given by Gralla & Lupsasca: *)
 (*Gralla & Lupsasca (2020). Null geodesics of the Kerr exterior. Physical Review D, 101(4), 044032,  arXiv:1910.12881. *)
-(*(we are referring to the arXiv version arXiv:1910.12881v3 below)*)
+(*(we are referring to the v3 arXiv version arXiv:1910.12881v3 below)*)
 (**)
 (*At intermediate steps the package uses the \[Alpha],\[Beta] parametrization of the null geodesic parameters as introduced by Bardeen:*)
 (*Bardeen, J. M. (1973). Timelike and null geodesics in the Kerr metric. Black holes, 215.*)
@@ -438,26 +438,34 @@ equator\[Lambda]
 
 
 (* ::Text:: *)
-(*Only applicable for the thin disk approximation with matter orbiting on the direct circular equatorial orbits.*)
+(*Only applicable for the thin disk approximation with matter orbiting on corotating circular equatorial orbits.*)
 (*The parameter \[Kappa] represents the ratio between the frequency of observed and emitted photons. \[Theta]loc, \[Phi]loc are the angles of emitted photon in emitter's local spherical coordinate system.*)
 
 
 Options[EmissionParameters] = {"PhiRange" -> {-\[Pi], \[Pi]}}
 
 EmissionParameters[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, rem_, \[Theta]em_, OptionsPattern[]] := Module[{Z1, Z2, rms, A, B, \[CapitalDelta], \[Omega], \[CapitalOmega], utcg, R, \[CapitalTheta], ploct, plocr, ploc\[Theta], \[Kappa], \[Theta]loc, \[Phi]loc},
+(*Compute innermost stable (marginally stable) circular orbit Subscript[r, ms]:*)
 Z1=1+Surd[1-a^2,3] (Surd[1+a,3] + Surd[1-a,3]); Z2=Sqrt[3 a^2 + Z1^2]; rms=3+Z2-Sqrt[(3-Z1) (3+Z1+2 Z2)];
+(*No emission assumed if emission radius Subscript[r, em] below Subscript[r, ms] (accretion disk loses stability and matter accretes on dynamical timescale):*)
 If[rem<rms, <|"\[Kappa]" -> -1, "\[Theta]loc" -> -1, "\[Phi]loc" -> -1|>,
 A = rem^2; \[CapitalDelta] = rem^2-2 rem + a^2; B = (rem^2 + a^2)^2 - \[CapitalDelta] a^2; \[Omega] = (2 a rem)/B;
+(*Coordinate frequency \[CapitalOmega]=d\[Phi]/dt and u^t of equatorial circular geodesics at emission radius Subscript[r, em]:*)
 \[CapitalOmega] =1/(Sqrt[rem^3]+ a); utcg=((\[CapitalDelta] A)/B - (\[Omega]-\[CapitalOmega])^2 B/A)^(-1/2);
+
 R = (rem^2 + a^2 - a \[ScriptL])^2 - \[CapitalDelta] (\[Eta] + (\[ScriptL]-a)^2);
 \[CapitalTheta] = \[Eta] + a^2 (Cos[\[Theta]em])^2 - \[ScriptL]^2/(Tan[\[Theta]em])^2;
 
+(*Components of emitted photon momentum wrt local orthogonal tetrad (reference photon with energy equal to 1):*)
 ploct = -utcg (1- \[CapitalOmega] \[ScriptL]);
 plocr = -Sqrt[(R/(\[CapitalDelta] A))];
 ploc\[Theta] = Sign[\[Pi]/2 - \[Theta]o] Sqrt[\[CapitalTheta]/A];
 
+(*Redshift of photon frequency with respect to observers at rest at infinity*)
 \[Kappa] = -1/ploct;
+(*The local coordinates are constructed so that the z direction is purely orthogonal to the equatorial plane.*)
 \[Theta]loc = ArcCos[ploc\[Theta]/-ploct];
+(*The Subscript[\[Phi], loc] coordinate is positively oriented and its origin chosen so that a photon shot in the radial direction goes toward Subscript[\[Phi], loc]=\[Pi]/2, purely in the \[Phi] direction toward Subscript[\[Phi], loc]=0*)
 \[Phi]loc = Mod[Sign[-1+(\[CapitalDelta] A^2/(B^2 (\[Omega]-\[CapitalOmega]))+\[Omega]) \[ScriptL]] ArcCos[plocr/Sqrt[ploct^2-ploc\[Theta]^2]], OptionValue["PhiRange"][[2]]-OptionValue["PhiRange"][[1]], OptionValue["PhiRange"][[1]]];
 
 <|"\[Kappa]" -> \[Kappa], "\[Theta]loc" -> \[Theta]loc, "\[Phi]loc" -> \[Phi]loc|>
@@ -465,15 +473,19 @@ ploc\[Theta] = Sign[\[Pi]/2 - \[Theta]o] Sqrt[\[CapitalTheta]/A];
 
 
 MomentumFromParameters[rem_, a_ \[Omega]loc_, \[Theta]loc_, \[Phi]loc_, M_:1] := Module[{ploct, plocr, ploc\[Theta], ploc\[Phi], A, B, \[CapitalDelta], \[Omega], \[CapitalOmega], utcg, et\[Phi], pt, pr, p\[Theta], p\[Phi], vecpt, vecp\[Phi]},
+(*Momentum components with respect to the local orthogonal tetrad*)
 ploct = \[Omega]_loc Quantity["ReducedPlanckConstant"] Quantity["GravitationalConstant"]  / (Quantity["SpeedOfLight"])^3/ M;
 plocr = ploct Sin[\[Theta]loc] Cos[\[Phi]loc];
 ploc\[Phi] = ploct Sin[\[Theta]loc] Sin[\[Phi]loc];
 ploc\[Theta] = ploct Cos[\[Theta]loc];
 
 A = rem^2; \[CapitalDelta] = rem^2-2 rem + a^2; B = (rem^2 + a^2)^2 - \[CapitalDelta] a^2; \[Omega] = (2 a rem)/B;
+(*Coordinate frequency \[CapitalOmega]=d\[Phi]/dt and u^t of equatorial circular geodesics at emission radius Subscript[r, em]:*)
 \[CapitalOmega] =1/(Sqrt[rem^3]+ a); utcg=((\[CapitalDelta] A)/B - (\[Omega]-\[CapitalOmega])^2 B/A)^(-1/2);
+(*The t component of the \[Phi] tetrad component, (Subscript[e, (\[Phi])]^t):*)
 et\[Phi] = ((\[CapitalDelta]^2 A^3)/(B^3 (\[Omega]-\[CapitalOmega])) - (\[CapitalDelta] A)/B)^(-1/2);
 
+(*Coordinate components of momentum, pt,p\[Phi],pr,p\[Theta] have lower indices, vecpt, vec\[Phi] have upper indices:*)
 vecpt = ploct utcg + ploc\[Phi] et\[Phi];
 pr = plocr Sqrt[\[CapitalDelta]/A];
 p\[Theta] = ploc\[Theta] Sqrt[1/A];
@@ -490,10 +502,14 @@ p\[Phi] = - ((\[Omega] B)/A) vecpt + B/A vecp\[Phi];
 (*Public Functions*)
 
 
+(* ::Text:: *)
+(*Given the private functions specified above, the KerrNullGeo and KerrNullGeoDistant functions classify the polar and radial motion based on the constants and the radial roots. Then they call orbital functions based on this classification. The implementation closely shadows the procedure described in Section VI of Gralla & Lupsasca arXiv:1910.12881v3.*)
+
+
 Options[KerrNullGeo] = {"Momentum" -> "Momentum", "PhiRange" -> {-\[Infinity], \[Infinity]}}
 SyntaxInformation[KerrNullGeoDistant] = {"ArgumentsPattern"->{_,_,_}};
 
-KerrNullGeo[a_, xs_, ps_, M_:1, OptionsPattern[]] := Module[{ts, rs, \[Theta]s, \[Phi]s, pts, prs, p\[Theta]s, p\[Phi]s, consts, \[ScriptL], \[Eta], roots, r1, r2, r3, r4, type, r, I\[Phi], \[Lambda]x, It, \[Theta], G\[Phi], Gt, equator\[Lambda], \[Phi], t, \[Kappa], \[Theta]loc, \[Phi]loc, \[Theta]x, \[Phi]x, assoc},
+KerrNullGeo[a_, xs_, ps_, M_:1, OptionsPattern[]] := Module[{ts, rs, \[Theta]s, \[Phi]s, pts, prs, p\[Theta]s, p\[Phi]s, consts, \[ScriptL], \[Eta], roots, r1, r2, r3, r4, type, r, I\[Phi], \[Lambda]x, It, \[Theta], G\[Phi], Gt, equator\[Lambda], \[Phi], t, \[Kappa], \[Theta]loc, \[Phi]loc, \[Theta]x, \[Phi]x, assoc,prec,eps},
 If[a<=0 || a>=1, Message[KerrNullGeo::OutOfBounds, "Parameter a must be between 0 and 1."]; Return[];];
 If[OptionValue["Momentum"]=="WaveVector", ps = ps Quantity["ReducedPlanckConstant"] Quantity["GravitationalConstant"]  / (Quantity["SpeedOfLight"])^3/ M];
 
@@ -509,7 +525,20 @@ If[ Length[xs]==Length[ps] == 4,
 
 consts = NullConstantsOfMotion[a, \[Theta]s, pts, p\[Theta]s, p\[Phi]s];
 {\[ScriptL], \[Eta]} = {"\[ScriptL]", "\[Eta]"} /. consts;
-If[Abs[\[Eta]]< 10 $MachineEpsilon || Abs[\[Eta]+(Abs[\[ScriptL]]-a)^2]< 10 $MachineEpsilon, \[Eta]=\[Eta] + 10 $MachineEpsilon]; (*To avoid undefined expresions in polar motion*)
+
+(*Determine precision of computations, set epsilon tolerance:*)
+prec=Precision[{a, xs, ps, M}];
+If[NumericQ[prec],
+	eps=10^-prec,
+	(*else*)
+	If[prec==Infinity,
+		eps=10^-100,
+		(*else*)
+		eps==$MachineEpsilon
+	]
+]
+(*\[Eta]=0 at given precision leads to undefined expressions in polar motion so we shift the value by a small epsilon*)
+If[Abs[\[Eta]]< 10 eps || Abs[\[Eta]+(Abs[\[ScriptL]]-a)^2]< 10 eps, \[Eta]=\[Eta] + 10 eps]; 
 
 roots = RadialRoots[a, \[Eta], \[ScriptL]];
 {r1, r2, r3, r4} = {"r1", "r2", "r3", "r4"} /. roots;
@@ -546,6 +575,7 @@ If[type == "PhotonEscape", \[Theta]x=\[Theta][\[Lambda]x]; \[Phi]x=\[Phi][\[Lamb
 
 If[Length[equator\[Lambda]] == 0, 
   {\[Kappa], \[Theta]loc, \[Phi]loc} = {-1, -1, -1}, 
+  (*TODO: Should \[Theta]o be declared/computed?*)
   {\[Kappa], \[Theta]loc, \[Phi]loc} = {"\[Kappa]", "\[Theta]loc", "\[Phi]loc"} /. EmissionParameters[a, \[Eta], \[ScriptL], \[Theta]o, r[equator\[Lambda][[1]]], \[Theta][equator\[Lambda][[1]]], "PhiRange" -> If[OptionValue["PhiRange"][[2]]!=\[Infinity], OptionValue["PhiRange"]]]
 ];
 
@@ -573,7 +603,7 @@ Keys[g_KerrNullGeoFunction]^:=Keys[g[[5]]];
 Options[KerrNullGeoDistant] = {"Rotation" -> "Counterclockwise", "PhiRange" -> {-\[Infinity], \[Infinity]}}
 SyntaxInformation[KerrNullGeoDistant] = {"ArgumentsPattern"->{_,_,_,_}};
 
-KerrNullGeoDistant[a_, \[Theta]o_, \[Alpha]_, \[Beta]_, OptionsPattern[]] := Module[ {consts, \[Eta], \[ScriptL], roots, r1, r2, r3, r4, rp, rm, k, r, \[Theta], \[Phi], G\[Phi], I\[Phi], \[CapitalDelta]v, Gt, RedIt, \[Lambda]x, \[Phi]x, \[Theta]x, assoc, equator\[Lambda], type, \[Kappa], \[Theta]loc, \[Phi]loc},
+KerrNullGeoDistant[a_, \[Theta]o_, \[Alpha]_, \[Beta]_, OptionsPattern[]] := Module[ {consts, \[Eta], \[ScriptL], roots, r1, r2, r3, r4, rp, rm, k, r, \[Theta], \[Phi], G\[Phi], I\[Phi], \[CapitalDelta]v, Gt, RedIt, \[Lambda]x, \[Phi]x, \[Theta]x, assoc, equator\[Lambda], type, \[Kappa], \[Theta]loc, \[Phi]loc,prec,eps},
 
 If[a<=0 || a>=1, Message[KerrNullGeo::OutOfBounds, "Parameter a must be between 0 and 1."]; Return[];];
 If[\[Theta]o<0 || \[Theta]o>\[Pi], Message[KerrNullGeo::OutOfBounds, "Parameter \[Theta]o must be between 0 and \[Pi]."]; Return[];];
@@ -582,7 +612,20 @@ If[OptionValue["Rotation"]=="Clockwise", \[Alpha]=-\[Alpha]];
 
 consts = DistantNullConstantsOfMotion[a, \[Theta]o, \[Alpha], \[Beta]];
 {\[ScriptL], \[Eta]} = {"\[ScriptL]", "\[Eta]"} /. consts;
-If[Abs[\[Eta]]< 10 $MachineEpsilon || Abs[\[Eta]+(Abs[\[ScriptL]]-a)^2]< 10 $MachineEpsilon, \[Eta]=\[Eta] + 10 $MachineEpsilon]; (*To avoid undefined expresions in polar motion*)
+
+(*Determine precision of computations, set epsilon tolerance:*)
+prec=Precision[{a, \[Theta]o, \[Alpha], \[Beta]}];
+If[NumericQ[prec],
+	eps=10^-prec,
+	(*else*)
+	If[prec==Infinity,
+		eps=10^-100,
+		(*else*)
+		eps==$MachineEpsilon
+	]
+]
+(*\[Eta]=0 at given precision leads to undefined expressions in polar motion so we shift the value by a small epsilon*)
+If[Abs[\[Eta]]< 10 eps || Abs[\[Eta]+(Abs[\[ScriptL]]-a)^2]< 10 eps, \[Eta]=\[Eta] + 10 eps]; 
 
 roots = RadialRoots[a, \[Eta], \[ScriptL]];
 {r1, r2, r3, r4} = {"r1", "r2", "r3", "r4"} /. roots;
