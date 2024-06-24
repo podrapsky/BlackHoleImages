@@ -47,7 +47,7 @@ Print[Dynamic[N[100 (j+jmax)/(2 jmax)]], " %"];
 For[j=-jmax, j<jmax,j+=step,
 	For[i=-imax, i<imax ,i+=step,
 		geod = BlackHoleImages`KerrNullGeodesics`KerrNullGeoDistant[a, \[Theta]o, i, j, "Rotation" -> OptionValue["Rotation"],"PhiRange" -> OptionValue["PhiRange"]];
-		AppendTo[row, {geod["EquatorIntersectionCoordinates"], geod["EmissionParameters"], geod["EscapeCoordinates"]}];
+		AppendTo[row, {geod["EmissionCoordinates"], geod["EmissionParameters"], geod["EscapeCoordinates"]}];
 	];
 	AppendTo[template, row];
 	row = {};
@@ -62,6 +62,7 @@ Export[file, template];
 
 
 Options[DiskImage] = {"InputUnits" -> "NovikovThorne", "OutputUnits" -> "SI", "rUnits" -> "BHMass",  (*BlackHoleImages`AlphaDiskModel`DiskParams options*)
+					"Grid"->True, (*BlackHoleImages`AlphaDiskModel`ObservedDiskElement option*)
 					"Rotation" -> "Counterclockwise", "PhiRange" -> {-\[Pi], \[Pi]}, (*BlackHoleImages`KerrNullGeodesics`KerrNullGeoDistant options*)
 					"Output" -> {"MaximalFrequency"} (*Specifies what information is requested in the form {"information1", "information 2",...},
 													where "informationN" must be element of the association returned by BlackHoleImages`AlphaDiskModel`ObservedDiskElement
@@ -90,7 +91,7 @@ disk = BlackHoleImages`AlphaDiskModel`DiskParams[a, \[Alpha], m, mdot, "InputUni
 For[j=-jmax, j<jmax,j+=step,
 	For[i=-imax, i<imax ,i+=step,
 		geod = BlackHoleImages`KerrNullGeodesics`KerrNullGeoDistant[a, \[Theta]o, i, j, "Rotation" -> OptionValue["Rotation"],"PhiRange" -> OptionValue["PhiRange"]];
-		element = BlackHoleImages`AlphaDiskModel`ObservedDiskElement[disk, geod];
+		element = BlackHoleImages`AlphaDiskModel`ObservedDiskElement[disk, geod, "Grid"->OptionValue["Grid"]];
 		row = MapThread[Append, {row, Table[element[OptionValue["Output"][[k]]], {k, 1, length}]}];
 	];
 	matrix = MapThread[Append, {matrix, row}];
@@ -103,6 +104,7 @@ matrix
 
 
 Options[DiskImageFromTemplate] = {"InputUnits" -> "NovikovThorne", "OutputUnits" -> "SI", "rUnits" -> "BHMass",  (*BlackHoleImages`AlphaDiskModel`DiskParams options*)
+								  "Grid"->True, (*BlackHoleImages`AlphaDiskModel`ObservedDiskElement option*)
 								  "Output" -> {"MaximalFrequency"} (*Specifies what information is requested in the form {"information1", "information 2",...},
 																	where "informationN" must be element of the association returned by BlackHoleImages`AlphaDiskModel`ObservedDiskElement
 																	("PhysicalTemperature", "EffectiveTemperature", "SpectralFluxDensity", "FluxDensity" or "PeakFrequency") *)
@@ -128,7 +130,7 @@ disk = BlackHoleImages`AlphaDiskModel`DiskParams[a, \[Alpha], m, mdot, "InputUni
 For[j=1, j<=jmax,j+=1,
 	For[i=1, i<=imax ,i+=1,
 		shard = template[[j, i]];
-		element = BlackHoleImages`AlphaDiskModel`ObservedDiskElement[disk, <|"EquatorIntersectionCoordinates"-> shard[[1]], "EmissionParameters" -> shard[[2]]|>];
+		element = BlackHoleImages`AlphaDiskModel`ObservedDiskElement[disk, <|"EmissionCoordinates"-> shard[[1]], "EmissionParameters" -> shard[[2]]|>, "Grid"->OptionValue["Grid"]];
 		row = MapThread[Append, {row, Table[element[OptionValue["Output"][[k]]], {k, 1, length}]}];
 	];
 	matrix = MapThread[Append, {matrix, row}];

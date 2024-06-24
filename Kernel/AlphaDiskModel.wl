@@ -34,7 +34,7 @@ Msun = 1477;
 
 
 (* ::Section:: *)
-(*Temperature & Optical Depth Functions*)
+(*Temperature*)
 
 
 TSC[a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := 3 10^7 (M/(3 Msun))^(-1/2) mdot^(1/4) r^(-3/4) \[ScriptCapitalB][a,r]^(-1/4) \[ScriptCapitalC][a,r]^(-1/8) \[ScriptCapitalQ][a,r,M,rISCO, x1, x2, x3]^(1/4); (*N&T (5.10.1)*)
@@ -125,6 +125,19 @@ Regions[a_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := Module[{rbc1, rbc2, 
 ]
 
 
+rGrid[r_] := Module[{i, return}, 
+return=False;
+For[i=1, i<100, i++, If[r-2 i<0.05 && r-2 i>0, return=True]];
+return
+]
+
+\[Phi]Grid[\[Phi]_, r_] := Module[{i, return}, 
+return=False;
+For[i=0, i<16, i++, If[Mod[\[Phi]-i 2\[Pi]/16,2\[Pi]]<0.05/r && Mod[\[Phi]-i 2\[Pi]/16,2\[Pi]]>0, return=True]];
+return
+]
+
+
 (* ::Section:: *)
 (*Public Functions*)
 
@@ -136,18 +149,18 @@ Regions[a_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := Module[{rbc1, rbc2, 
 Options[DiskParams] = {"InputUnits" -> "NovikovThorne", "OutputUnits" -> "SI", "rUnits" -> "BHMass"}
 
 
-DiskParams[a_, \[Alpha]_, M_, mdot_, OptionsPattern[]] := Module[{rFactor, Z1, Z2, rISCO, x1, x2, x3, RegionC, RegionB, RegionA, TS, F, Q, \[Nu]max},
+DiskParams[a_, \[Alpha]_, M0_, mdot0_, OptionsPattern[]] := Module[{M=M0, mdot=mdot0, rFactor, Z1, Z2, rISCO, x1, x2, x3, RegionC, RegionB, RegionA, TS, F, Q, \[Nu]max},
 
 (*Units Conversion*)
 If[OptionValue["InputUnits"]=="SI",
-	mdot = mdot/(10^-14);
+	mdot = mdot/(10^14);
 	M = M 7.4256 10^-28,
 	If[OptionValue["InputUnits"]=="CGS",
-		mdot = mdot/(10^-17);
+		mdot = mdot/(10^17);
 		M = M 7.4256 10^-31,
 		If[OptionValue["InputUnits"]=="ShakuraSunyaev",
 			M = M Msun;
-			mdot = 1.2859 10^12 mdot/(10^-14);
+			mdot = 0.01286 M mdot;
 		];
 	];
 ];
@@ -175,11 +188,13 @@ x3 = -2 Cos[1/3 ArcCos[a]]; (*P&T (14)*)
 {RegionC, RegionB, RegionA} = {"RegionC", "RegionB", "RegionA"} /. Regions[a, \[Alpha], M, mdot, rISCO, x1, x2, x3];
 
 (*Surface Temperature*)
-TS = Function[{Global`r}, Piecewise[{
+(*TS = Function[{Global`r}, Piecewise[{
 				{TSC[a, rFactor Global`r, \[Alpha], M, mdot, rISCO, x1, x2, x3], RegionC[rFactor Global`r]},
 				{TSB[a, rFactor Global`r, \[Alpha], M, mdot, rISCO, x1, x2, x3], RegionB[rFactor Global`r]},
 				{TSA[a, rFactor Global`r, \[Alpha], M, mdot], RegionA[rFactor Global`r]}
-}], Listable];
+}], Listable];*)
+
+TS = Function[{Global`r}, TSC[a, rFactor Global`r, \[Alpha], M, mdot, rISCO, x1, x2, x3], Listable];
 
 (*Spectral Flux Density*)
 F = Function[{Global`\[Nu], Global`r}, Piecewise[{
@@ -213,21 +228,27 @@ Q = Function[{Global`r}, Piecewise[{
 ]
 
 
-ObservedDiskElement[disk_Association, geodesic_] := Module[{rISCO, i, \[Kappa], rs, rFactor, F, Q, TS, \[Nu]max, Teff},
+Options[ObservedDiskElement] = {"Grid" -> True}
+
+
+ObservedDiskElement[disk_Association, geodesic_, OptionsPattern[]] := Module[{rISCO, i, \[Kappa], rem, \[Phi]em, rFactor, F, Q, TS, \[Nu]max, Teff},
 
 rISCO = disk["rISCO"];
 rFactor = disk["rDefinition"];
-If[Length[geodesic["EquatorIntersectionCoordinates"][[2]]]==0||geodesic["EmissionParameters"][[1]]==-1, F=Q=TS=\[Nu]max=Teff=-1,
-	\[Kappa] = geodesic["EmissionParameters"][[1]];
-	For[i=1, i<=Length[geodesic["EquatorIntersectionCoordinates"][[2]]], i++,
-		rs = geodesic["EquatorIntersectionCoordinates"][[2, i]];
-		If[rs>rISCO, Break]
-	];
-	F = Function[{Global`\[Nu]}, \[Kappa] disk["SpectralFluxDensity"][Global`\[Nu]/\[Kappa], rFactor rs], Listable];
-	Q = \[Kappa]^2 disk["FluxDensity"][rFactor rs];
-	TS = disk["Temperature"][rFactor rs];
-	\[Nu]max = \[Kappa] disk["PeakFrequency"][rFactor rs];
-	Teff = \[Nu]max/(5.879 10^10); (*Wien's displacement law*)
+
+rem = geodesic["EmissionCoordinates"][[2]];
+\[Phi]em = geodesic["EmissionCoordinates"][[4]];
+
+If[OptionValue["Grid"]==True && (rGrid[rFactor rem] || \[Phi]Grid[\[Phi]em, rem]),
+	F=Q=TS=\[Nu]max=Teff=-2,
+	If[geodesic["EmissionParameters"][[1]]==-1, F=Q=TS=\[Nu]max=Teff=-1,
+		\[Kappa] = geodesic["EmissionParameters"][[1]];
+		F = Function[{Global`\[Nu]}, \[Kappa] disk["SpectralFluxDensity"][Global`\[Nu]/\[Kappa], rFactor rem], Listable];
+		Q = \[Kappa]^2 disk["FluxDensity"][rFactor rem];
+		TS = disk["Temperature"][rFactor rem];
+		\[Nu]max = \[Kappa] disk["PeakFrequency"][rFactor rem];
+		Teff = \[Nu]max/(5.879 10^10); (*Wien's displacement law*)
+		]
 ];
 
 <|

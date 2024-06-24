@@ -15,7 +15,7 @@
 (*The primary use case for the package is the imaging of accretion disks near black holes. As such, the public functions return objects that include lists of intersections through the equatorial plane for convenience. However, the package is written as flexible enough to find many other use cases.*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Define Usage for Public Functions*)
 
 
@@ -33,7 +33,7 @@ KerrNullGeo::OutOfBounds = "Out of bounds error: `1`"
 KerrNullGeo::ListSize = "Parameters `1` or `2` is not a list of length `3`."
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Constants of Motion*)
 
 
@@ -60,7 +60,7 @@ DistantNullConstantsOfMotion[a_, \[Theta]o_, \[Alpha]_, \[Beta]_] := <|
 |>
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Polar Motion*)
 
 
@@ -68,11 +68,7 @@ DistantNullConstantsOfMotion[a_, \[Theta]o_, \[Alpha]_, \[Beta]_] := <|
 (*Polar motion takes two forms, ordinary motion, and vortical motion as described in Section III of  Gralla & Lupsasca, arXiv:1910.12881v3 (we follow their notation closely with equation numbers in comments).*)
 
 
-Options[OrdinaryPolarMotion] = {"ReturnValues" -> "All"}
-Options[VorticalPolarMotion] = {"ReturnValues" -> "All"}
-
-
-OrdinaryPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_, OptionsPattern[]] := Module[{\[CapitalDelta]\[Theta], u1, u2, EPrime, G\[Theta]o, Gto, G\[Phi]o, \[CapitalPsi], \[Theta], Gt, G\[Phi], return}, 
+OrdinaryPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_] := Module[{\[CapitalDelta]\[Theta], u1, u2, EPrime, G\[Theta]o, Gto, G\[Phi]o, \[CapitalPsi], \[Theta], Gt, G\[Phi], return}, 
 (*Eq. (19):*)
 \[CapitalDelta]\[Theta]= 1/2 (1-(\[Eta]+\[ScriptL]^2)/a^2);
 u1=\[CapitalDelta]\[Theta]-Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; u2=\[CapitalDelta]\[Theta]+Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; 
@@ -86,24 +82,16 @@ G\[Phi]= Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x ||
 
 \[Theta] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[ArcCos[-\[Nu]\[Theta] Sqrt[u2] Sin[\[CapitalPsi][Global`\[Lambda]]]]]]], Listable]; (*G&L (49)*)
 
-If[OptionValue["ReturnValues"]!="OmitT", 
-
-
-  EPrime[\[Phi]_, k_] := (EllipticE[\[Phi], k]-EllipticF[\[Phi], k])/(2 k);
-  (*Eq. (31):*)
-  Gto=2 u2/Sqrt[-u1 a^2] EPrime[Re[ArcSin[Cos[\[Theta]o]/Sqrt[u2]]], u2/u1];
-  Gt=Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[-2 u2/Sqrt[-u1 a^2] EPrime[\[CapitalPsi][Global`\[Lambda]], u2/u1] - \[Nu]\[Theta] Gto]]], Listable];
+EPrime[\[Phi]_, k_] := (EllipticE[\[Phi], k]-EllipticF[\[Phi], k])/(2 k);
+(*Eq. (31):*)
+Gto=2 u2/Sqrt[-u1 a^2] EPrime[Re[ArcSin[Cos[\[Theta]o]/Sqrt[u2]]], u2/u1];
+Gt=Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[-2 u2/Sqrt[-u1 a^2] EPrime[\[CapitalPsi][Global`\[Lambda]], u2/u1] - \[Nu]\[Theta] Gto]]], Listable];
   
-  return = <|"\[Theta]" -> \[Theta], "Gt" -> Gt, "G\[Phi]" -> G\[Phi]|>,
-
-  return = <|"\[Theta]" -> \[Theta], "G\[Phi]" -> G\[Phi]|>
-];
-  
-return
+<|"\[Theta]" -> \[Theta], "Gt" -> Gt, "G\[Phi]" -> G\[Phi]|>
 ]
 
 
-VorticalPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_, OptionsPattern[]] := Module[{h, \[CapitalDelta]\[Theta], u1, u2, \[CapitalUpsilon], \[CapitalUpsilon]\[Lambda], G\[Theta]o, Gto, G\[Phi]o,\[Theta], Gt, G\[Phi], return},
+VorticalPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_] := Module[{h, \[CapitalDelta]\[Theta], u1, u2, \[CapitalUpsilon], \[CapitalUpsilon]\[Lambda], G\[Theta]o, Gto, G\[Phi]o,\[Theta], Gt, G\[Phi], return},
 
 (*Eq. (54)*)
 h = Sign[Cos[\[Theta]o]];
@@ -124,21 +112,16 @@ G\[Phi] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x |
 
 \[Theta] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[ArcCos[h Sqrt[u1+(u2-u1) (Sin[\[CapitalUpsilon]\[Lambda][Global`\[Lambda]]])^2]]]]], Listable]; (*G&L (69)*)
 
-If[OptionValue["ReturnValues"]!="OmitT",
-  (*Eq. (58):*)
-  Gto = -h Sqrt[u1/a^2] EllipticE[\[CapitalUpsilon][\[Theta]o], 1-u2/u1];
-  Gt = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Sqrt[u1/a^2] EllipticE[\[CapitalUpsilon]\[Lambda][Global`\[Lambda]], 1-u2/u1]-\[Nu]\[Theta] Gto]]], Listable];
+(*Eq. (58):*)
+Gto = -h Sqrt[u1/a^2] EllipticE[\[CapitalUpsilon][\[Theta]o], 1-u2/u1];
+Gt = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[Sqrt[u1/a^2] EllipticE[\[CapitalUpsilon]\[Lambda][Global`\[Lambda]], 1-u2/u1]-\[Nu]\[Theta] Gto]]], Listable];
 
-  return = <|"\[Theta]" -> \[Theta], "Gt" -> Gt, "G\[Phi]" -> G\[Phi]|>,
+<|"\[Theta]" -> \[Theta], "Gt" -> Gt, "G\[Phi]" -> G\[Phi]|>
 
-  return = <|"\[Theta]" -> \[Theta], "G\[Phi]" -> G\[Phi]|>
-];
-
-return
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Radial Roots*)
 
 
@@ -168,7 +151,7 @@ z=Sqrt[(\[Omega]2+\[Omega]1-A/3)/2];
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Radial Motion*)
 
 
@@ -231,7 +214,7 @@ It = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Glo
 ]
 
 
-RadialMotionCase2[roots_, a_, \[Eta]_, \[ScriptL]_, Optional[rs_/; NumberQ[rs], 1], Optional[\[Nu]r_/; NumberQ[\[Nu]r], -1], OptionsPattern[]] := Module[{Distant, r1, r2, r3, r4, rp, rm, xo, k, I0o, \[Lambda]x, X, r, Pi1, E\[Lambda], Pip, Pim, Ip, Iminus, I1, deriv, I2, I\[Phi], It},
+RadialMotionCase2[roots_, a_, \[Eta]_, \[ScriptL]_, Optional[rs_/; NumberQ[rs], -1], Optional[\[Nu]r_/; NumberQ[\[Nu]r], -1], OptionsPattern[]] := Module[{Distant, r1, r2, r3, r4, rp, rm, xo, k, I0o, \[Lambda]x, X, r, Pi1, E\[Lambda], Pip, Pim, Ip, Iminus, I1, deriv, I2, I\[Phi], It},
 Distant=If[OptionValue["Observer"]=="Distant", True, False];
 {r1, r2, r3, r4} = {"r1", "r2", "r3", "r4"}/. roots;
 
@@ -295,7 +278,7 @@ If[Distant,
 ]
 
 
-RadialMotionCase3[roots_, a_, \[Eta]_, \[ScriptL]_, Optional[rs_/; NumberQ[rs], 1], Optional[\[Nu]r_/; NumberQ[\[Nu]r], -1], OptionsPattern[]] := Module[{Distant, r1, r2, r3, r4, rp, rm, A, B, xo, k, p1, f1, RedR1, RedR2, R1, R2, I0o, \[Lambda]x, X, r, \[Alpha]0, \[Alpha]p, \[Alpha]m, Pip, Pim, Ip, Iminus, I\[Phi], Pi1, Pi2, I1, I2, It},
+RadialMotionCase3[roots_, a_, \[Eta]_, \[ScriptL]_, Optional[rs_/; NumberQ[rs], -1], Optional[\[Nu]r_/; NumberQ[\[Nu]r], -1], OptionsPattern[]] := Module[{Distant, r1, r2, r3, r4, rp, rm, A, B, xo, k, p1, f1, RedR1, RedR2, R1, R2, I0o, \[Lambda]x, X, r, \[Alpha]0, \[Alpha]p, \[Alpha]m, Pip, Pim, Ip, Iminus, I\[Phi], Pi1, Pi2, I1, I2, It},
 If[OptionValue["Observer"]=="Distant", Distant=True, Distant=False];
 {r1, r2, r3, r4} = {"r1", "r2", "r3", "r4"} /. roots;
 
@@ -366,7 +349,7 @@ If[Distant,
 ]
 
 
-RadialMotionCase4[roots_, a_, \[Eta]_, \[ScriptL]_, Optional[rs_/; NumberQ[rs], 1], Optional[\[Nu]r_/; NumberQ[\[Nu]r], -1], OptionsPattern[]] := Module[{Distant, r1, r2, r3, r4, rp, rm, C, D, k, a2, b1, g0, I0o, \[Lambda]x, x, X, p2, f2, RedS1, S1, RedS2, S2, r, Pip, Pim, Pi1, Pi2, Ip, Iminus, I1, I2, It, I\[Phi]},
+RadialMotionCase4[roots_, a_, \[Eta]_, \[ScriptL]_, Optional[rs_/; NumberQ[rs], -1], Optional[\[Nu]r_/; NumberQ[\[Nu]r], -1], OptionsPattern[]] := Module[{Distant, r1, r2, r3, r4, rp, rm, C, D, k, a2, b1, g0, I0o, \[Lambda]x, x, X, p2, f2, RedS1, S1, RedS2, S2, r, Pip, Pim, Pi1, Pi2, Ip, Iminus, I1, I2, It, I\[Phi]},
 If[OptionValue["Observer"]=="Distant", Distant=True, Distant=False];
 {r1, r2, r3, r4} = {"r1", "r2", "r3", "r4"} /. roots;
 
@@ -433,7 +416,7 @@ I\[Phi] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x |
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Equator Intersections*)
 
 
@@ -473,11 +456,8 @@ equator\[Lambda]
 
 Options[EmissionParameters] = {"PhiRange" -> {-\[Pi], \[Pi]}}
 
-EmissionParameters[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, rem_, \[Theta]em_, OptionsPattern[]] := Module[{Z1, Z2, rms, A, B, \[CapitalDelta], \[Omega], \[CapitalOmega], utcg, R, \[CapitalTheta], ploct, plocr, ploc\[Theta], \[Kappa], \[Theta]loc, \[Phi]loc},
-(*Compute innermost stable (marginally stable) circular orbit Subscript[r, ms]:*)
-Z1=1+Surd[1-a^2,3] (Surd[1+a,3] + Surd[1-a,3]); Z2=Sqrt[3 a^2 + Z1^2]; rms=3+Z2-Sqrt[(3-Z1) (3+Z1+2 Z2)];
-(*No emission assumed if emission radius Subscript[r, em] below Subscript[r, ms] (accretion disk loses stability and matter accretes on dynamical timescale):*)
-If[rem<rms, <|"\[Kappa]" -> -1, "\[Theta]loc" -> -1, "\[Phi]loc" -> -1|>,
+EmissionParameters[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, rem_, \[Theta]em_, j_, OptionsPattern[]] := Module[{A, B, \[CapitalDelta], \[Omega], \[CapitalOmega], utcg, R, \[CapitalTheta], ploct, plocr, ploc\[Theta], \[Kappa], \[Theta]loc, \[Phi]loc},
+
 A = rem^2; \[CapitalDelta] = rem^2-2 rem + a^2; B = (rem^2 + a^2)^2 - \[CapitalDelta] a^2; \[Omega] = (2 a rem)/B;
 (*Coordinate frequency \[CapitalOmega]=d\[Phi]/dt and u^t of equatorial circular geodesics at emission radius Subscript[r, em]:*)
 \[CapitalOmega] =1/(Sqrt[rem^3]+ a); utcg=((\[CapitalDelta] A)/B - (\[Omega]-\[CapitalOmega])^2 B/A)^(-1/2);
@@ -488,7 +468,7 @@ R = (rem^2 + a^2 - a \[ScriptL])^2 - \[CapitalDelta] (\[Eta] + (\[ScriptL]-a)^2)
 (*Components of emitted photon momentum wrt local orthogonal tetrad (reference photon with energy equal to 1):*)
 ploct = -utcg (1- \[CapitalOmega] \[ScriptL]);
 plocr = -Sqrt[(R/(\[CapitalDelta] A))];
-ploc\[Theta] = Sign[\[Pi]/2 - \[Theta]o] Sqrt[\[CapitalTheta]/A];
+ploc\[Theta] = (-1)^(j+1)Sign[\[Pi]/2 - \[Theta]o] Sqrt[\[CapitalTheta]/A];
 
 (*Redshift of photon frequency with respect to observers at rest at infinity*)
 \[Kappa] = -1/ploct;
@@ -499,12 +479,12 @@ ploc\[Theta] = Sign[\[Pi]/2 - \[Theta]o] Sqrt[\[CapitalTheta]/A];
 
 
 <|"\[Kappa]" -> \[Kappa], "\[Theta]loc" -> \[Theta]loc, "\[Phi]loc" -> \[Phi]loc|>
- ]]
+ ]
 
 
-MomentumFromParameters[rem_, a_ \[Omega]loc_, \[Theta]loc_, \[Phi]loc_, M_:1] := Module[{ploct, plocr, ploc\[Theta], ploc\[Phi], A, B, \[CapitalDelta], \[Omega], \[CapitalOmega], utcg, et\[Phi], pt, pr, p\[Theta], p\[Phi], vecpt, vecp\[Phi]},
+MomentumFromParameters[rem_, a_, \[Omega]loc_, \[Theta]loc_, \[Phi]loc_, M_:1] := Module[{ploct, plocr, ploc\[Theta], ploc\[Phi], A, B, \[CapitalDelta], \[Omega], \[CapitalOmega], utcg, et\[Phi], pt, pr, p\[Theta], p\[Phi], vecpt, vecp\[Phi]},
 (*Momentum components with respect to the local orthogonal tetrad*)
-ploct = \[Omega]_loc Quantity["ReducedPlanckConstant"] Quantity["GravitationalConstant"]  / (Quantity["SpeedOfLight"])^3/ M;
+ploct = \[Omega]loc Quantity["ReducedPlanckConstant"] Quantity["GravitationalConstant"]  / (Quantity["SpeedOfLight"])^3/ M;
 plocr = ploct Sin[\[Theta]loc] Cos[\[Phi]loc];
 ploc\[Phi] = ploct Sin[\[Theta]loc] Sin[\[Phi]loc];
 ploc\[Theta] = ploct Cos[\[Theta]loc];
@@ -538,7 +518,7 @@ p\[Phi] = - ((\[Omega] B)/A) vecpt + B/A vecp\[Phi];
 
 Options[KerrNullGeo] = {"Momentum" -> "Momentum", "PhiRange" -> {-\[Infinity], \[Infinity]}}
 
-KerrNullGeo[a_, xs_, ps_, M_:1, OptionsPattern[]] := Module[{ts, rs, \[Theta]s, \[Phi]s, pts, prs, p\[Theta]s, p\[Phi]s, consts, \[ScriptL], \[Eta], roots, r1, r2, r3, r4, type, r, I\[Phi], \[Lambda]x, It, \[Theta], G\[Phi], Gt, equator\[Lambda], \[Phi], t, \[Kappa], \[Theta]loc, \[Phi]loc, \[Theta]x, \[Phi]x, assoc,prec,eps},
+KerrNullGeo[a_, xs_, ps_, M_:1, OptionsPattern[]] := Module[{ts, rs, \[Theta]s, \[Phi]s, pts, prs, p\[Theta]s, p\[Phi]s, consts, \[ScriptL], \[Eta], roots, r1, r2, r3, r4, type, r, I\[Phi], \[Lambda]x, It, \[Theta], G\[Phi], Gt, equator\[Lambda], \[Phi], t, Z1, Z2, rms, rem, tem, \[Theta]em, \[Phi]em, j, \[Kappa], \[Theta]loc, \[Phi]loc, \[Theta]x, \[Phi]x, assoc,prec,eps},
 If[a<=0 || a>=1, Message[KerrNullGeo::OutOfBounds, "Parameter a must be between 0 and 1."]; Return[];];
 If[OptionValue["Momentum"]=="WaveVector", ps = ps Quantity["ReducedPlanckConstant"] Quantity["GravitationalConstant"]  / (Quantity["SpeedOfLight"])^3/ M];
 
@@ -577,9 +557,9 @@ If[Im[r2] != 0,
   {r, I\[Phi], \[Lambda]x, It} = {"r", "I\[Phi]", "\[Lambda]x", "It"} /. RadialMotionCase4[roots, a, \[Eta], \[ScriptL], rs, Sign[prs]],
   If[Im[r4] != 0, 
     {r, I\[Phi], \[Lambda]x, It} = {"r", "I\[Phi]", "\[Lambda]x", "It"} /. RadialMotionCase3[roots, a, \[Eta], \[ScriptL], rs, Sign[prs]],
-    If[r4<1+Sqrt[1-a^2],
+    If[r4<1+Sqrt[1-a^2] || rs>r4,
       {r, I\[Phi], \[Lambda]x, It} = {"r", "I\[Phi]", "\[Lambda]x", "It"} /. RadialMotionCase2[roots, a, \[Eta], \[ScriptL], rs, Sign[prs]];
-      If[r3>1-Sqrt[1-a^2], type = "PhotonEscape"],
+      If[r4>1+Sqrt[1-a^2], type = "PhotonEscape"],
       {r, I\[Phi], \[Lambda]x, It} = {"r", "I\[Phi]", "\[Lambda]x", "It"} /. RadialMotionCase1[roots, a, \[Eta], \[ScriptL], rs, Sign[prs]];
       ];
   ]
@@ -602,10 +582,27 @@ If[OptionValue["PhiRange"][[2]]==\[Infinity],
 t = Function[{Global`\[Lambda]}, Evaluate[It[Global`\[Lambda]] + a^2 Gt[Global`\[Lambda]] + ts]];
 If[type == "PhotonEscape", \[Theta]x=\[Theta][\[Lambda]x]; \[Phi]x=\[Phi][\[Lambda]x], \[Theta]x=-1; \[Phi]x=-1];
 
+(*Compute innermost stable (marginally stable) circular orbit Subscript[r, ms]:*)
+Z1=1+Surd[1-a^2,3] (Surd[1+a,3] + Surd[1-a,3]); Z2=Sqrt[3 a^2 + Z1^2]; rms=3+Z2-Sqrt[(3-Z1) (3+Z1+2 Z2)];
+
 If[Length[equator\[Lambda]] == 0, 
+   rem = \[Phi]em = tem = \[Theta]em = -1;
+  
+  (*No emission assumed if emission radius Subscript[r, em] below Subscript[r, ms] (accretion disk loses stability and matter accretes on dynamical timescale):*)
+  For[j=1, j<=Length[equator\[Lambda]], j++,
+      If[r[equator\[Lambda][[j]]] > rms,
+      rem = r[equator\[Lambda][[j]]];
+      \[Phi]em = \[Phi][equator\[Lambda][[j]]];
+      tem = t[equator\[Lambda][[j]]];
+      \[Theta]em = \[Pi]/2;
+      Break[];
+      ]
+  ];
+  
+  If[rem == -1,
   {\[Kappa], \[Theta]loc, \[Phi]loc} = {-1, -1, -1}, 
-  (*TODO: Should \[Theta]o be declared/computed?*)
-  {\[Kappa], \[Theta]loc, \[Phi]loc} = {"\[Kappa]", "\[Theta]loc", "\[Phi]loc"} /. EmissionParameters[a, \[Eta], \[ScriptL], \[Theta]o, r[equator\[Lambda][[1]]], \[Theta][equator\[Lambda][[1]]], "PhiRange" -> If[OptionValue["PhiRange"][[2]]!=\[Infinity], OptionValue["PhiRange"]]]
+  {\[Kappa], \[Theta]loc, \[Phi]loc} = {"\[Kappa]", "\[Theta]loc", "\[Phi]loc"} /. EmissionParameters[a, \[Eta], \[ScriptL], \[Theta]s, rem, \[Theta]em, j, "PhiRange" -> If[OptionValue["PhiRange"][[2]]!=\[Infinity], OptionValue["PhiRange"]]]
+  ]
 ];
 
 assoc = <|
@@ -617,6 +614,7 @@ assoc = <|
 	"TrajectoryType" -> type,
 	"MinoTimeOfCapture" -> \[Lambda]x,
 	"EscapeCoordinates" -> {\[Theta]x, \[Phi]x},
+	"EmissionCoordinates" -> {tem, rem, \[Theta]em, \[Phi]em},
 	"EmissionParameters" -> {\[Kappa], \[Theta]loc, \[Phi]loc}
 |>;
 
@@ -632,7 +630,7 @@ Keys[g_KerrNullGeoFunction]^:=Keys[g[[5]]];
 Options[KerrNullGeoDistant] = {"Rotation" -> "Counterclockwise", "PhiRange" -> {-\[Infinity], \[Infinity]}}
 SyntaxInformation[KerrNullGeoDistant] = {"ArgumentsPattern"->{_,_,_,_}};
 
-KerrNullGeoDistant[a_, \[Theta]o_, \[Alpha]_, \[Beta]_, OptionsPattern[]] := Module[ {consts, \[Eta], \[ScriptL], roots, r1, r2, r3, r4, rp, rm, k, r, \[Theta], \[Phi], G\[Phi], I\[Phi], \[CapitalDelta]v, Gt, RedIt, \[Lambda]x, \[Phi]x, \[Theta]x, assoc, equator\[Lambda], type, \[Kappa], \[Theta]loc, \[Phi]loc,prec,eps},
+KerrNullGeoDistant[a_, \[Theta]o_, \[Alpha]_, \[Beta]_, OptionsPattern[]] := Module[ {consts, \[Eta], \[ScriptL], roots, r1, r2, r3, r4, rp, rm, k, r, \[Theta], \[Phi], G\[Phi], I\[Phi], \[CapitalDelta]v, Gt, RedIt, \[Lambda]x, \[Phi]x, \[Theta]x, assoc, equator\[Lambda], type, Z1, Z2, rms, j, rem, \[CapitalDelta]vem, \[Theta]em, \[Phi]em, \[Kappa], \[Theta]loc, \[Phi]loc,prec,eps},
 
 If[a<=0 || a>=1, Message[KerrNullGeo::OutOfBounds, "Parameter a must be between 0 and 1."]; Return[];];
 If[\[Theta]o<0 || \[Theta]o>\[Pi], Message[KerrNullGeo::OutOfBounds, "Parameter \[Theta]o must be between 0 and \[Pi]."]; Return[];];
@@ -687,9 +685,29 @@ If[OptionValue["PhiRange"][[2]]==\[Infinity],
 
 If[type == "PhotonEscape", \[Theta]x=\[Theta][\[Lambda]x]; \[Phi]x=\[Phi][\[Lambda]x], \[Theta]x=-1; \[Phi]x=-1];
 
-If[Length[equator\[Lambda]] == 0, 
-  {\[Kappa], \[Theta]loc, \[Phi]loc} = {-1, -1, -1}, 
-  {\[Kappa], \[Theta]loc, \[Phi]loc} = {"\[Kappa]", "\[Theta]loc", "\[Phi]loc"} /. EmissionParameters[a, \[Eta], \[ScriptL], \[Theta]o, r[equator\[Lambda][[1]]], \[Theta][equator\[Lambda][[1]]], "PhiRange" -> If[OptionValue["PhiRange"][[2]]!=\[Infinity], OptionValue["PhiRange"], {-\[Pi], \[Pi]}]]
+(*Compute innermost stable (marginally stable) circular orbit Subscript[r, ms]:*)
+Z1=1+Surd[1-a^2,3] (Surd[1+a,3] + Surd[1-a,3]); Z2=Sqrt[3 a^2 + Z1^2]; rms=3+Z2-Sqrt[(3-Z1) (3+Z1+2 Z2)];
+
+(*No emission assumed if emission radius Subscript[r, em] below Subscript[r, ms] (accretion disk loses stability and matter accretes on dynamical timescale):*)
+
+rem = \[Phi]em = \[CapitalDelta]vem = \[Theta]em = -1;
+{\[Kappa], \[Theta]loc, \[Phi]loc} = {-1, -1, -1};
+
+If[Length[equator\[Lambda]] != 0,  
+  (*No emission assumed if emission radius Subscript[r, em] below Subscript[r, ms] (accretion disk loses stability and matter accretes on dynamical timescale):*)
+  For[j=1, j<=Length[equator\[Lambda]], j++,
+      If[r[equator\[Lambda][[j]]] > rms,
+      rem = r[equator\[Lambda][[j]]];
+      \[Phi]em = \[Phi][equator\[Lambda][[j]]];
+      \[CapitalDelta]vem = \[CapitalDelta]v[equator\[Lambda][[j]]];
+      \[Theta]em = \[Pi]/2;
+      Break[];
+      ]
+  ];
+  
+  If[rem != -1,
+  {\[Kappa], \[Theta]loc, \[Phi]loc} = {"\[Kappa]", "\[Theta]loc", "\[Phi]loc"} /. EmissionParameters[a, \[Eta], \[ScriptL], \[Theta]o, rem, \[Pi]/2, j, "PhiRange" -> If[OptionValue["PhiRange"][[2]]!=\[Infinity], OptionValue["PhiRange"], {-\[Pi], \[Pi]}]]
+  ]
 ];
 
 assoc = <|
@@ -701,6 +719,7 @@ assoc = <|
 	"TrajectoryType" -> type,
 	"MinoTimeOfCapture" -> \[Lambda]x,
 	"EscapeCoordinates" -> {\[Theta]x, \[Phi]x},
+	"EmissionCoordinates" -> {\[CapitalDelta]vem, rem, \[Theta]em, \[Phi]em},
 	"EmissionParameters" -> {\[Kappa], \[Theta]loc, \[Phi]loc}
 |>;
 
@@ -713,7 +732,7 @@ KerrNullGeoDistantFunction[a_, \[Theta]o_, \[Alpha]_, \[Beta]_, assoc_][y_?Strin
 Keys[g_KerrNullGeoDistantFunction]^:=Keys[g[[5]]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Close the Package*)
 
 
