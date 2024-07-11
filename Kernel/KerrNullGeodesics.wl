@@ -151,7 +151,7 @@ z=Sqrt[(\[Omega]2+\[Omega]1-A/3)/2];
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Radial Motion*)
 
 
@@ -185,7 +185,7 @@ I0s = 2/Sqrt[(r3-r1) (r4-r2)] EllipticF[ArcSin[xs], k];
 
 If[\[Nu]r<0,
   \[Lambda]x = -(2/Sqrt[(r3-r1) (r4-r2)] EllipticF[ArcSin[Sqrt[((rp-r2) (r3-r1))/((rp-r1) (r3-r2))]], k] - I0s),
-  \[Lambda]x = 4/Sqrt[(r3-r1) (r4-r2)] EllipticF[ArcSin[Sqrt[((r3-r4) (r3-r1))/((r3-r1) (r3-r2))]], k] - 2/Sqrt[(r3-r1) (r4-r2)] EllipticF[ArcSin[Sqrt[((rp-r2) (r3-r1))/((rp-r1) (r3-r2))]], k] - I0s;
+  \[Lambda]x = 4/Sqrt[(r3-r1) (r4-r2)] EllipticK[k] - 2/Sqrt[(r3-r1) (r4-r2)] EllipticF[ArcSin[Sqrt[((rp-r2) (r3-r1))/((rp-r1) (r3-r2))]], k] - I0s;
 ];
 X[\[Lambda]_] := Sqrt[(r3-r1) (r4-r2)]/2 (\[Lambda] + \[Nu]r I0s); (*G&L (B26)*)
 
@@ -445,7 +445,7 @@ equator\[Lambda]
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Emission Parameters*)
 
 
@@ -508,7 +508,7 @@ p\[Phi] = - ((\[Omega] B)/A) vecpt + B/A vecp\[Phi];
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Public Functions*)
 
 
