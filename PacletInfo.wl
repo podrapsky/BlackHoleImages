@@ -2,7 +2,7 @@
 
 Paclet[
   "Name" -> "BlackHoleImages",
-  "Version" -> "0.4.0",
+  "Version" -> "0.5.0",
   "Creator" -> "David Podrapsky",
   "Description" -> "Paclet containing functions for generating images of accretion disks near rotating black holes and retracing null geodesics in the Kerr metric.",
   "Extensions" ->

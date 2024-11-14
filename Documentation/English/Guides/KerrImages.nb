@@ -1,0 +1,269 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     10100,        261]
+NotebookOptionsPosition[      6808,        188]
+NotebookOutlinePosition[      7336,        206]
+CellTagsIndexPosition[      7293,        203]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["KerrImages", "GuideTitle",
+ CellID->121676101,ExpressionUUID->"b11a3cad-367f-4ff7-885a-f73b06982bcb"],
+
+Cell["\<\
+The package containing functions for generating images of accretion disks \
+near a Kerr black hole or a stellar background distorted by it.\
+\>", "GuideAbstract",
+ CellChangeTimes->{{3.9399001730529175`*^9, 3.9399002404833508`*^9}},
+ CellID->154107588,ExpressionUUID->"0a853d27-7836-4fba-a15e-662be6e856ce"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "GuideFunctionsSection",
+ CellID->70079575,ExpressionUUID->"4e2840d4-b86b-4162-bc55-49799b24b940"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["DiskImage",
+   BaseStyle->"Link",
+   ButtonData->"paclet:BlackHoleImages/ref/DiskImage"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"c40ac8e4-27e1-4161-a8df-4d4f38357a23",ExpressionUUID->
+  "5e9a3230-7ecc-482a-8305-727e4640e093"],
+ " \[LongDash] Generates the image of a disk."
+}], "GuideText",
+ CellChangeTimes->{{3.9399000577504067`*^9, 3.9399000613856564`*^9}, {
+  3.9399002512417545`*^9, 3.9399002992864466`*^9}},
+ CellID->114505396,ExpressionUUID->"7a2ed40e-2aad-426b-8420-26f00d0e284c"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["DiskImageFromTemplate",
+   BaseStyle->"Link",
+   ButtonData->"paclet:BlackHoleImages/ref/DiskImageFromTemplate"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"c5c6736a-1ff4-4e4e-8fcf-2d9846cbae62",ExpressionUUID->
+  "dc09517f-975d-42bf-85eb-7ed4295e5668"],
+ " \[LongDash] Generates the image of a disk from a given template."
+}], "GuideText",
+ CellChangeTimes->{{3.9399000776293526`*^9, 3.9399000939000797`*^9}, {
+  3.93990025513416*^9, 3.93990025513416*^9}, {3.9399003036113358`*^9, 
+  3.939900322273802*^9}},
+ CellID->437287544,ExpressionUUID->"dcff5c26-6a62-4cbe-a30b-38814d0611f2"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["GenerateTemplate",
+   BaseStyle->"Link",
+   ButtonData->"paclet:BlackHoleImages/ref/GenerateTemplate"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"c5c6736a-1ff4-4e4e-8fcf-2d9846cbae62",ExpressionUUID->
+  "546abf86-a8be-450e-854f-4ddec27c1147"],
+ " \[LongDash] Generates the template for a given geometry, which can be \
+later reused."
+}], "GuideText",
+ CellChangeTimes->{{3.9399000964411945`*^9, 3.939900100106938*^9}, {
+  3.939900258421172*^9, 3.939900258421172*^9}, {3.9399003244177375`*^9, 
+  3.939900346781521*^9}},
+ CellID->292566503,ExpressionUUID->"e73ca916-f981-4240-aef0-6d47d2307fdb"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["StellarBackgroundFromTemplate",
+   BaseStyle->"Link",
+   ButtonData->"paclet:BlackHoleImages/ref/StellarBackgroundFromTemplate"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"c5c6736a-1ff4-4e4e-8fcf-2d9846cbae62",ExpressionUUID->
+  "de9287d5-2ccf-4b20-b883-2e04e80a874a"],
+ " \[LongDash] Generates the image of stellar background distorted by a black \
+hole from a given template."
+}], "GuideText",
+ CellChangeTimes->{{3.9399001026929235`*^9, 3.9399001119445333`*^9}, {
+  3.9399002620842133`*^9, 3.9399002620842133`*^9}, {3.9399003506980777`*^9, 
+  3.9399003868583117`*^9}},
+ CellID->15857688,ExpressionUUID->"cdba5531-2e02-40c5-a9e2-c6907a81da5d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tech Notes", "GuideTutorialsSection",
+ CellID->18895781,ExpressionUUID->"33863523-277b-47a0-8188-00dd9c13435c"],
+
+Cell[TextData[ButtonBox["KerrImages",
+ BaseStyle->"Link",
+ ButtonData->"paclet:BlackHoleImages/tutorial/KerrImages"]], "GuideTutorial",
+ CellChangeTimes->{{3.9399004093980775`*^9, 3.939900417858758*^9}},
+ CellID->402545301,ExpressionUUID->"8b32ea39-155c-417b-b3ef-d4f7153353e0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Guides", "GuideMoreAboutSection",
+ CellChangeTimes->{{3.8430423939366693`*^9, 3.843042395176153*^9}},
+ CellID->166340424,ExpressionUUID->"38136f09-7435-454e-b4a0-9f6ee00bccfb"],
+
+Cell[TextData[ButtonBox["KerrNullGeodesics",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:BlackHoleImages/guide/KerrNullGeodesics"]], "GuideMoreAbout",
+ CellChangeTimes->{{3.93990012264642*^9, 3.939900144250468*^9}},
+ CellID->111970371,ExpressionUUID->"71ae5d99-d8f1-4140-8b35-83c549e2719c"],
+
+Cell[TextData[ButtonBox["AlphaDiskModel",
+ BaseStyle->"Link",
+ ButtonData->"paclet:BlackHoleImages/guide/AlphaDiskModel"]], "GuideMoreAbout",
+ CellChangeTimes->{{3.940592454696689*^9, 3.9405924627147474`*^9}},
+ CellID->364200761,ExpressionUUID->"06b367a5-6842-44cf-81ab-777dafa934bc"]
+}, Open  ]],
+
+Cell["Related Links", "GuideRelatedLinksSection",
+ CellID->63992665,ExpressionUUID->"bb5bcd1b-ae48-4c58-a6ec-689d56d5ba42"],
+
+Cell[CellGroupData[{
+
+Cell["Metadata", "MetadataSection",
+ CellID->102118526,ExpressionUUID->"307ca24a-2362-4462-836b-0a501a179138"],
+
+Cell[TextData[{
+ "New in: ",
+ Cell["XX", "HistoryData",
+  CellTags->"New",ExpressionUUID->"6178871b-9276-480b-8be8-ce4ea4977247"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified",ExpressionUUID->"c5c0d0c9-8794-488a-94e8-fe8a1bfe968f"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete",ExpressionUUID->"8d105c34-14fe-4760-9e02-c9de6499c25b"]
+}], "History",
+ CellID->13246271,ExpressionUUID->"371b9dec-e624-4b10-8f72-0b5304ebdcf9"],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->162503008,ExpressionUUID->"dac5c806-c89d-45ed-b4ce-37ddf1b5bde0"],
+
+Cell["Guide", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->146280187,ExpressionUUID->"64b4ea4f-b5a5-451a-ac3b-cc34671ec0e0"],
+
+Cell["BlackHoleImages", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->213781440,ExpressionUUID->"c8cec44d-5f5a-420a-9b09-7d499c8d0068"],
+
+Cell["BlackHoleImages`", "Categorization",
+ CellLabel->"Context",
+ CellID->101670115,ExpressionUUID->"ee9f4548-9c9a-48ad-a166-9ac16d9e4dee"],
+
+Cell["BlackHoleImages/guide/KerrImages", "Categorization",
+ CellLabel->"URI",
+ CellID->23046725,ExpressionUUID->"2ff86760-e0e6-491e-bf0f-590213e30665"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->810413478,ExpressionUUID->"cbbf7f91-8454-41ef-baf3-a904d4bfd0dd"],
+
+Cell["XXXX", "Keywords",
+ CellID->420694918,ExpressionUUID->"2793bd1c-bbbe-4b20-929b-fb0ddb5daeeb"]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{574.8, 568.8},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+TaggingRules-><|"Paclet" -> "BlackHoleImages"|>,
+FrontEndVersion->"13.2 for Microsoft Windows (64-bit) (January 30, 2023)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "GuidePageStylesExt.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"5b4b0858-4397-45ca-9354-42383b290093"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 107, 1, 88, "GuideTitle",ExpressionUUID->"b11a3cad-367f-4ff7-885a-f73b06982bcb",
+ CellID->121676101],
+Cell[690, 25, 317, 5, 47, "GuideAbstract",ExpressionUUID->"0a853d27-7836-4fba-a15e-662be6e856ce",
+ CellID->154107588]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1044, 35, 107, 1, 72, "GuideFunctionsSection",ExpressionUUID->"4e2840d4-b86b-4162-bc55-49799b24b940",
+ CellID->70079575],
+Cell[1154, 38, 574, 12, 26, "GuideText",ExpressionUUID->"7a2ed40e-2aad-426b-8420-26f00d0e284c",
+ CellID->114505396],
+Cell[1731, 52, 668, 14, 26, "GuideText",ExpressionUUID->"dcff5c26-6a62-4cbe-a30b-38814d0611f2",
+ CellID->437287544],
+Cell[2402, 68, 679, 15, 26, "GuideText",ExpressionUUID->"e73ca916-f981-4240-aef0-6d47d2307fdb",
+ CellID->292566503],
+Cell[3084, 85, 731, 15, 43, "GuideText",ExpressionUUID->"cdba5531-2e02-40c5-a9e2-c6907a81da5d",
+ CellID->15857688]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3852, 105, 117, 1, 74, "GuideTutorialsSection",ExpressionUUID->"33863523-277b-47a0-8188-00dd9c13435c",
+ CellID->18895781],
+Cell[3972, 108, 278, 4, 24, "GuideTutorial",ExpressionUUID->"8b32ea39-155c-417b-b3ef-d4f7153353e0",
+ CellID->402545301]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4287, 117, 190, 2, 74, "GuideMoreAboutSection",ExpressionUUID->"38136f09-7435-454e-b4a0-9f6ee00bccfb",
+ CellID->166340424],
+Cell[4480, 121, 290, 5, 24, "GuideMoreAbout",ExpressionUUID->"71ae5d99-d8f1-4140-8b35-83c549e2719c",
+ CellID->111970371],
+Cell[4773, 128, 284, 4, 24, "GuideMoreAbout",ExpressionUUID->"06b367a5-6842-44cf-81ab-777dafa934bc",
+ CellID->364200761]
+}, Open  ]],
+Cell[5072, 135, 123, 1, 74, "GuideRelatedLinksSection",ExpressionUUID->"bb5bcd1b-ae48-4c58-a6ec-689d56d5ba42",
+ CellID->63992665],
+Cell[CellGroupData[{
+Cell[5220, 140, 110, 1, 72, "MetadataSection",ExpressionUUID->"307ca24a-2362-4462-836b-0a501a179138",
+ CellID->102118526],
+Cell[5333, 143, 472, 11, 26, "History",ExpressionUUID->"371b9dec-e624-4b10-8f72-0b5304ebdcf9",
+ CellID->13246271],
+Cell[CellGroupData[{
+Cell[5830, 158, 122, 1, 21, "CategorizationSection",ExpressionUUID->"dac5c806-c89d-45ed-b4ce-37ddf1b5bde0",
+ CellID->162503008],
+Cell[5955, 161, 133, 2, 70, "Categorization",ExpressionUUID->"64b4ea4f-b5a5-451a-ac3b-cc34671ec0e0",
+ CellID->146280187],
+Cell[6091, 165, 143, 2, 70, "Categorization",ExpressionUUID->"c8cec44d-5f5a-420a-9b09-7d499c8d0068",
+ CellID->213781440],
+Cell[6237, 169, 140, 2, 70, "Categorization",ExpressionUUID->"ee9f4548-9c9a-48ad-a166-9ac16d9e4dee",
+ CellID->101670115],
+Cell[6380, 173, 151, 2, 70, "Categorization",ExpressionUUID->"2ff86760-e0e6-491e-bf0f-590213e30665",
+ CellID->23046725]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[6568, 180, 110, 1, 21, "KeywordsSection",ExpressionUUID->"cbbf7f91-8454-41ef-baf3-a904d4bfd0dd",
+ CellID->810413478],
+Cell[6681, 183, 99, 1, 70, "Keywords",ExpressionUUID->"2793bd1c-bbbe-4b20-929b-fb0ddb5daeeb",
+ CellID->420694918]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+

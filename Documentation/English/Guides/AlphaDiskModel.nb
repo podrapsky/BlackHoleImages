@@ -1,0 +1,237 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      8669,        229]
+NotebookOptionsPosition[      5615,        160]
+NotebookOutlinePosition[      6143,        178]
+CellTagsIndexPosition[      6100,        175]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["AlphaDiskModel", "GuideTitle",
+ CellID->505278258,ExpressionUUID->"0759be8b-adb2-4ba9-b87a-ae4aefed23e6"],
+
+Cell["\<\
+The package containing functions for generating the alpha disk model as \
+described by Shakura and Sunyaev (1972), and Novikov and Thorne in their Les \
+Houches lecture (1973), as well as its observed properties\
+\>", "GuideAbstract",
+ CellChangeTimes->{{3.940592905056465*^9, 3.940592940794989*^9}, {
+  3.9405929731167088`*^9, 3.9405930748744173`*^9}},
+ CellID->201944845,ExpressionUUID->"ac8f10c9-614f-49e3-a909-4c9b2186bdb9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "GuideFunctionsSection",
+ CellID->143227452,ExpressionUUID->"e4efe3bc-66e4-46fe-bf02-60888eea2a5c"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["DiskParams",
+   BaseStyle->"Link",
+   ButtonData->"paclet:BlackHoleImages/ref/DiskParams"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"c5c6736a-1ff4-4e4e-8fcf-2d9846cbae62",ExpressionUUID->
+  "8f9a09b7-1371-4b18-ba86-0faf9c4c2ca2"],
+ " \[LongDash] Generates an association containing information about \
+accretion disk's radiation."
+}], "GuideText",
+ CellChangeTimes->{{3.940593167470497*^9, 3.9405931739712343`*^9}, {
+  3.940593248069482*^9, 3.9405932719530773`*^9}, {3.9405933575690384`*^9, 
+  3.9405933646756797`*^9}},
+ CellID->371902528,ExpressionUUID->"47a73cdb-18b4-48bf-97bb-4ccc71fe7239"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ObservedDiskElement",
+   BaseStyle->"Link",
+   ButtonData->"paclet:BlackHoleImages/ref/ObservedDiskElement"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"c5c6736a-1ff4-4e4e-8fcf-2d9846cbae62",ExpressionUUID->
+  "aef8a637-a1e9-4146-96f0-b9eca77e3e6d"],
+ " \[LongDash] Generates the parameters of radiation observed at infinity on \
+a given null geodesic ."
+}], "GuideText",
+ CellChangeTimes->{{3.940593224611952*^9, 3.9405932367661467`*^9}, {
+  3.940593376131162*^9, 3.940593430861252*^9}},
+ CellID->401140705,ExpressionUUID->"bad310e8-51ad-4019-b824-cd84d1c35ad3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tech Notes", "GuideTutorialsSection",
+ CellID->471770998,ExpressionUUID->"95615ed8-4adc-4f57-af16-bceb9d763b97"],
+
+Cell[TextData[ButtonBox["AlphaDiskModel",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:BlackHoleImages/tutorial/AlphaDiskModel"]], "GuideTutorial",
+ CellChangeTimes->{{3.9405928709398913`*^9, 3.9405928771511755`*^9}},
+ CellID->208387926,ExpressionUUID->"b89096b9-9a34-4761-8536-2bd6d4c9f731"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Guides", "GuideMoreAboutSection",
+ CellChangeTimes->{{3.8430423939366693`*^9, 3.843042395176153*^9}},
+ CellID->86353047,ExpressionUUID->"73c8bf5e-6350-45c4-b28c-b18802fe436e"],
+
+Cell[TextData[ButtonBox["KerrNullGeodesics",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:BlackHoleImages/guide/KerrNullGeodesics"]], "GuideMoreAbout",
+ CellChangeTimes->{{3.9405923987278724`*^9, 3.9405924126313324`*^9}},
+ CellID->612251422,ExpressionUUID->"22090679-2801-41a9-8d7b-e1219af2f64e"],
+
+Cell[TextData[ButtonBox["KerrImages",
+ BaseStyle->"Link",
+ ButtonData->"paclet:BlackHoleImages/guide/KerrImages"]], "GuideMoreAbout",
+ CellChangeTimes->{{3.940592440108287*^9, 3.940592450748375*^9}},
+ CellID->109507512,ExpressionUUID->"b2c64685-f56b-4125-b594-ec6b6d3e7a27"]
+}, Open  ]],
+
+Cell["Related Links", "GuideRelatedLinksSection",
+ CellID->239229606,ExpressionUUID->"d6ee7d4e-d0eb-4e92-b391-0ac59f374a17"],
+
+Cell[CellGroupData[{
+
+Cell["Metadata", "MetadataSection",
+ CellID->12792735,ExpressionUUID->"555392e8-775c-40a9-9482-12b41f77b851"],
+
+Cell[TextData[{
+ "New in: ",
+ Cell["XX", "HistoryData",
+  CellTags->"New",ExpressionUUID->"df57a4b2-edc3-40b8-b8c3-c11fb5e762b1"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified",ExpressionUUID->"8f0b6073-486f-4fee-8539-93e41bf02311"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete",ExpressionUUID->"495031ca-6c70-4df7-93cb-7d836a35747d"]
+}], "History",
+ CellID->335873783,ExpressionUUID->"85c30e56-10cb-4011-85c1-3fb341020437"],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->116966333,ExpressionUUID->"22cca0fa-b693-4459-a50a-872f9ca950ce"],
+
+Cell["Guide", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->111723944,ExpressionUUID->"957ad9b2-eba1-4257-b3f6-be897ffdedd9"],
+
+Cell["BlackHoleImages", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->20607558,ExpressionUUID->"258d9f52-51d0-4828-b879-fa14c639ddc5"],
+
+Cell["BlackHoleImages`", "Categorization",
+ CellLabel->"Context",
+ CellID->918117823,ExpressionUUID->"562c087a-be57-42ff-bb8e-5217fa855055"],
+
+Cell["BlackHoleImages/guide/AlphaDiskModel", "Categorization",
+ CellLabel->"URI",
+ CellID->431379286,ExpressionUUID->"769e595a-631f-4823-8f80-315bd6f1bbdb"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->73974207,ExpressionUUID->"c4400095-1282-46cb-ad4a-7c5aa6f9aac6"],
+
+Cell["XXXX", "Keywords",
+ CellID->1521552,ExpressionUUID->"a05649a0-d89c-446b-a5dc-3df0e57e9de4"]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{574.8, 568.8},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+TaggingRules-><|"Paclet" -> "BlackHoleImages"|>,
+FrontEndVersion->"13.2 for Microsoft Windows (64-bit) (January 30, 2023)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "GuidePageStylesExt.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"5e07ebf1-1321-41a6-ad35-80039553224f"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 111, 1, 88, "GuideTitle",ExpressionUUID->"0759be8b-adb2-4ba9-b87a-ae4aefed23e6",
+ CellID->505278258],
+Cell[694, 25, 438, 7, 65, "GuideAbstract",ExpressionUUID->"ac8f10c9-614f-49e3-a909-4c9b2186bdb9",
+ CellID->201944845]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1169, 37, 108, 1, 72, "GuideFunctionsSection",ExpressionUUID->"e4efe3bc-66e4-46fe-bf02-60888eea2a5c",
+ CellID->143227452],
+Cell[1280, 40, 681, 15, 26, "GuideText",ExpressionUUID->"47a73cdb-18b4-48bf-97bb-4ccc71fe7239",
+ CellID->371902528],
+Cell[1964, 57, 648, 14, 43, "GuideText",ExpressionUUID->"bad310e8-51ad-4019-b824-cd84d1c35ad3",
+ CellID->401140705]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2649, 76, 118, 1, 74, "GuideTutorialsSection",ExpressionUUID->"95615ed8-4adc-4f57-af16-bceb9d763b97",
+ CellID->471770998],
+Cell[2770, 79, 291, 5, 24, "GuideTutorial",ExpressionUUID->"b89096b9-9a34-4761-8536-2bd6d4c9f731",
+ CellID->208387926]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3098, 89, 189, 2, 74, "GuideMoreAboutSection",ExpressionUUID->"73c8bf5e-6350-45c4-b28c-b18802fe436e",
+ CellID->86353047],
+Cell[3290, 93, 295, 5, 24, "GuideMoreAbout",ExpressionUUID->"22090679-2801-41a9-8d7b-e1219af2f64e",
+ CellID->612251422],
+Cell[3588, 100, 274, 4, 24, "GuideMoreAbout",ExpressionUUID->"b2c64685-f56b-4125-b594-ec6b6d3e7a27",
+ CellID->109507512]
+}, Open  ]],
+Cell[3877, 107, 124, 1, 74, "GuideRelatedLinksSection",ExpressionUUID->"d6ee7d4e-d0eb-4e92-b391-0ac59f374a17",
+ CellID->239229606],
+Cell[CellGroupData[{
+Cell[4026, 112, 109, 1, 72, "MetadataSection",ExpressionUUID->"555392e8-775c-40a9-9482-12b41f77b851",
+ CellID->12792735],
+Cell[4138, 115, 473, 11, 26, "History",ExpressionUUID->"85c30e56-10cb-4011-85c1-3fb341020437",
+ CellID->335873783],
+Cell[CellGroupData[{
+Cell[4636, 130, 122, 1, 21, "CategorizationSection",ExpressionUUID->"22cca0fa-b693-4459-a50a-872f9ca950ce",
+ CellID->116966333],
+Cell[4761, 133, 133, 2, 70, "Categorization",ExpressionUUID->"957ad9b2-eba1-4257-b3f6-be897ffdedd9",
+ CellID->111723944],
+Cell[4897, 137, 142, 2, 70, "Categorization",ExpressionUUID->"258d9f52-51d0-4828-b879-fa14c639ddc5",
+ CellID->20607558],
+Cell[5042, 141, 140, 2, 70, "Categorization",ExpressionUUID->"562c087a-be57-42ff-bb8e-5217fa855055",
+ CellID->918117823],
+Cell[5185, 145, 156, 2, 70, "Categorization",ExpressionUUID->"769e595a-631f-4823-8f80-315bd6f1bbdb",
+ CellID->431379286]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[5378, 152, 109, 1, 21, "KeywordsSection",ExpressionUUID->"c4400095-1282-46cb-ad4a-7c5aa6f9aac6",
+ CellID->73974207],
+Cell[5490, 155, 97, 1, 70, "Keywords",ExpressionUUID->"a05649a0-d89c-446b-a5dc-3df0e57e9de4",
+ CellID->1521552]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+

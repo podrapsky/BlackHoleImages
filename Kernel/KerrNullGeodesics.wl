@@ -33,7 +33,7 @@ KerrNullGeo::OutOfBounds = "Out of bounds error: `1`"
 KerrNullGeo::ListSize = "Parameters `1` or `2` is not a list of length `3`."
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Constants of Motion*)
 
 
@@ -121,7 +121,7 @@ Gt = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Glo
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Radial Roots*)
 
 
@@ -508,7 +508,7 @@ p\[Phi] = - ((\[Omega] B)/A) vecpt + B/A vecp\[Phi];
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Public Functions*)
 
 
@@ -579,7 +579,7 @@ If[OptionValue["PhiRange"][[2]]==\[Infinity],
   \[Phi]=Function[{Global`\[Lambda]}, Evaluate[Mod[I\[Phi][Global`\[Lambda]]+\[ScriptL] G\[Phi][Global`\[Lambda]] + \[Phi]s, OptionValue["PhiRange"][[2]]-OptionValue["PhiRange"][[1]], OptionValue["PhiRange"][[1]]]], Listable]
 ];
 
-t = Function[{Global`\[Lambda]}, Evaluate[It[Global`\[Lambda]] + a^2 Gt[Global`\[Lambda]] + ts]];
+t = Function[{Global`\[Lambda]}, Evaluate[It[Global`\[Lambda]] + a^2 Gt[Global`\[Lambda]] + ts], Listable];
 If[type == "PhotonEscape", \[Theta]x=\[Theta][\[Lambda]x]; \[Phi]x=\[Phi][\[Lambda]x], \[Theta]x=-1; \[Phi]x=-1];
 
 (*Compute innermost stable (marginally stable) circular orbit Subscript[r, ms]:*)

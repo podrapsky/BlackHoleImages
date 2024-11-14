@@ -15,6 +15,7 @@ BeginPackage["BlackHoleImages`KerrImages`",
 GenerateTemplate::usage = "GenerateTemplate[directory, name, a, \[Theta]o, imageSize, maxBardeenCoordinate, Options] generates a template containing information about null geodesics specified by (dimensionless) a, \[Theta]o (distant observer's \[Theta]) and maximal Bardeen coordinate that is shown. The number of geodesics to be generated is specified in imageSize in the form {xsize, ysize}. The template is saved in directory/name.mx file, which can be used later with DiskImageFromTemplate.";
 DiskImage::usage = "DiskImage[a, \[Theta]o, \[Alpha], m, mdot, imageSize, maxBardeenCoordinate, Options] returns a list containing tables with information specified by the option 'Output'->{'information1', 'information2', ...}. Geodesics are specified by (dimensionless) a, \[Theta]o (distant observer's \[Theta]) and maximal Bardeen coordinate that is shown. The number of geodesics to be generated is specified in imageSize in the form {xsize, ysize}. Disk is specified by BH mass m (in solar mass by default), matter inflow mdot and parameter \[Alpha] (both in Shakura & Sunyaev definition by default).";
 DiskImageFromTemplate::usage = "DiskImageFromTemplate[file, \[Alpha], m, mdot, Options] returns a list containing tables with information specified by the option 'Output'->{'information1', 'information2', ...}. Template is passed in file. Disk is specified by BH mass m (in solar mass by default), matter inflow mdot and parameter \[Alpha] (both in Shakura & Sunyaev definition by default).";
+StellarBackgroundFromTemplate::usage = "StellarBackgroundFromTemplate[templateFile, \[Theta]o, imageFile, angle, Ratio_:0.8, bgColor_:{0.,0.,0.}] generates an image of stellar background given by imageFile distorted by geometry given by the template stored in templateFile and \[Theta]o. The image's part Ratio (default is 0.8) spans angle on the celestial sphere. The background color can be specified in bgColor as RGB list of size 3 (default is black)."
 
 Begin["`Private`"];
 
@@ -135,6 +136,55 @@ For[j=1, j<=jmax,j+=1,
 	];
 	matrix = MapThread[Append, {matrix, row}];
 	row = Table[{}, length];
+];
+
+(*return a list containing tables with requested output*)
+matrix
+]
+
+
+StellarBackgroundFromTemplate[templateFile_, \[Theta]o_,imageFile_, angle_, Ratio_:0.8, bgColor_:{0.,0.,0.}] := Module[{template, image, data, i, j, imax, jmax, Jmax, Imax,ratio, disk, length, matrix, row, shard, element, \[Theta], \[Phi], \[CapitalDelta]\[Phi], \[CapitalDelta]\[Theta], append},
+(*import the template and image*)
+template = Import[templateFile];
+image = Import[imageFile];
+data = ImageData[image];
+
+(*get the dimensions*)
+jmax = Length[template];
+imax = Length[template[[1]]];
+{Imax, Jmax} = ImageDimensions[image];
+
+(*how many pixels of the original image correspond to a pixel of the template*)
+ratio = Ratio Min[Imax, Jmax]/({imax, jmax}[[Position[{Imax, Jmax}, Min[Imax, Jmax]][[1]][[1]]]]);
+
+
+matrix = {};
+row = {};
+
+(*generate the requested data*)
+For[j=1, j<=jmax,j+=1,
+	For[i=1, i<=imax ,i+=1,
+		shard = template[[j, i]];
+		\[Theta] = shard[[3, 1]];
+		\[Phi] = shard[[3, 2]];
+		\[CapitalDelta]\[Theta] = \[Theta]-(\[Pi]-\[Theta]o);
+		\[CapitalDelta]\[Phi] = Mod[\[Phi] , 2\[Pi]]-\[Pi];
+
+		(*if the geodesic "points" outside of the original image, the background color is used instead*)
+		If[Abs[Round[ratio (2j -jmax)/2 + Jmax \[CapitalDelta]\[Phi]/angle]] > Jmax/2 - 1 || Abs[Round[ratio (2i -imax)/2 + Imax \[CapitalDelta]\[Theta]/angle]]>Imax/2 - 1,
+			append = bgColor,
+			(*else*)
+			append = data[[Round[Jmax/2+ratio (2j -jmax)/2 + Jmax \[CapitalDelta]\[Phi]/angle],
+			Round[Imax/2+ratio (2i -imax)/2 + Imax \[CapitalDelta]\[Theta]/angle]]]
+		];
+		
+		If[\[Theta]==-1, append={0,0,0}];
+		
+		row = Append[row, append];
+	];
+	
+	matrix = Append[matrix, row];
+	row = {};
 ];
 
 (*return a list containing tables with requested output*)
