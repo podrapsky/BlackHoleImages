@@ -35,7 +35,7 @@ Begin["`Private`"];
 (*Definitions*)
 
 
-Msun = 1477;
+Msun = 1477; (*?*)
 
 
 \[ScriptCapitalA][a_, r_] := 1 + (a/r)^2 + 2a^2/r^3; (*N&T 5.4.1a*)
@@ -52,15 +52,16 @@ Msun = 1477;
 (*Temperature*)
 
 
+(*Temperatures in different regions of the disk*)
 TSC[a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := 3 10^7 (M/(3 Msun))^(-1/2) mdot^(1/4) r^(-3/4) \[ScriptCapitalB][a,r]^(-1/4) \[ScriptCapitalC][a,r]^(-1/8) \[ScriptCapitalQ][a,r,M,rISCO, x1, x2, x3]^(1/4); (*N&T (5.10.1)*)
 TSB[a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := 5 10^7 \[Alpha]^(7/45) (M/(3 Msun))^(-29/45) mdot^(16/45) r^(-87/90) \[ScriptCapitalA][a,r]^(2/9) \[ScriptCapitalB][a,r]^(-14/45) \[ScriptCapitalC][a,r]^(-2/9) \[ScriptCapitalD][a,r]^(2/45) \[ScriptCapitalE][a,r]^(-1/9) \[ScriptCapitalQ][a,r,M,rISCO, x1, x2, x3]^(16/45); (*N&T (5.10.8)*)
 TSA[a_, r_, \[Alpha]_, M_, mdot_] := 6 10^8 \[Alpha]^(2/9) (M/(3 Msun))^(-10/9) mdot^(8/9) r^(-17/9) \[ScriptCapitalA][a,r]^(8/9) \[ScriptCapitalB][a,r]^(-16/9) \[ScriptCapitalC][a,r]^(-2/9) \[ScriptCapitalD][a,r]^(2/9) \[ScriptCapitalE][a,r]^(4/9) ; (*N&T (5.10.8)*)
 
-mp = 1.672623099 10^-27 (*kg*)
+mp = 1.672623099 10^-27 (*proton mass in kg*)
 nA[a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := 0.1/mp \[Alpha]^-1 mdot^-2 (M/3/Msun) r^(3/2) \[ScriptCapitalA][a,r]^-4 \[ScriptCapitalB][a,r]^6 \[ScriptCapitalD][a,r] \[ScriptCapitalE][a,r]^2 \[ScriptCapitalQ][a,r,M,rISCO,x1,x2,x3]^-2; (*N&T (5.9.10)*)
 
 hB[a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] := 30 \[Alpha]^(-1/10) (M/3/Msun)^(7/10) mdot^(1/5) r^(21/20) \[ScriptCapitalA][a,r] \[ScriptCapitalB][a,r]^(-4/5) \[ScriptCapitalC][a,r]^(1/2) \[ScriptCapitalD][a,r]^(-3/5) \[ScriptCapitalE][a,r]^(-1/2) \[ScriptCapitalQ][a,r,M,rISCO,x1,x2,x3]^(1/5); (*N&T (5.9.8)*)
-H0[T_, a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] :=1.5362 10^-40 ((M r)^3 T)/(M mp hB[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3]); (*S&S after (2.28)*)
+H0[T_, a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] :=1.5362 10^-40 ((M r)^3 T)/(M mp hB[a, r, \[Alpha], M, mdot, rISCO, x1, x2, x3]); (*Characteristic disk height, S&S after (2.28)*)
 
 
 (* ::Section:: *)
@@ -68,7 +69,7 @@ H0[T_, a_, r_, \[Alpha]_, M_, mdot_, rISCO_, x1_, x2_, x3_] :=1.5362 10^-40 ((M 
 
 
 Xfct[\[Nu]_, T_] := 4.799243 10^-11 \[Nu]/T; (*h\[Nu]/(kT) in SI units (that is, frequency \[Nu] in Hertz or s^-1, temperature in Kelvin)*) 
-\[Kappa]fct[\[Nu]_, T_] := (4.1 10^-33 (1-E^-Xfct[\[Nu], T]))/(T^(7/2) Xfct[\[Nu], T]^3); (*m^5, coefficient of free-free absorption, below (3.3) in S&S*)
+\[Kappa]fct[\[Nu]_, T_] := (4.1 10^-33 (1-E^-Xfct[\[Nu], T]))/(T^(7/2) Xfct[\[Nu], T]^3); (*Coefficient of free-free absorption in units m^5, below (3.3) in S&S*)
 B[\[Nu]_, T_] := (*2\[Pi]h/c^2*) 4.632276 10^-50 \[Nu]^3/(E^Xfct[\[Nu], T]-1); (*Planckian spectrum applicable for Region C, (3.1) in S&S*)
 
 (*Spectral Flux Densities in different regions of the disk*)
