@@ -26,7 +26,7 @@ Begin["`Private`"];
 
 Options[GenerateTemplate] = {"Rotation" -> "Counterclockwise", "PhiRange" -> {-\[Pi], \[Pi]} (*BlackHoleImages`KerrNullGeodesics`KerrNullGeoDistant options*)}
 
-GenerateTemplate[directory_, name_, a_, \[Theta]o_, imageSize_, maxBardeenCoordinate_, OptionsPattern[]] := Module[{x, y, i, j, imax, jmax, step, geod, row, template, file},
+GenerateTemplate[directory_, name_, a_, \[Theta]o_, imageSize_, maxBardeenCoordinate_, radiusLimit_:0, OptionsPattern[]] := Module[{x, y, i, j, imax, jmax, step, geod, row, template, file},
 (*set the dimensions*)
 If[Length[imageSize]==2,
 x = imageSize[[1]]; y = imageSize[[2]]; imax = maxBardeenCoordinate; jmax = imax y/x,
@@ -47,7 +47,7 @@ Print[Dynamic[N[100 (j+jmax)/(2 jmax)]], " %"];
 (*generate the template*)
 For[j=-jmax, j<jmax,j+=step,
 	For[i=-imax, i<imax ,i+=step,
-		geod = BlackHoleImages`KerrNullGeodesics`KerrNullGeoDistant[a, \[Theta]o, i, j, "Rotation" -> OptionValue["Rotation"],"PhiRange" -> OptionValue["PhiRange"]];
+		geod = BlackHoleImages`KerrNullGeodesics`KerrNullGeoDistant[a, \[Theta]o, i, j, radiusLimit, "Rotation" -> OptionValue["Rotation"],"PhiRange" -> OptionValue["PhiRange"]];
 		AppendTo[row, {geod["EmissionCoordinates"], geod["EmissionParameters"], geod["EscapeCoordinates"]}];
 	];
 	AppendTo[template, row];
@@ -70,7 +70,7 @@ Options[DiskImage] = {"InputUnits" -> "NovikovThorne", "OutputUnits" -> "SI", "r
 													("PhysicalTemperature", "EffectiveTemperature", "SpectralFluxDensity", "FluxDensity" or "PeakFrequency") *)
 }		
 
-DiskImage[a_, \[Theta]o_, \[Alpha]_, m_, mdot_, imageSize_, maxBardeenCoordinate_, OptionsPattern[]] := Module[{x, y, i, j, imax, jmax, step, disk, length, row, matrix, geod, element},
+DiskImage[a_, \[Theta]o_, \[Alpha]_, m_, mdot_, imageSize_, maxBardeenCoordinate_, radiusLimit_:0, OptionsPattern[]] := Module[{x, y, i, j, imax, jmax, step, disk, length, row, matrix, geod, element},
 (*set the dimensions*)
 If[Length[imageSize]==2,
 x = imageSize[[1]]; y = imageSize[[2]]; imax = maxBardeenCoordinate; jmax = imax y/x,
@@ -91,7 +91,7 @@ disk = BlackHoleImages`AlphaDiskModel`DiskParams[a, \[Alpha], m, mdot, "InputUni
 (*generate the requested data*)
 For[j=-jmax, j<jmax,j+=step,
 	For[i=-imax, i<imax ,i+=step,
-		geod = BlackHoleImages`KerrNullGeodesics`KerrNullGeoDistant[a, \[Theta]o, i, j, "Rotation" -> OptionValue["Rotation"],"PhiRange" -> OptionValue["PhiRange"]];
+		geod = BlackHoleImages`KerrNullGeodesics`KerrNullGeoDistant[a, \[Theta]o, i, j, radiusLimit, "Rotation" -> OptionValue["Rotation"],"PhiRange" -> OptionValue["PhiRange"]];
 		element = BlackHoleImages`AlphaDiskModel`ObservedDiskElement[disk, geod, "Grid"->OptionValue["Grid"]];
 		row = MapThread[Append, {row, Table[element[OptionValue["Output"][[k]]], {k, 1, length}]}];
 	];
