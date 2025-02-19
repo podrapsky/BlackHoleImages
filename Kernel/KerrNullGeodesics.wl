@@ -38,10 +38,6 @@ KerrNullGeo::ListSize = "Parameters `1` or `2` is not a list of length `3`."
 
 
 (* ::Text:: *)
-(**)
-
-
-(* ::Text:: *)
 (*Unlike in the case of time-like geodesics, null geodesics are determined only by two "specific" constants of motion since one can always rescale the affine parameter so that -Subscript[p, t]=1. We use specific angular momenta for "local" dynamics of light-rays, and Bardeen's impact parameters for scattering. *)
 
 
