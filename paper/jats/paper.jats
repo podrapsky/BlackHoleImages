@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.2 20190208//EN"
+                  "JATS-publishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.2" article-type="other">
+<front>
+<journal-meta>
+<journal-id></journal-id>
+<journal-title-group>
+<journal-title>Journal of Open Source Software</journal-title>
+<abbrev-journal-title>JOSS</abbrev-journal-title>
+</journal-title-group>
+<issn publication-format="electronic">2475-9066</issn>
+<publisher>
+<publisher-name>Open Journals</publisher-name>
+</publisher>
+</journal-meta>
+<article-meta>
+<article-id pub-id-type="publisher-id">0</article-id>
+<article-id pub-id-type="doi">N/A</article-id>
+<title-group>
+<article-title>BlackHoleImages: A Wolfram Mathematica paclet for
+analytical black hole imaging</article-title>
+</title-group>
+<contrib-group>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">https://orcid.org/0009-0000-7558-2509</contrib-id>
+<name>
+<surname>Podrápský</surname>
+<given-names>David</given-names>
+</name>
+<xref ref-type="aff" rid="aff-1"/>
+</contrib>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">https://orcid.org/0000-0002-9209-5355</contrib-id>
+<name>
+<surname>Witzany</surname>
+<given-names>Vojtěch</given-names>
+</name>
+<xref ref-type="aff" rid="aff-1"/>
+</contrib>
+<aff id="aff-1">
+<institution-wrap>
+<institution>Institute of Theoretical Physics, Faculty of Mathematics
+and Physics, Charles University, V Holešovičkách 2, 180 00 Praha 8,
+Czech Republic</institution>
+</institution-wrap>
+</aff>
+</contrib-group>
+<pub-date date-type="pub" publication-format="electronic" iso-8601-date="2025-02-18">
+<day>18</day>
+<month>2</month>
+<year>2025</year>
+</pub-date>
+<volume>¿VOL?</volume>
+<issue>¿ISSUE?</issue>
+<fpage>¿PAGE?</fpage>
+<permissions>
+<copyright-statement>Authors of papers retain copyright and release the
+work under a Creative Commons Attribution 4.0 International License (CC
+BY 4.0)</copyright-statement>
+<copyright-year>1970</copyright-year>
+<copyright-holder>The article authors</copyright-holder>
+<license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/">
+<license-p>Authors of papers retain copyright and release the work under
+a Creative Commons Attribution 4.0 International License (CC BY
+4.0)</license-p>
+</license>
+</permissions>
+<kwd-group kwd-group-type="author">
+<kwd>Accretion Disks</kwd>
+<kwd>Analytical Methods</kwd>
+<kwd>Black Holes</kwd>
+<kwd>Relativistic Astrophysics</kwd>
+<kwd>Wolfram Mathematica</kwd>
+</kwd-group>
+</article-meta>
+</front>
+<body>
+<sec id="summary">
+  <title>Summary</title>
+  <p>Black holes are astrophysical objects with gravitational fields so
+  extreme that they bend even the trajectories of light. Specifically,
+  in the geometrical optics limit, the paths of particles and fields
+  moving at the speed of light follow null geodesics in the curved
+  spacetime geometry. Consequently, the presence of a black hole can
+  lead to strong lensing effects on the images emerging from their
+  surroundings. Additionally, the passage of light through the
+  gravitational field leads to changes in the frequency and intensity of
+  the light, which is particularly important to understand the
+  observational imprints of accretion disks forming around black
+  holes.</p>
+  <p><monospace>BlackHoleImages</monospace> is a Wolfram Mathematica
+  paclet designed to compute the aforementioned effects in the field of
+  isolated rotating black holes in Einstein’s General Relativity, which
+  are known as the Kerr family of spacetimes. The paclet can be used for
+  computing:</p>
+  <list list-type="bullet">
+    <list-item>
+      <p>photon orbits (null geodesics) in the fields of black
+      holes,</p>
+    </list-item>
+    <list-item>
+      <p>generating images of stellar backgrounds distorted by black
+      holes, and</p>
+    </list-item>
+    <list-item>
+      <p>generating images of accretion disks near black holes.</p>
+    </list-item>
+  </list>
+  <p>The paclet contains three packages,
+  <monospace>KerrNullGeodesics</monospace>,
+  <monospace>AlphaDiskModel</monospace>, and
+  <monospace>KerrImages</monospace>.
+  <monospace>KerrNullGeodesics</monospace> implements the analytical
+  solutions for null geodesics in Kerr space-times as described in
+  detail by Gralla &amp; Lupsasca
+  (<xref alt="2020" rid="ref-Gralla" ref-type="bibr">2020</xref>). The
+  <monospace>AlphaDiskModel</monospace> then implements the standard
+  <inline-formula><alternatives>
+  <tex-math><![CDATA[\alpha]]></tex-math>
+  <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>α</mml:mi></mml:math></alternatives></inline-formula>-disk
+  model for the accretion disk near a black hole as proposed by Shakura
+  &amp; Sunyaev
+  (<xref alt="1973" rid="ref-Shakura" ref-type="bibr">1973</xref>),
+  specifically its relativistic incarnation by Novikov &amp; Thorne
+  (<xref alt="1973" rid="ref-NovikovThorne" ref-type="bibr">1973</xref>)
+  and Page &amp; Thorne
+  (<xref alt="1974" rid="ref-PageThorne" ref-type="bibr">1974</xref>).
+  Finally, the <monospace>KerrImages</monospace> package uses the
+  previous two packages to provide functions that compute the disk
+  images and the lensed images of faraway backgrounds.</p>
+  <p>We expect this paclet to be used primarily for investigating the
+  observational characteristics of accretion disks of black holes,
+  including dynamical processes in the disk, since the time delay of
+  each geodesic is also computable in this paclet. The paclet can also
+  be used for educational purposes, such as plotting null geodesics in
+  the Kerr metric or illustrating the lensing effects, or for any other
+  purpose where the computation of photon trajectories is necessary.</p>
+</sec>
+<sec id="statement-of-need">
+  <title>Statement of need</title>
+  <p>Black holes are one of the most intriguing objects in modern
+  physics. They were on of the earliest predictions of Einstein’s
+  general relativity and started to be indirectly through observations
+  in various electromagnetic bands starting from the 1960s
+  (<xref alt="Narayan &amp; McClintock, 2015" rid="ref-EMBHRev" ref-type="bibr">Narayan
+  &amp; McClintock, 2015</xref>). Since most observations were and still
+  are unable to resolve the spatial scales of the so-called event
+  horizon of the black hole, we need to understand the radiation that
+  emerges from the interactions of the black hole with its surroundings
+  and the emergent spectrum. This was provided by the seminal
+  <inline-formula><alternatives>
+  <tex-math><![CDATA[\alpha]]></tex-math>
+  <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>α</mml:mi></mml:math></alternatives></inline-formula>
+  accretion disk model of Shakura &amp; Sunyaev
+  (<xref alt="1973" rid="ref-Shakura" ref-type="bibr">1973</xref>) and
+  Novikov &amp; Thorne
+  (<xref alt="1973" rid="ref-NovikovThorne" ref-type="bibr">1973</xref>).
+  As a result, the community of astronomers and astrophysicists
+  identified the first candidates for black holes in the Universe.</p>
+  <p>Currently, the evidence for dark compact objects consistent with
+  black holes is overwhelming. Throughout the 1990s, two teams of
+  astronomers followed stars orbiting very close to our Galactic center
+  and deduced on the presence of a dark compact object with the mass
+  of<xref ref-type="fn" rid="fn1">1</xref>
+  <inline-formula><alternatives>
+  <tex-math><![CDATA[4\cdot 10^6 M_\odot]]></tex-math>
+  <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mn>4</mml:mn><mml:mo>⋅</mml:mo><mml:msup><mml:mn>10</mml:mn><mml:mn>6</mml:mn></mml:msup><mml:msub><mml:mi>M</mml:mi><mml:mo>⊙</mml:mo></mml:msub></mml:mrow></mml:math></alternatives></inline-formula>
+  Ghez &amp; others
+  (<xref alt="2008" rid="ref-Ghez" ref-type="bibr">2008</xref>); the
+  leaders of the teams later shared the 2020 Nobel prize in physics
+  (<xref alt="Nobel Prize Outreach, 2020" rid="ref-NobelGenzelGhez" ref-type="bibr">Nobel
+  Prize Outreach, 2020</xref>). In 2015, the LIGO collaboration detected
+  the first merger of black holes by gravitational waves
+  (<xref alt="LIGO and Virgo collaborations, 2016" rid="ref-GWBH" ref-type="bibr">LIGO
+  and Virgo collaborations, 2016</xref>) and more than 180 events were
+  detected to date
+  (<xref alt="LVK Collaboration, 2025" rid="ref-GWOSC" ref-type="bibr">LVK
+  Collaboration, 2025</xref>). In 2017, the Event Horizon Telescope
+  collaboration reconstructed the image of the accretion flow in the
+  immediate vicinity of the massive black hole in the center of the M87
+  galaxy by the methods of very long baseline interferometry
+  (<xref alt="Event Horizon Telescope collaboration, 2019a" rid="ref-EHTM87" ref-type="bibr">Event
+  Horizon Telescope collaboration, 2019a</xref>). They followed up this
+  result in 2020 by presenting a similar image of the accretion flow
+  from the center of our very own Galaxy the Milky Way
+  (<xref alt="Event Horizon Telescope collaboration, 2022" rid="ref-EHTSgrA" ref-type="bibr">Event
+  Horizon Telescope collaboration, 2022</xref>).</p>
+  <p>The images of the massive black holes from M87 and the Milky Way
+  present a dark feature in their centers known as the ``shadow’’ of the
+  black hole. It corresponds to a region of the sky where the paths of
+  the photons are bent so much that they end behind the black hole
+  horizon, the point from beyond which not even light can escape. While
+  this qualitative picture is correct, the precise quantitative science
+  inferred from the observations of the Event Horizon Telescope requires
+  the detailed modeling of the accretion flow, its radiation, and the
+  emerging photon orbits
+  (<xref alt="Event Horizon Telescope collaboration, 2019b" rid="ref-EHTmodelling" ref-type="bibr">Event
+  Horizon Telescope collaboration, 2019b</xref>). This is one of the
+  important use cases our paclet is aiming for.</p>
+  <p>Another important application of the paclet is the interpretation
+  of timing and spectral features of unresolved accreting black holes as
+  observed in the burgeoning field of time-domain astronomy
+  (<xref alt="Burns et al., 2025" rid="ref-TDAMM" ref-type="bibr">Burns
+  et al., 2025</xref>). Transients such as quasi-periodic eruptions,
+  oscillations, or outflows emerging from systems containing accreting
+  black holes are detected at an increasing rate. They often contain
+  subtle timing features that require precise modelling of the accretion
+  flows and other physical components, but possibly also the lensing
+  effects by the black holes. Our paclet can be easily extended to
+  compute the lightcurves and/or images emerging from these systems.</p>
+  <p>Last but not least, the topic of black holes captures the
+  imagination of the public. In the 2014 movie
+  <italic>Interstellar</italic> directed by Christopher Nolan, the
+  general movie audience was able to observe a faithful simulation of a
+  black hole image for the first time
+  (<xref alt="James et al., 2015" rid="ref-InterstellarModeling" ref-type="bibr">James
+  et al., 2015</xref>). Our paclet provides an intermediate step for
+  relativity students and other interested parties to be able to dissect
+  how such an image is made through a user-friendly Wolfram Mathematica
+  paclet.</p>
+  <p>On the more technical side, this is also one of the first open
+  source releases of an implementation of the
+  <italic>analytical</italic> solution for null geodesics in Kerr
+  space-time (the only other implementation we know of is
+  (<xref alt="Omwoyo, 2025" rid="ref-NullGeodesicsBranch" ref-type="bibr">Omwoyo,
+  2025</xref>)). Other implementations typically use numerical
+  differential equation solvers (e.g. the EinsteinPy implementation
+  (<xref alt="Shivotam &amp; Bapat, 2020" rid="ref-EinsteinPyKerrGeo" ref-type="bibr">Shivotam
+  &amp; Bapat, 2020</xref>)). The arbitrary precision capabilities of
+  <italic>Wolfram Mathematica</italic> thus allow to use this paclet as
+  an exact validation and reference solution for such machine precision
+  codes. Using the symbolic calculus capabilities of Mathematica
+  provided a good platform to implement the relatively complicated
+  analytical solution as a starting point. The paclet could now also be
+  used as a reference when porting the solutions to more optimized
+  lower-level implementations. For example, the Mathematica code
+  <monospace>KerrGeodesics</monospace>
+  (<xref alt="Warburton et al., 2023" rid="ref-KerrGeodesics" ref-type="bibr">Warburton
+  et al., 2023</xref>) for time-like geodesics (trajectories of massive
+  test particles) in Kerr space-time was recently rewritten in Python as
+  <monospace>KerrGeoPy</monospace>
+  (<xref alt="Park &amp; Nasipak, 2024" rid="ref-KerrGeoPy" ref-type="bibr">Park
+  &amp; Nasipak, 2024</xref>), our paclet could follow a similar
+  route.</p>
+</sec>
+</body>
+<back>
+<ref-list>
+  <title></title>
+  <ref id="ref-Shakura">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Shakura</surname><given-names>N. I.</given-names></name>
+        <name><surname>Sunyaev</surname><given-names>R. A.</given-names></name>
+      </person-group>
+      <article-title>Black holes in binary systems. Observational appearance</article-title>
+      <source>Astron. Astrophys.</source>
+      <year iso-8601-date="1973">1973</year>
+      <volume>24</volume>
+      <fpage>337</fpage>
+      <lpage>355</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-NovikovThorne">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Novikov</surname><given-names>Igor D</given-names></name>
+        <name><surname>Thorne</surname><given-names>Kip S</given-names></name>
+      </person-group>
+      <article-title>Astrophysics of black holes</article-title>
+      <source>Black holes (Les astres occlus)</source>
+      <year iso-8601-date="1973">1973</year>
+      <volume>1</volume>
+      <fpage>343</fpage>
+      <lpage>450</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-PageThorne">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Page</surname><given-names>Don N.</given-names></name>
+        <name><surname>Thorne</surname><given-names>Kip S.</given-names></name>
+      </person-group>
+      <article-title>Disk-Accretion onto a Black Hole. Time-Averaged Structure of Accretion Disk</article-title>
+      <source>Astrophys. J.</source>
+      <year iso-8601-date="1974">1974</year>
+      <volume>191</volume>
+      <pub-id pub-id-type="doi">10.1086/152990</pub-id>
+      <fpage>499</fpage>
+      <lpage>506</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-EMBHRev">
+    <element-citation publication-type="chapter">
+      <person-group person-group-type="author">
+        <name><surname>Narayan</surname><given-names>Ramesh</given-names></name>
+        <name><surname>McClintock</surname><given-names>Jeffrey E.</given-names></name>
+      </person-group>
+      <article-title>Observational evidence for black holes</article-title>
+      <source>General relativity and gravitation: A centennial perspective</source>
+      <person-group person-group-type="editor">
+        <name><surname>Ashtekar</surname><given-names>Abhay</given-names></name>
+        <name><surname>Berger</surname><given-names>Beverly K.</given-names></name>
+        <name><surname>Isenberg</surname><given-names>James</given-names></name>
+        <name><surname>MacCallum</surname><given-names>MalcolmEditors</given-names></name>
+      </person-group>
+      <publisher-name>Cambridge University Press</publisher-name>
+      <year iso-8601-date="2015">2015</year>
+      <fpage>97</fpage>
+      <lpage>161</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-Genzel">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Genzel</surname><given-names>Reinhard</given-names></name>
+        <name><surname>Eisenhauer</surname><given-names>Frank</given-names></name>
+        <name><surname>Gillessen</surname><given-names>Stefan</given-names></name>
+      </person-group>
+      <article-title>The Galactic Center Massive Black Hole and Nuclear Star Cluster</article-title>
+      <source>Rev. Mod. Phys.</source>
+      <year iso-8601-date="2010">2010</year>
+      <volume>82</volume>
+      <uri>https://arxiv.org/abs/1006.0064</uri>
+      <pub-id pub-id-type="doi">10.1103/RevModPhys.82.3121</pub-id>
+      <fpage>3121</fpage>
+      <lpage>3195</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-Ghez">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Ghez</surname><given-names>A. M.</given-names></name>
+        <name><surname>others</surname></name>
+      </person-group>
+      <article-title>Measuring Distance and Properties of the Milky Way’s Central Supermassive Black Hole with Stellar Orbits</article-title>
+      <source>Astrophys. J.</source>
+      <year iso-8601-date="2008">2008</year>
+      <volume>689</volume>
+      <uri>https://arxiv.org/abs/0808.2870</uri>
+      <pub-id pub-id-type="doi">10.1086/592738</pub-id>
+      <fpage>1044</fpage>
+      <lpage>1062</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-NobelGenzelGhez">
+    <element-citation>
+      <person-group person-group-type="author">
+        <string-name>Nobel Prize Outreach</string-name>
+      </person-group>
+      <article-title>Nobel prize in physics 2020 webpage</article-title>
+      <publisher-name>https://www.nobelprize.org/prizes/physics/2020/summary/</publisher-name>
+      <year iso-8601-date="2020">2020</year>
+    </element-citation>
+  </ref>
+  <ref id="ref-GWOSC">
+    <element-citation>
+      <person-group person-group-type="author">
+        <string-name>LVK Collaboration</string-name>
+      </person-group>
+      <article-title>Gravitational wave open science centre</article-title>
+      <publisher-name>https://gwosc.org/</publisher-name>
+      <year iso-8601-date="2025">2025</year>
+    </element-citation>
+  </ref>
+  <ref id="ref-GWBH">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <string-name>LIGO and Virgo collaborations</string-name>
+      </person-group>
+      <article-title>Observation of Gravitational Waves from a Binary Black Hole Merger</article-title>
+      <source>Phys. Rev. Lett.</source>
+      <year iso-8601-date="2016">2016</year>
+      <volume>116</volume>
+      <issue>6</issue>
+      <uri>https://arxiv.org/abs/1602.03837</uri>
+      <pub-id pub-id-type="doi">10.1103/PhysRevLett.116.061102</pub-id>
+      <fpage>061102</fpage>
+      <lpage></lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-Gralla">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Gralla</surname><given-names>Samuel E.</given-names></name>
+        <name><surname>Lupsasca</surname><given-names>Alexandru</given-names></name>
+      </person-group>
+      <article-title>Null geodesics of the Kerr exterior</article-title>
+      <source>Phys. Rev. D</source>
+      <year iso-8601-date="2020">2020</year>
+      <volume>101</volume>
+      <issue>4</issue>
+      <uri>https://arxiv.org/abs/1910.12881</uri>
+      <pub-id pub-id-type="doi">10.1103/PhysRevD.101.044032</pub-id>
+      <fpage>044032</fpage>
+      <lpage></lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-EHTM87">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <string-name>Event Horizon Telescope collaboration</string-name>
+      </person-group>
+      <article-title>First M87 Event Horizon Telescope Results. I. The Shadow of the Supermassive Black Hole</article-title>
+      <source>Astrophys. J. Lett.</source>
+      <year iso-8601-date="2019">2019</year>
+      <volume>875</volume>
+      <uri>https://arxiv.org/abs/1906.11238</uri>
+      <pub-id pub-id-type="doi">10.3847/2041-8213/ab0ec7</pub-id>
+      <fpage>L1</fpage>
+      <lpage></lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-EHTSgrA">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <string-name>Event Horizon Telescope collaboration</string-name>
+      </person-group>
+      <article-title>First Sagittarius A* Event Horizon Telescope Results. I. The Shadow of the Supermassive Black Hole in the Center of the Milky Way</article-title>
+      <source>Astrophys. J. Lett.</source>
+      <year iso-8601-date="2022">2022</year>
+      <volume>930</volume>
+      <issue>2</issue>
+      <uri>https://arxiv.org/abs/2311.08680</uri>
+      <pub-id pub-id-type="doi">10.3847/2041-8213/ac6674</pub-id>
+      <fpage>L12</fpage>
+      <lpage></lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-EHTmodelling">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <string-name>Event Horizon Telescope collaboration</string-name>
+      </person-group>
+      <article-title>First M87 Event Horizon Telescope Results. VI. The Shadow and Mass of the Central Black Hole</article-title>
+      <source>Astrophys. J. Lett.</source>
+      <year iso-8601-date="2019">2019</year>
+      <volume>875</volume>
+      <issue>1</issue>
+      <uri>https://arxiv.org/abs/1906.11243</uri>
+      <pub-id pub-id-type="doi">10.3847/2041-8213/ab1141</pub-id>
+      <fpage>L6</fpage>
+      <lpage></lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-TDAMM">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Burns</surname><given-names>Eric</given-names></name>
+        <name><surname>Fryer</surname><given-names>Christopher L</given-names></name>
+        <name><surname>Agullo</surname><given-names>Ivan</given-names></name>
+        <name><surname>Andrews</surname><given-names>Jennifer</given-names></name>
+        <name><surname>Aydi</surname><given-names>Elias</given-names></name>
+        <name><surname>Baring</surname><given-names>Matthew G</given-names></name>
+        <name><surname>Baron</surname><given-names>Eddie</given-names></name>
+        <name><surname>Boorman</surname><given-names>Peter G</given-names></name>
+        <name><surname>Boroumand</surname><given-names>Mohammad Ali</given-names></name>
+        <name><surname>Borowski</surname><given-names>Eric</given-names></name>
+        <name><surname>others</surname></name>
+      </person-group>
+      <article-title>Multidisciplinary Science in the Multimessenger Era</article-title>
+      <year iso-8601-date="2025-02">2025</year><month>02</month>
+      <uri>https://arxiv.org/abs/2502.03577</uri>
+    </element-citation>
+  </ref>
+  <ref id="ref-InterstellarModeling">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>James</surname><given-names>Oliver</given-names></name>
+        <name><surname>Tunzelmann</surname><given-names>Eugenie von</given-names></name>
+        <name><surname>Franklin</surname><given-names>Paul</given-names></name>
+        <name><surname>Thorne</surname><given-names>Kip S.</given-names></name>
+      </person-group>
+      <article-title>Gravitational Lensing by Spinning Black Holes in Astrophysics, and in the Movie Interstellar</article-title>
+      <source>Class. Quant. Grav.</source>
+      <year iso-8601-date="2015">2015</year>
+      <volume>32</volume>
+      <issue>6</issue>
+      <uri>https://arxiv.org/abs/1502.03808</uri>
+      <pub-id pub-id-type="doi">10.1088/0264-9381/32/6/065001</pub-id>
+      <fpage>065001</fpage>
+      <lpage></lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-NullGeodesicsBranch">
+    <element-citation>
+      <person-group person-group-type="author">
+        <name><surname>Omwoyo</surname><given-names>E</given-names></name>
+      </person-group>
+      <article-title>KerrGeodesics:NullGeodesics branch on github</article-title>
+      <publisher-name>https://github.com/BlackHolePerturbationToolkit/KerrGeodesics/tree/NullGeodesics</publisher-name>
+      <year iso-8601-date="2025">2025</year>
+    </element-citation>
+  </ref>
+  <ref id="ref-EinsteinPyKerrGeo">
+    <element-citation>
+      <person-group person-group-type="author">
+        <name><surname>Shivotam</surname><given-names>J</given-names></name>
+        <name><surname>Bapat</surname><given-names>S</given-names></name>
+      </person-group>
+      <article-title>EinsteinPy-Geodesics on github</article-title>
+      <publisher-name>https://github.com/einsteinpy/einsteinpy-geodesics</publisher-name>
+      <year iso-8601-date="2020">2020</year>
+    </element-citation>
+  </ref>
+  <ref id="ref-KerrGeodesics">
+    <element-citation>
+      <person-group person-group-type="author">
+        <name><surname>Warburton</surname><given-names>Niels</given-names></name>
+        <name><surname>Wardell</surname><given-names>Barry</given-names></name>
+        <name><surname>Long</surname><given-names>Oliver</given-names></name>
+        <name><surname>Upton</surname><given-names>Sam</given-names></name>
+        <name><surname>Lynch</surname><given-names>Philip</given-names></name>
+        <name><surname>Nasipak</surname><given-names>Zachary</given-names></name>
+        <name><surname>Stein</surname><given-names>Leo C.</given-names></name>
+      </person-group>
+      <article-title>KerrGeodesics</article-title>
+      <publisher-name>Zenodo</publisher-name>
+      <year iso-8601-date="2023-07">2023</year><month>07</month>
+      <uri>https://doi.org/10.5281/zenodo.8108265</uri>
+      <pub-id pub-id-type="doi">10.5281/zenodo.8108265</pub-id>
+    </element-citation>
+  </ref>
+  <ref id="ref-KerrGeoPy">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Park</surname><given-names>Seyong</given-names></name>
+        <name><surname>Nasipak</surname><given-names>Zachary</given-names></name>
+      </person-group>
+      <article-title>KerrGeoPy: A python package for computing timelike geodesics in kerr spacetime</article-title>
+      <source>Journal of Open Source Software</source>
+      <publisher-name>The Open Journal</publisher-name>
+      <year iso-8601-date="2024">2024</year>
+      <volume>9</volume>
+      <issue>98</issue>
+      <uri>https://doi.org/10.21105/joss.06587</uri>
+      <pub-id pub-id-type="doi">10.21105/joss.06587</pub-id>
+      <fpage>6587</fpage>
+      <lpage></lpage>
+    </element-citation>
+  </ref>
+</ref-list>
+<fn-group>
+  <fn id="fn1">
+    <label>1</label><p><inline-formula><alternatives>
+    <tex-math><![CDATA[M_{\odot} \approx 2 \times 10^30]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:msub><mml:mi>M</mml:mi><mml:mo>⊙</mml:mo></mml:msub><mml:mo>≈</mml:mo><mml:mn>2</mml:mn><mml:mo>×</mml:mo><mml:msup><mml:mn>10</mml:mn><mml:mn>30</mml:mn></mml:msup></mml:mrow></mml:math></alternatives></inline-formula>
+    kg is the solar mass.</p>
+  </fn>
+</fn-group>
+</back>
+</article>
