@@ -1,0 +1,350 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     13472,        340]
+NotebookOptionsPosition[     10780,        285]
+NotebookOutlinePosition[     12561,        327]
+CellTagsIndexPosition[     12518,        324]
+WindowTitle->AlphaDiskModel
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell["BLACK HOLE IMAGES GUIDE", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "27924778-50db-46af-8e66-0f4b862747fc"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "c15f371f-26d1-4907-8d31-9751b0a5103f"],
+        Background->RGBColor[0.85098, 0.396078, 0],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[{
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "Functions",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "43994a41-c4c4-4b3f-b40e-a6fc4e5b382f"]
+         }],ExpressionUUID->"72ac3357-98d5-48df-bce9-3e77d258204d"],
+         StripOnInput->False], {"\<\"DiskParams\"\>":>
+        Documentation`HelpLookup[
+        "paclet:BlackHoleImages/ref/DiskParams"], \
+"\<\"ObservedDiskElement\"\>":>Documentation`HelpLookup[
+        "paclet:BlackHoleImages/ref/ObservedDiskElement"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"GuideFunction"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "a394b322-27ab-4266-942e-361b80356f21"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "Related Guides",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "5e4a3661-032b-4735-bfce-552271f88ca5"]
+         }],ExpressionUUID->"fb991734-7a75-41f0-b74c-1e63eaa6bdb7"],
+         StripOnInput->False], {"\<\"KerrNullGeodesics\"\>":>
+        Documentation`HelpLookup[
+        "paclet:BlackHoleImages/guide/KerrNullGeodesics"], \
+"\<\"KerrImages\"\>":>Documentation`HelpLookup[
+        "paclet:BlackHoleImages/guide/KerrImages"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"GuideMoreAbout"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "c5384937-020e-4877-95c5-e45ceb416120"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "Tech Notes",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "999a82a3-375c-4591-9d98-f7a7aec09e15"]
+         }],ExpressionUUID->"37945fae-01f6-47c4-b5d9-57ecad876bde"],
+         StripOnInput->False], {"\<\"AlphaDiskModel\"\>":>
+        Documentation`HelpLookup[
+        "paclet:BlackHoleImages/tutorial/AlphaDiskModel"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"GuideTutorial"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "280af4cb-d387-42ae-b13e-54d16f44493e"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "URL",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "be048ffb-9a1a-44b0-a95f-7634a56d7291"]
+         }],ExpressionUUID->"03cb958c-1a4d-4b0c-a16f-3c8c99c0ec95"],
+         StripOnInput->
+          False], {"\<\"BlackHoleImages/guide/AlphaDiskModel\"\>":>
+        None, "\<\"Copy Wolfram Documentation Center URL\"\>":>
+        Module[{DocumentationSearch`Private`nb$}, 
+         DocumentationSearch`Private`nb$ = NotebookPut[
+            Notebook[{
+              Cell["BlackHoleImages/guide/AlphaDiskModel"]}, Visible -> 
+             False]]; SelectionMove[
+          DocumentationSearch`Private`nb$, All, Notebook]; 
+         FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+         NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+        Delimiter, "\<\"Copy web URL\"\>":>
+        Module[{DocumentationSearch`Private`nb$}, 
+         DocumentationSearch`Private`nb$ = NotebookPut[
+            Notebook[{
+              Cell[
+               BoxData[
+                MakeBoxes[
+                 Hyperlink[
+                 "http://reference.wolfram.com/language/BlackHoleImages/guide/\
+AlphaDiskModel.html"], StandardForm]], "Input", TextClipboardType -> 
+               "PlainText"]}, Visible -> False]]; 
+         SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+         FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+         NotebookClose[DocumentationSearch`Private`nb$]; 
+         Null], "\<\"Go to web URL\"\>":>FrontEndExecute[{
+          NotebookLocate[{
+            URL[If[
+               TrueQ[DocumentationBuild`Make`Private`wsmlinkQ$20817], 
+               "http://reference.wolfram.com/system-modeler/", 
+               "http://reference.wolfram.com/language/"] <> 
+             "BlackHoleImages/guide/AlphaDiskModel" <> ".html"], None}]}]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"URLMenu"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "57666bcc-99eb-4d05-a834-cd9be4f06042"]
+    }], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "3c7d4a0a-a90c-4478-ab21-0eff1580dcfe"]}
+  }]], "AnchorBarGrid",
+ CellID->1,ExpressionUUID->"301a32a4-027c-45f8-8c48-1136de14ceec"],
+
+Cell[CellGroupData[{
+
+Cell["AlphaDiskModel", "GuideTitle",
+ CellID->505278258,ExpressionUUID->"0759be8b-adb2-4ba9-b87a-ae4aefed23e6"],
+
+Cell["\<\
+The package containing functions for generating the alpha disk model as \
+described by Shakura and Sunyaev (1972), and Novikov and Thorne in their Les \
+Houches lecture (1973), as well as its observed properties\
+\>", "GuideAbstract",
+ CellID->201944845,ExpressionUUID->"ac8f10c9-614f-49e3-a909-4c9b2186bdb9"],
+
+Cell["\t", "GuideDelimiterSubsection",ExpressionUUID->"076dcef6-467c-479e-9e59-fbd6eb0f464a"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  TemplateBox[{
+    Cell[
+     TextData["DiskParams"]], "paclet:BlackHoleImages/ref/DiskParams", 
+    "BlackHoleImages Package Symbol"},
+   "PackageLink",
+   BaseStyle->"InlineFunctionSans"]], "InlineFunctionSans",
+  CellTags->"c5c6736a-1ff4-4e4e-8fcf-2d9846cbae62",ExpressionUUID->
+  "8f9a09b7-1371-4b18-ba86-0faf9c4c2ca2"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " Generates an association containing information about accretion disk's \
+radiation."
+}], "GuideText",
+ CellID->371902528,ExpressionUUID->"47a73cdb-18b4-48bf-97bb-4ccc71fe7239"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  TemplateBox[{
+    Cell[
+     TextData["ObservedDiskElement"]], 
+    "paclet:BlackHoleImages/ref/ObservedDiskElement", 
+    "BlackHoleImages Package Symbol"},
+   "PackageLink",
+   BaseStyle->"InlineFunctionSans"]], "InlineFunctionSans",
+  CellTags->"c5c6736a-1ff4-4e4e-8fcf-2d9846cbae62",ExpressionUUID->
+  "aef8a637-a1e9-4146-96f0-b9eca77e3e6d"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " Generates the parameters of radiation observed at infinity on a given null \
+geodesic ."
+}], "GuideText",
+ CellID->401140705,ExpressionUUID->"bad310e8-51ad-4019-b824-cd84d1c35ad3"]
+}, Open  ]],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, 
+       "RelatedTutorial.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"Tech", " ", "Notes"}], "GuideTutorialsSection"]},
+      {
+       RowBox[{"\[FilledVerySmallSquare]", Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["AlphaDiskModel"]], 
+           "paclet:BlackHoleImages/tutorial/AlphaDiskModel"},
+          "RefLinkPlain",
+          BaseStyle->{"GuideTutorial"}]], "GuideTutorial",ExpressionUUID->
+         "b89096b9-9a34-4761-8536-2bd6d4c9f731"]}]}
+     }]}
+  }]], "GuideTutorialsSection",ExpressionUUID->"7079f6f9-dcaa-4e42-9fbb-\
+6c5567423457"],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, "RelatedGuide.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"Related", " ", "Guides"}], "GuideMoreAboutSection"]},
+      {
+       RowBox[{"\[FilledVerySmallSquare]", Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["KerrNullGeodesics"]], 
+           "paclet:BlackHoleImages/guide/KerrNullGeodesics"},
+          "RefLinkPlain",
+          BaseStyle->{"GuideMoreAbout"}]], "GuideMoreAbout",ExpressionUUID->
+         "22090679-2801-41a9-8d7b-e1219af2f64e"]}]},
+      {
+       RowBox[{"\[FilledVerySmallSquare]", Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["KerrImages"]], 
+           "paclet:BlackHoleImages/guide/KerrImages"},
+          "RefLinkPlain",
+          BaseStyle->{"GuideMoreAbout"}]], "GuideMoreAbout",ExpressionUUID->
+         "b2c64685-f56b-4125-b594-ec6b6d3e7a27"]}]}
+     }]}
+  }]], "GuideMoreAboutSection",ExpressionUUID->"b6ecf66f-04ed-4073-8207-\
+eedc8f02800f"],
+
+Cell[" ", "FooterCell",ExpressionUUID->"b011c718-8c08-4f4a-b6fc-6d8af793addf"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900., 604.8},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"AlphaDiskModel",
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, "ExampleSection" -> {"0" -> Open}}, 
+  "NewStyles" -> True, "CitationPopupData" -> {$Failed, ""}, "ShowCitation" -> 
+  False, "RootCaptions" -> "", 
+  "Metadata" -> {
+   "built" -> "{2025, 2, 21, 16, 50, 44.1025027}", 
+    "history" -> {"XX", "", "", ""}, "context" -> "BlackHoleImages`", 
+    "keywords" -> {}, "specialkeywords" -> {}, 
+    "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
+    "Black Hole Images Guide", "language" -> "en", "paclet" -> 
+    "BlackHoleImages", "status" -> "None", "summary" -> 
+    "The package containing functions for generating the alpha disk model as \
+described by Shakura and Sunyaev (1972), and Novikov and Thorne in their Les \
+Houches lecture (1973), as well as its observed properties", "synonyms" -> {},
+     "tabletags" -> DocumentationBuild`Make`Private`tabletaggingrules$20782, 
+    "title" -> "AlphaDiskModel", "titlemodifier" -> "", "metadescription" -> 
+    "", "windowtitle" -> "AlphaDiskModel", "type" -> "Guide", "uri" -> 
+    "BlackHoleImages/guide/AlphaDiskModel"}},
+CacheGraphics->False,
+FrontEndVersion->"13.2 for Microsoft Windows (64-bit) (January 30, 2023)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"dca151de-3353-4f50-b1e6-9bcae3ef1623"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[586, 21, 6468, 158, 70, "AnchorBarGrid",ExpressionUUID->"301a32a4-027c-45f8-8c48-1136de14ceec",
+ CellID->1],
+Cell[CellGroupData[{
+Cell[7079, 183, 111, 1, 70, "GuideTitle",ExpressionUUID->"0759be8b-adb2-4ba9-b87a-ae4aefed23e6",
+ CellID->505278258],
+Cell[7193, 186, 319, 5, 70, "GuideAbstract",ExpressionUUID->"ac8f10c9-614f-49e3-a909-4c9b2186bdb9",
+ CellID->201944845],
+Cell[7515, 193, 93, 0, 70, "GuideDelimiterSubsection",ExpressionUUID->"076dcef6-467c-479e-9e59-fbd6eb0f464a"],
+Cell[7611, 195, 583, 15, 70, "GuideText",ExpressionUUID->"47a73cdb-18b4-48bf-97bb-4ccc71fe7239",
+ CellID->371902528],
+Cell[8197, 212, 610, 16, 70, "GuideText",ExpressionUUID->"bad310e8-51ad-4019-b824-cd84d1c35ad3",
+ CellID->401140705]
+}, Open  ]],
+Cell[8822, 231, 759, 20, 70, "GuideTutorialsSection",ExpressionUUID->"7079f6f9-dcaa-4e42-9fbb-6c5567423457"],
+Cell[9584, 253, 1111, 28, 70, "GuideMoreAboutSection",ExpressionUUID->"b6ecf66f-04ed-4073-8207-eedc8f02800f"],
+Cell[10698, 283, 78, 0, 70, "FooterCell",ExpressionUUID->"b011c718-8c08-4f4a-b6fc-6d8af793addf"]
+}
+]
+*)
+
+(* End of internal cache information *)
+

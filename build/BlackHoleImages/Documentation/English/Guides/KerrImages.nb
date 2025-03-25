@@ -1,0 +1,387 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     14889,        377]
+NotebookOptionsPosition[     12043,        318]
+NotebookOutlinePosition[     13741,        360]
+CellTagsIndexPosition[     13698,        357]
+WindowTitle->KerrImages
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell["BLACK HOLE IMAGES GUIDE", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "167640fb-27ff-42c3-8da4-2d1ed2235bcd"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "5ce66aca-014d-4015-a62e-4f8177da41e9"],
+        Background->RGBColor[0.85098, 0.396078, 0],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[{
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "Functions",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "61d1c263-ec6c-4092-a7c9-163805119940"]
+         }],ExpressionUUID->"1c37df85-3e74-4968-8181-b5c2f9b664ae"],
+         StripOnInput->False], {"\<\"DiskImage\"\>":>Documentation`HelpLookup[
+        "paclet:BlackHoleImages/ref/DiskImage"], "\<\"DiskImageFromTemplate\"\
+\>":>Documentation`HelpLookup[
+        "paclet:BlackHoleImages/ref/DiskImageFromTemplate"], \
+"\<\"GenerateTemplate\"\>":>Documentation`HelpLookup[
+        "paclet:BlackHoleImages/ref/GenerateTemplate"], \
+"\<\"StellarBackgroundFromTemplate\"\>":>Documentation`HelpLookup[
+        "paclet:BlackHoleImages/ref/StellarBackgroundFromTemplate"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"GuideFunction"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "94ab8fea-c009-4d2e-9392-43628b6fa0d2"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "Related Guides",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "0f3baffb-5bb4-4f55-bb01-36c6efb7b137"]
+         }],ExpressionUUID->"e606c5bc-2324-4dbd-8916-36eb38c3c730"],
+         StripOnInput->False], {"\<\"KerrNullGeodesics\"\>":>
+        Documentation`HelpLookup[
+        "paclet:BlackHoleImages/guide/KerrNullGeodesics"], \
+"\<\"AlphaDiskModel\"\>":>Documentation`HelpLookup[
+        "paclet:BlackHoleImages/guide/AlphaDiskModel"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"GuideMoreAbout"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "c6f9dab3-d54d-40b2-a8f4-79076036a88a"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "Tech Notes",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "bbc91cb5-88d3-4f62-ae90-26574622d581"]
+         }],ExpressionUUID->"bcc672be-9596-41f7-8d1c-e248be916655"],
+         StripOnInput->False], {"\<\"KerrImages\"\>":>
+        Documentation`HelpLookup[
+        "paclet:BlackHoleImages/tutorial/KerrImages"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"GuideTutorial"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "df7e5466-91bc-4715-a19f-a7fb442703d7"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "URL",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "88c2f0bd-a05f-4e7e-aed6-26efa129869c"]
+         }],ExpressionUUID->"da04f049-0f06-4747-817e-1c7f7b4c18eb"],
+         StripOnInput->False], {"\<\"BlackHoleImages/guide/KerrImages\"\>":>
+        None, "\<\"Copy Wolfram Documentation Center URL\"\>":>
+        Module[{DocumentationSearch`Private`nb$}, 
+         DocumentationSearch`Private`nb$ = NotebookPut[
+            Notebook[{
+              Cell["BlackHoleImages/guide/KerrImages"]}, Visible -> False]]; 
+         SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+         FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+         NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+        Delimiter, "\<\"Copy web URL\"\>":>
+        Module[{DocumentationSearch`Private`nb$}, 
+         DocumentationSearch`Private`nb$ = NotebookPut[
+            Notebook[{
+              Cell[
+               BoxData[
+                MakeBoxes[
+                 Hyperlink[
+                 "http://reference.wolfram.com/language/BlackHoleImages/guide/\
+KerrImages.html"], StandardForm]], "Input", TextClipboardType -> 
+               "PlainText"]}, Visible -> False]]; 
+         SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+         FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+         NotebookClose[DocumentationSearch`Private`nb$]; 
+         Null], "\<\"Go to web URL\"\>":>FrontEndExecute[{
+          NotebookLocate[{
+            URL[If[
+               TrueQ[DocumentationBuild`Make`Private`wsmlinkQ$22161], 
+               "http://reference.wolfram.com/system-modeler/", 
+               "http://reference.wolfram.com/language/"] <> 
+             "BlackHoleImages/guide/KerrImages" <> ".html"], None}]}]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"URLMenu"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "0c6e68df-b0ab-4669-802b-e30a76265f87"]
+    }], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "f03b5e49-8ae5-47a7-b6de-a7e3790140f7"]}
+  }]], "AnchorBarGrid",
+ CellID->1,ExpressionUUID->"52240197-e9e3-4393-88f0-3eab05572992"],
+
+Cell[CellGroupData[{
+
+Cell["KerrImages", "GuideTitle",
+ CellID->121676101,ExpressionUUID->"b11a3cad-367f-4ff7-885a-f73b06982bcb"],
+
+Cell["\<\
+The package containing functions for generating images of accretion disks \
+near a Kerr black hole or a stellar background distorted by it.\
+\>", "GuideAbstract",
+ CellID->154107588,ExpressionUUID->"0a853d27-7836-4fba-a15e-662be6e856ce"],
+
+Cell["\t", "GuideDelimiterSubsection",ExpressionUUID->"c0d31215-2ad1-4654-a2b6-d65c91f0116f"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  TemplateBox[{
+    Cell[
+     TextData["DiskImage"]], "paclet:BlackHoleImages/ref/DiskImage", 
+    "BlackHoleImages Package Symbol"},
+   "PackageLink",
+   BaseStyle->"InlineFunctionSans"]], "InlineFunctionSans",
+  CellTags->"c40ac8e4-27e1-4161-a8df-4d4f38357a23",ExpressionUUID->
+  "5e9a3230-7ecc-482a-8305-727e4640e093"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " Generates the image of a disk."
+}], "GuideText",
+ CellID->114505396,ExpressionUUID->"7a2ed40e-2aad-426b-8420-26f00d0e284c"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  TemplateBox[{
+    Cell[
+     TextData["DiskImageFromTemplate"]], 
+    "paclet:BlackHoleImages/ref/DiskImageFromTemplate", 
+    "BlackHoleImages Package Symbol"},
+   "PackageLink",
+   BaseStyle->"InlineFunctionSans"]], "InlineFunctionSans",
+  CellTags->"c5c6736a-1ff4-4e4e-8fcf-2d9846cbae62",ExpressionUUID->
+  "dc09517f-975d-42bf-85eb-7ed4295e5668"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " Generates the image of a disk from a given template."
+}], "GuideText",
+ CellID->437287544,ExpressionUUID->"dcff5c26-6a62-4cbe-a30b-38814d0611f2"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  TemplateBox[{
+    Cell[
+     TextData["GenerateTemplate"]], 
+    "paclet:BlackHoleImages/ref/GenerateTemplate", 
+    "BlackHoleImages Package Symbol"},
+   "PackageLink",
+   BaseStyle->"InlineFunctionSans"]], "InlineFunctionSans",
+  CellTags->"c5c6736a-1ff4-4e4e-8fcf-2d9846cbae62",ExpressionUUID->
+  "546abf86-a8be-450e-854f-4ddec27c1147"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " Generates the template for a given geometry, which can be later reused."
+}], "GuideText",
+ CellID->292566503,ExpressionUUID->"e73ca916-f981-4240-aef0-6d47d2307fdb"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  TemplateBox[{
+    Cell[
+     TextData["StellarBackgroundFromTemplate"]], 
+    "paclet:BlackHoleImages/ref/StellarBackgroundFromTemplate", 
+    "BlackHoleImages Package Symbol"},
+   "PackageLink",
+   BaseStyle->"InlineFunctionSans"]], "InlineFunctionSans",
+  CellTags->"c5c6736a-1ff4-4e4e-8fcf-2d9846cbae62",ExpressionUUID->
+  "de9287d5-2ccf-4b20-b883-2e04e80a874a"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " Generates the image of stellar background distorted by a black hole from a \
+given template."
+}], "GuideText",
+ CellID->15857688,ExpressionUUID->"cdba5531-2e02-40c5-a9e2-c6907a81da5d"]
+}, Open  ]],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, 
+       "RelatedTutorial.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"Tech", " ", "Notes"}], "GuideTutorialsSection"]},
+      {
+       RowBox[{"\[FilledVerySmallSquare]", Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["KerrImages"]], 
+           "paclet:BlackHoleImages/tutorial/KerrImages"},
+          "RefLinkPlain",
+          BaseStyle->{"GuideTutorial"}]], "GuideTutorial",ExpressionUUID->
+         "8b32ea39-155c-417b-b3ef-d4f7153353e0"]}]}
+     }]}
+  }]], "GuideTutorialsSection",ExpressionUUID->"83bb50aa-a8cb-4b1b-9070-\
+e483bbd3513a"],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, "RelatedGuide.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"Related", " ", "Guides"}], "GuideMoreAboutSection"]},
+      {
+       RowBox[{"\[FilledVerySmallSquare]", Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["KerrNullGeodesics"]], 
+           "paclet:BlackHoleImages/guide/KerrNullGeodesics"},
+          "RefLinkPlain",
+          BaseStyle->{"GuideMoreAbout"}]], "GuideMoreAbout",ExpressionUUID->
+         "71ae5d99-d8f1-4140-8b35-83c549e2719c"]}]},
+      {
+       RowBox[{"\[FilledVerySmallSquare]", Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["AlphaDiskModel"]], 
+           "paclet:BlackHoleImages/guide/AlphaDiskModel"},
+          "RefLinkPlain",
+          BaseStyle->{"GuideMoreAbout"}]], "GuideMoreAbout",ExpressionUUID->
+         "06b367a5-6842-44cf-81ab-777dafa934bc"]}]}
+     }]}
+  }]], "GuideMoreAboutSection",ExpressionUUID->"894cf75d-bfaa-4181-a5d5-\
+dc0f74855980"],
+
+Cell[" ", "FooterCell",ExpressionUUID->"76b3cafa-cea1-4c0e-bc23-3e709c1a470b"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900., 604.8},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"KerrImages",
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, "ExampleSection" -> {"0" -> Open}}, 
+  "NewStyles" -> True, "CitationPopupData" -> {$Failed, ""}, "ShowCitation" -> 
+  False, "RootCaptions" -> "", 
+  "Metadata" -> {
+   "built" -> "{2025, 2, 21, 16, 50, 45.8911217}", 
+    "history" -> {"XX", "", "", ""}, "context" -> "BlackHoleImages`", 
+    "keywords" -> {}, "specialkeywords" -> {}, 
+    "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
+    "Black Hole Images Guide", "language" -> "en", "paclet" -> 
+    "BlackHoleImages", "status" -> "None", "summary" -> 
+    "The package containing functions for generating images of accretion \
+disks near a Kerr black hole or a stellar background distorted by it.", 
+    "synonyms" -> {}, "tabletags" -> 
+    DocumentationBuild`Make`Private`tabletaggingrules$22126, "title" -> 
+    "KerrImages", "titlemodifier" -> "", "metadescription" -> "", 
+    "windowtitle" -> "KerrImages", "type" -> "Guide", "uri" -> 
+    "BlackHoleImages/guide/KerrImages"}},
+CacheGraphics->False,
+FrontEndVersion->"13.2 for Microsoft Windows (64-bit) (January 30, 2023)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"340bf1cb-61d8-4c6e-b0a3-d03a20a5a612"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[582, 21, 6669, 159, 70, "AnchorBarGrid",ExpressionUUID->"52240197-e9e3-4393-88f0-3eab05572992",
+ CellID->1],
+Cell[CellGroupData[{
+Cell[7276, 184, 107, 1, 70, "GuideTitle",ExpressionUUID->"b11a3cad-367f-4ff7-885a-f73b06982bcb",
+ CellID->121676101],
+Cell[7386, 187, 247, 4, 70, "GuideAbstract",ExpressionUUID->"0a853d27-7836-4fba-a15e-662be6e856ce",
+ CellID->154107588],
+Cell[7636, 193, 93, 0, 70, "GuideDelimiterSubsection",ExpressionUUID->"c0d31215-2ad1-4654-a2b6-d65c91f0116f"],
+Cell[7732, 195, 528, 14, 70, "GuideText",ExpressionUUID->"7a2ed40e-2aad-426b-8420-26f00d0e284c",
+ CellID->114505396],
+Cell[8263, 211, 579, 15, 70, "GuideText",ExpressionUUID->"dcff5c26-6a62-4cbe-a30b-38814d0611f2",
+ CellID->437287544],
+Cell[8845, 228, 588, 15, 70, "GuideText",ExpressionUUID->"e73ca916-f981-4240-aef0-6d47d2307fdb",
+ CellID->292566503],
+Cell[9436, 245, 634, 16, 70, "GuideText",ExpressionUUID->"cdba5531-2e02-40c5-a9e2-c6907a81da5d",
+ CellID->15857688]
+}, Open  ]],
+Cell[10085, 264, 751, 20, 70, "GuideTutorialsSection",ExpressionUUID->"83bb50aa-a8cb-4b1b-9070-e483bbd3513a"],
+Cell[10839, 286, 1119, 28, 70, "GuideMoreAboutSection",ExpressionUUID->"894cf75d-bfaa-4181-a5d5-dc0f74855980"],
+Cell[11961, 316, 78, 0, 70, "FooterCell",ExpressionUUID->"76b3cafa-cea1-4c0e-bc23-3e709c1a470b"]
+}
+]
+*)
+
+(* End of internal cache information *)
+

@@ -10,50 +10,182 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     63861,       1451]
-NotebookOptionsPosition[     55684,       1273]
-NotebookOutlinePosition[     56245,       1292]
-CellTagsIndexPosition[     56202,       1289]
+NotebookDataLength[     64009,       1467]
+NotebookOptionsPosition[     55356,       1296]
+NotebookOutlinePosition[     57816,       1356]
+CellTagsIndexPosition[     57773,       1353]
+WindowTitle->AlphaDiskModel
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell["BLACK HOLE IMAGES TECH NOTE", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "20c12ccf-6673-4e4e-a38d-6827fa22a4d2"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "63069003-c246-4b47-bde7-b6c0e4fccba5"],
+        Background->RGBColor[
+         0.3843137254901961, 0.4627450980392157, 0.7019607843137254],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[Cell[BoxData[
+     TagBox[
+      ActionMenuBox[
+       FrameBox[Cell[TextData[{
+         "URL",
+         " ",
+         Cell[BoxData[
+          GraphicsBox[
+           {GrayLevel[0.66667], Thickness[0.13], 
+            LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+           AspectRatio->1,
+           ImageSize->20,
+           PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+          "0ae9e67c-90ee-40c8-b21a-98d980050b96"]
+        }],ExpressionUUID->"6ba05295-e391-493b-a071-6f4fbffc7984"],
+        StripOnInput->
+         False], {"\<\"BlackHoleImages/tutorial/AlphaDiskModel\"\>":>
+       None, "\<\"Copy Wolfram Documentation Center URL\"\>":>
+       Module[{DocumentationSearch`Private`nb$}, 
+        DocumentationSearch`Private`nb$ = NotebookPut[
+           Notebook[{
+             Cell["BlackHoleImages/tutorial/AlphaDiskModel"]}, Visible -> 
+            False]]; SelectionMove[
+         DocumentationSearch`Private`nb$, All, Notebook]; 
+        FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+        NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+       Delimiter, "\<\"Copy web URL\"\>":>
+       Module[{DocumentationSearch`Private`nb$}, 
+        DocumentationSearch`Private`nb$ = NotebookPut[
+           Notebook[{
+             Cell[
+              BoxData[
+               MakeBoxes[
+                Hyperlink[
+                "http://reference.wolfram.com/language/BlackHoleImages/\
+tutorial/AlphaDiskModel.html"], StandardForm]], "Input", TextClipboardType -> 
+              "PlainText"]}, Visible -> False]]; 
+        SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+        FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+        NotebookClose[DocumentationSearch`Private`nb$]; 
+        Null], "\<\"Go to web URL\"\>":>FrontEndExecute[{
+         NotebookLocate[{
+           URL[If[
+              TrueQ[DocumentationBuild`Make`Private`wsmlinkQ$28843], 
+              "http://reference.wolfram.com/system-modeler/", 
+              "http://reference.wolfram.com/language/"] <> 
+            "BlackHoleImages/tutorial/AlphaDiskModel" <> ".html"], None}]}]},
+       Appearance->None,
+       MenuAppearance->Automatic,
+       MenuStyle->"URLMenu"],
+      MouseAppearanceTag["LinkHand"]]],
+     LineSpacing->{1.4, 0},ExpressionUUID->
+     "244a0d31-f916-4b07-9c9f-16e5d4e57a69"]], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "506a9000-526e-4719-8c40-8be011300703"]}
+  }]], "AnchorBarGrid",
+ GridBoxOptions->{GridBoxItemSize->{"Columns" -> {
+     Scaled[0.65], {
+      Scaled[0.34]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+   "RowsIndexed" -> {}}},
+ CellID->1,ExpressionUUID->"498349a2-f6e0-472f-a7f7-4fbabaae7e83"],
 
 Cell[CellGroupData[{
-Cell["AlphaDiskModel", "Title",
+
+Cell["AlphaDiskModel", "TechNoteTitle",
  CellID->876156861,ExpressionUUID->"96aeec83-2149-48ce-97bf-7963d45e1514"],
+
+Cell[BoxData[GridBox[{
+   {
+    TemplateBox[{
+      Cell["The Conventions in This Package"], 
+      "paclet:BlackHoleImages/tutorial/AlphaDiskModel#749492365", 
+      StyleBox[
+       GraphicsBox[{
+         Thickness[0.18], 
+         RGBColor[0.3843137254901961, 0.4627450980392157, 0.7019607843137254], 
+         LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited, StripOnInput -> False], 
+      StyleBox[
+       GraphicsBox[{
+         Thickness[0.18], 
+         RGBColor[0.9686274509803922, 0.4666666666666667, 0.], 
+         LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited, StripOnInput -> False]},
+     "GrayLinkWithIcon",
+     BaseStyle->{"TutorialJumpBoxLink"}], 
+    TemplateBox[{
+      Cell["The functions"], 
+      "paclet:BlackHoleImages/tutorial/AlphaDiskModel#124831384", 
+      StyleBox[
+       GraphicsBox[{
+         Thickness[0.18], 
+         RGBColor[0.3843137254901961, 0.4627450980392157, 0.7019607843137254], 
+         LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited, StripOnInput -> False], 
+      StyleBox[
+       GraphicsBox[{
+         Thickness[0.18], 
+         RGBColor[0.9686274509803922, 0.4666666666666667, 0.], 
+         LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited, StripOnInput -> False]},
+     "GrayLinkWithIcon",
+     BaseStyle->{"TutorialJumpBoxLink"}]}
+  }]], "TechNoteJumpBox",ExpressionUUID->"89aa19b7-0efb-4be7-9b91-\
+e62af479ba3e"],
 
 Cell[TextData[{
  "The ",
  Cell[BoxData["AlphaDiskModel`"], "InlineFormula",
-  FormatType->StandardForm,ExpressionUUID->
+  FontFamily->"Source Sans Pro",ExpressionUUID->
   "e5daf01a-76b3-4c29-b706-d3bee8f1c04a"],
  " package contains function for generating the alpha disk model as described \
 by Shakura and Sunyaev (1972), and Novikov and Thorne in their Les Houches \
 lecture (1973), as well as its observed properties. The public functions in \
 this package are:"
-}], "Text",
- CellChangeTimes->{{3.940595743481636*^9, 3.9405958063181286`*^9}},
+}], "TechNoteText",
  CellID->396820302,ExpressionUUID->"fa1736de-68f5-49a8-b9fc-3fb59e3ad7be"],
 
 Cell[BoxData[GridBox[{
    {
     RowBox[{
-     ButtonBox["DiskParams",
-      BaseStyle->"Link",
-      ButtonData->"paclet:BlackHoleImages/ref/DiskParams"], "[", 
+     TemplateBox[{
+       Cell[
+        TextData["DiskParams"]], "paclet:BlackHoleImages/ref/DiskParams", 
+       "BlackHoleImages Package Symbol"},
+      "PackageLink",
+      BaseStyle->{"DefinitionBox", CellFrame -> 0}], "[", 
      StyleBox[
       RowBox[{"a", ",", " ", "\[Alpha]", ",", " ", "m", ",", " ", "mdot"}],
       FontSlant->"Italic"], "]"}], Cell["\<\
 returns an association containing information about accretion disk's \
 radiation. The keys are 'Temperature', 'SpectralFluxDensity' and \
 'FluxDensity'.\
-\>", "TableText",ExpressionUUID->"282d78ac-e4ec-4da8-a024-10a28fbaa53f"]},
+\>", "TechNoteTableText",ExpressionUUID->
+     "282d78ac-e4ec-4da8-a024-10a28fbaa53f"]},
    {
     RowBox[{
-     ButtonBox["ObservedDiskElement",
-      BaseStyle->"Link",
-      ButtonData->"paclet:BlackHoleImages/ref/ObservedDiskElement"], "[", 
+     TemplateBox[{
+       Cell[
+        TextData["ObservedDiskElement"]], 
+       "paclet:BlackHoleImages/ref/ObservedDiskElement", 
+       "BlackHoleImages Package Symbol"},
+      "PackageLink",
+      BaseStyle->{"DefinitionBox", CellFrame -> 0}], "[", 
      StyleBox[
       RowBox[{"disk", ",", " ", "geodesic"}],
       FontSlant->"Italic"], "]"}], Cell[TextData[{
@@ -61,46 +193,50 @@ radiation. The keys are 'Temperature', 'SpectralFluxDensity' and \
      StyleBox["disk",
       FontSlant->"Italic"],
      "' (assoc generated by ",
-     ButtonBox["DiskParams",
-      BaseStyle->"Link",
-      ButtonData->"paclet:BlackHoleImages/ref/DiskParams"],
+     Cell[BoxData[
+      TemplateBox[{
+        Cell[
+         TextData["DiskParams"]], "paclet:BlackHoleImages/ref/DiskParams", 
+        "BlackHoleImages Package Symbol"},
+       "PackageLink",
+       BaseStyle->{"DefinitionBox", CellFrame -> 0}]],ExpressionUUID->
+      "e33e5e50-9ebd-4ff3-a62b-98e2f661a76f"],
      ") radiation observed on geodesic '",
      Cell[BoxData[
-      StyleBox["geodesic", "TI"]], "InlineFormula",ExpressionUUID->
+      StyleBox["geodesic", "TI"]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
       "57aeb134-b445-4ccf-9c48-9e6d0f6e772d"],
      "' (assoc generated by ",
-     ButtonBox["KerrNullGeoDistant",
-      BaseStyle->"Link",
-      ButtonData->"paclet:BlackHoleImages/ref/KerrNullGeoDistant"],
+     Cell[BoxData[
+      TemplateBox[{
+        Cell[
+         TextData["KerrNullGeoDistant"]], 
+        "paclet:BlackHoleImages/ref/KerrNullGeoDistant", 
+        "BlackHoleImages Package Symbol"},
+       "PackageLink",
+       BaseStyle->{"DefinitionBox", CellFrame -> 0}]],ExpressionUUID->
+      "5f79546d-fc40-47d6-a895-c4914aca111c"],
      "). The keys are 'PhysicalTemperature', 'EffectiveTemperature', \
 'SpecificIntensity', 'Intensity' and 'PeakFrequency'."
-    }], "TableText",ExpressionUUID->"cac9322f-6c05-4c4c-b3a7-be6c4ffc3acf"]}
+    }], "TechNoteTableText",ExpressionUUID->
+     "cac9322f-6c05-4c4c-b3a7-be6c4ffc3acf"]}
   }]], "DefinitionBox",
- CellChangeTimes->{{3.9405958157342725`*^9, 3.94059594299434*^9}, {
-  3.940595997076929*^9, 3.940595997076929*^9}},
  CellID->30968840,ExpressionUUID->"4f02ed71-6c70-4455-b62b-e5695673912f"],
 
-Cell["", "Text",
- CellChangeTimes->{{3.9405960391073265`*^9, 3.9405960414810853`*^9}},
+Cell["", "TechNoteText",
  CellID->110172382,ExpressionUUID->"814aa6fb-6c24-4a6e-9bb7-1629bbbf2222"],
 
-Cell[CellGroupData[{
-
-Cell["First, load the paclet:", "Text",
- CellChangeTimes->{{3.940596043007868*^9, 3.940596050180121*^9}},
+Cell["First, load the paclet:", "TechNoteText",
  CellID->9488137,ExpressionUUID->"648602ca-4b0c-46ab-b719-ab9892ab20b9"],
 
 Cell[BoxData[
  RowBox[{"Needs", "[", "\"\<BlackHoleImages`\>\"", "]"}]], "Input",
- CellChangeTimes->{{3.940596054048802*^9, 3.940596068290373*^9}},
  CellLabel->"In[1]:=",
- CellID->78760878,ExpressionUUID->"88e54d2a-b67c-45ea-8df8-9c6f247182c7"]
-}, Open  ]],
+ CellID->78760878,ExpressionUUID->"88e54d2a-b67c-45ea-8df8-9c6f247182c7"],
 
 Cell[CellGroupData[{
 
-Cell["The Conventions in This Package", "Section",
- CellChangeTimes->{{3.940596661488495*^9, 3.940596680326201*^9}},
+Cell["The Conventions in This Package", "TechNoteSection",
  CellID->749492365,ExpressionUUID->"2977e860-b012-46fb-9943-2daa56d7b38f"],
 
 Cell[TextData[{
@@ -121,22 +257,18 @@ pressure with its gradient remains low allowing us to approximate the motion \
 of the fluid as equatorial circular time-like geodesics. Circular geodesics \
 lose stability at the innermost stable circular orbit whose radius is ",
  Cell[BoxData[
-  SubscriptBox["R", "ISCO"]], "InlineFormula",ExpressionUUID->
+  SubscriptBox["R", "ISCO"]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
   "4cbc1434-29c3-47fa-9d3c-bcacb5d2fbca"],
  ", which then also defined the inner edge of the quasi-stationary disk. "
-}], "Text",
- CellChangeTimes->{{3.9405967073567867`*^9, 3.940596709446622*^9}, {
-  3.9405967424545097`*^9, 3.940596745050992*^9}, {3.940597139209306*^9, 
-  3.9405972890142236`*^9}, {3.940597422685707*^9, 3.9405977733343315`*^9}, {
-  3.9405978144190917`*^9, 3.9405979246039367`*^9}, {3.940761727272111*^9, 
-  3.940761839888739*^9}},
+}], "TechNoteText",
  CellID->247634746,ExpressionUUID->"d454feee-b376-43e2-8db1-86be61d84ff1"],
 
 Cell[TextData[{
  "The  shear stress in the disk is characterized by the free parameter of the \
 model denoted by ",
- Cell[BoxData[
- "\[Alpha]"], "InlineFormula",ExpressionUUID->
+ Cell[BoxData["\[Alpha]"], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
   "e1048caa-959a-4ef0-b5cc-3ac6b2eb39dc"],
  "; ",
  Cell[BoxData[
@@ -144,91 +276,86 @@ model denoted by ",
    SubscriptBox["w", "r\[Phi]"], "~", " ", 
    SuperscriptBox[
     SubscriptBox["\[Alpha]\[Rho]v", "s"], "2"], " "}]], "InlineFormula",
-  ExpressionUUID->"795495aa-75ad-47be-948a-f187dc4e49fe"],
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "795495aa-75ad-47be-948a-f187dc4e49fe"],
  ", where ",
- Cell[BoxData[
- "\[Rho]"], "InlineFormula",ExpressionUUID->
+ Cell[BoxData["\[Rho]"], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
   "296bae06-5a95-4e3d-b358-21e61951c78d"],
  " is the (proper) matter density and ",
  Cell[BoxData[
-  SubscriptBox["v", "s"]], "InlineFormula",ExpressionUUID->
+  SubscriptBox["v", "s"]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
   "f532533a-70a7-4bf2-901b-b7c8a6b9c2b2"],
  " the speed of sound in the disk."
-}], "Text",
- CellChangeTimes->{{3.9405979325506325`*^9, 3.940598114335869*^9}, {
-  3.9405981555290976`*^9, 3.9405981607103043`*^9}, {3.940761862216194*^9, 
-  3.9407618626228456`*^9}},
+}], "TechNoteText",
  CellID->193396969,ExpressionUUID->"18818331-a45c-4a0d-90b5-b24cca9b9560"],
 
 Cell[TextData[{
  "The spin parameter of the black hole ",
- Cell[BoxData[
- "a"], "InlineFormula",ExpressionUUID->"bbfe576f-1a4b-4afe-a6a1-9a08e7028eac"],
+ Cell[BoxData["a"], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "bbfe576f-1a4b-4afe-a6a1-9a08e7028eac"],
  " is expected to be given in units of the black hole mass throughout the \
 package and only subextremal black holes are treated (",
- Cell[BoxData[
- "a"], "InlineFormula",ExpressionUUID->"5c5167ae-5be2-47f4-a9ae-241b46e545c9"],
+ Cell[BoxData["a"], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "5c5167ae-5be2-47f4-a9ae-241b46e545c9"],
  " from zero to one). "
-}], "Text",
- CellChangeTimes->{{3.940598210249471*^9, 3.9405983049942603`*^9}, {
-  3.9407618891740627`*^9, 3.940761954536593*^9}},
+}], "TechNoteText",
  CellID->58131572,ExpressionUUID->"2e95f0e4-2fab-4f07-ad83-377b0a350c2e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["The functions", "Section",
- CellChangeTimes->{{3.9405983159562426`*^9, 3.940598318589552*^9}},
+Cell["The functions", "TechNoteSection",
  CellID->124831384,ExpressionUUID->"96e88029-f92f-4855-a969-576ace588609"],
 
 Cell[TextData[{
  "The ",
  Cell[BoxData[
-  ButtonBox["DiskParams",
-   BaseStyle->"Link",
-   ButtonData->"paclet:BlackHoleImages/ref/DiskParams"]], "InlineFormula",
-  ExpressionUUID->"c601a611-3b01-4c74-8ac8-055e3cd1db05"],
+  TemplateBox[{
+    Cell[
+     TextData["DiskParams"]], "paclet:BlackHoleImages/ref/DiskParams", 
+    "BlackHoleImages Package Symbol"},
+   "PackageLink",
+   BaseStyle->"InlineFormula"]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "c601a611-3b01-4c74-8ac8-055e3cd1db05"],
  " function returns an association containing information about accretion \
 disk's radiation. The following arguments should be specified:"
-}], "Text",
- CellChangeTimes->{{3.940598336446757*^9, 3.9405984055541525`*^9}},
+}], "TechNoteText",
  CellID->102204837,ExpressionUUID->"1df820f9-4cd0-4594-b4c6-63f539604c82"],
 
 Cell[BoxData[GridBox[{
    {
     StyleBox["a",
-     FontSlant->"Italic"], Cell[TextData[StyleBox[
-    "The black hole spin parameter.",
-     FontSize->13]], "TableText",ExpressionUUID->
+     FontSlant->"Italic"], Cell[
+    "The black hole spin parameter.", "TechNoteTableText",ExpressionUUID->
      "1485d882-099a-4e60-9ec2-67e480173e9b"]},
    {
     StyleBox["\[Alpha]",
      FontSlant->"Italic"], Cell["\<\
 The Shakura-Sunyaev parameter for the efficiency of angular momentum \
 transport in the disk.\
-\>", "TableText",ExpressionUUID->"ff63a388-c5a0-447a-aaaf-0390fbc30911"]},
+\>", "TechNoteTableText",ExpressionUUID->
+     "ff63a388-c5a0-447a-aaaf-0390fbc30911"]},
    {
     StyleBox["m",
      FontSlant->"Italic"], Cell[
-    "The mass of the black hole.", "TableText",ExpressionUUID->
+    "The mass of the black hole.", "TechNoteTableText",ExpressionUUID->
      "0e85d160-4ba1-448b-ad3e-97e320d7fcfe"]},
    {
     StyleBox["mdot",
      FontSlant->"Italic"], Cell[TextData[Cell[BoxData[
     Cell["The mass influx (accretion rate).", "TableText",ExpressionUUID->
-      "f65ff899-ed0c-4742-933c-969ba34c0720"]],
-     CellChangeTimes->{{3.939905410857126*^9, 3.9399055145448256`*^9}, {
-      3.9399055461051455`*^9, 3.939905806063777*^9}},ExpressionUUID->
-     "b15f2db0-6d33-4edc-a809-8f95dcff33de"]], "TableText",ExpressionUUID->
-     "b3d71f2c-4232-4835-8df0-2f1737423662"]}
+      "f65ff899-ed0c-4742-933c-969ba34c0720"]],ExpressionUUID->
+     "b15f2db0-6d33-4edc-a809-8f95dcff33de"]], "TechNoteTableText",
+     ExpressionUUID->"b3d71f2c-4232-4835-8df0-2f1737423662"]}
   }]], "DefinitionBox",
- CellChangeTimes->{{3.94059841503428*^9, 3.9405984664174385`*^9}, {
-  3.9405985073289614`*^9, 3.9405985271460934`*^9}, {3.940762325482759*^9, 
-  3.9407623288159857`*^9}, {3.9407623668033752`*^9, 3.94076241300082*^9}},
  CellID->1226667,ExpressionUUID->"cfe24e4f-125a-404e-b074-fea669babe8e"],
 
-Cell["Additional options can be given:", "Text",
- CellChangeTimes->{{3.9405985363575*^9, 3.9405985467901306`*^9}},
+Cell["Additional options can be given:", "TechNoteText",
  CellID->630345452,ExpressionUUID->"edfb5b06-dd11-4495-a2e1-a92fdfd9432e"],
 
 Cell[BoxData[GridBox[{
@@ -237,45 +364,42 @@ Cell[BoxData[GridBox[{
      FontWeight->"Bold"], 
     StyleBox["Default",
      FontWeight->"Bold"], Cell[TextData[StyleBox["Description",
-     FontWeight->"Bold"]], "TableText",ExpressionUUID->
+     FontWeight->"Bold"]], "TechNoteTableText",ExpressionUUID->
      "c812a3b7-b6b2-4e5a-b45e-42f8c6676d8d"]},
    {"\"\<InputUnits\>\"", "\"\<NovikovThorne\>\"", Cell[TextData[{
      "This option specifies the units in which the user has provided the \
 input. The default option is \"InputUnits\"->\"NovikovThorne\", which expects \
 the mass ",
-     Cell[BoxData[
-     "M"], "InlineFormula",ExpressionUUID->
+     Cell[BoxData["M"], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
       "2ced4dec-f988-4b7d-a7ec-2bcd579c955d"],
      " to be given in geometrized units and the mass influx mdot to be \
 dimensionless, ",
      Cell[BoxData[
       RowBox[{"m\:0307", ":=", 
        RowBox[{"M\:0307", "/", 
-        RowBox[{"10", "^", "14"}]}]}]], "InlineFormula",ExpressionUUID->
+        RowBox[{"10", "^", "14"}]}]}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
       "843bb0ea-7d3c-48a8-8853-d5ce610149d8"],
      " kg /s. Other accepted options are \"InputUnits\"->\"SI\", \"InputUnits\
 \"->\"CGS\", and \"InputUnits\"->\"ShakuraSunyaev\", the first two expecting \
 SI and CGS units respectively, the last one expecting ",
-     Cell[BoxData[
-     "M"], "InlineFormula",ExpressionUUID->
+     Cell[BoxData["M"], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
       "dd0b0ded-bc33-41cb-aee1-3c823f4663a9"],
      " to be given in solar masses and mdot to be given in multiples of the \
 critical mass influx; the mass influx at which the Eddington luminosity  is \
 reached."
-    }], "TableText",ExpressionUUID->"a2cb25ee-35fd-42a2-9f9e-6232dd9263e3"]},
+    }], "TechNoteTableText",ExpressionUUID->
+     "a2cb25ee-35fd-42a2-9f9e-6232dd9263e3"]},
    {"\"\<OutputUnits\>\"", "\"\<SI\>\"", Cell[TextData[Cell[BoxData[Cell["\<\
  This option changes the units of the output functions (temperature and flux \
 density). As of June 2024, only the default option \"OutputUnits\"->\"SI\" is \
 supported.\
 \>", "TableText",ExpressionUUID->"16d28f69-dcab-4257-a3d7-086414a110cf"]],
-     CellChangeTimes->{{3.9351208278888474`*^9, 3.935120883470251*^9}, {
-      3.9351209208127985`*^9, 3.9351209503551073`*^9}, {
-      3.9351209949788003`*^9, 3.9351210529941187`*^9}, {
-      3.9351230080542517`*^9, 3.9351230085573874`*^9}, {3.936870057976369*^9, 
-      3.9368700658175945`*^9}, {3.9368701108268657`*^9, 
-      3.936870117728422*^9}, {3.938087323548555*^9, 3.938087323548555*^9}},
-     ExpressionUUID->"0c8c8d78-34c5-486a-88b9-bf1261165768"]], "TableText",
-     ExpressionUUID->"1a0d3b73-304a-46d0-9395-44ce12548bcd"]},
+     ExpressionUUID->"0c8c8d78-34c5-486a-88b9-bf1261165768"]], 
+     "TechNoteTableText",ExpressionUUID->
+     "1a0d3b73-304a-46d0-9395-44ce12548bcd"]},
    {"\"\<rUnits\>\"", "\"\<BHMass\>\"", Cell[TextData[{
      "The output functions of DiskParams are functions of radius. This option \
 changes the units of radius these functions expect. The default option is \
@@ -285,11 +409,12 @@ chapters 1 and 2,  ",
       RowBox[{"r", "=", 
        RowBox[{
         SuperscriptBox["Rc", "2"], "/", 
-        RowBox[{"(", "GM", ")"}]}]}]], "InlineFormula",ExpressionUUID->
+        RowBox[{"(", "GM", ")"}]}]}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
       "496e8592-4df3-4255-8caa-55da339920d7"],
      ", where ",
-     Cell[BoxData[
-     "R"], "InlineFormula",ExpressionUUID->
+     Cell[BoxData["R"], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
       "9b313373-f9b6-419d-8c6a-b269ab278f20"],
      " is radius with dimension. Other supported options are \"rUnits\"->\"SI\
 \", \"rUnits\"->\"CGS\", and \"rUnits\"->\"ShakuraSunyaev\", the first two \
@@ -300,82 +425,76 @@ using Shakura and Sunyaev\[CloseCurlyQuote]s definition, ",
        RowBox[{
         SuperscriptBox["Rc", "2"], "/", 
         RowBox[{"(", 
-         RowBox[{"6", "GM"}], ")"}]}]}]], "InlineFormula",ExpressionUUID->
+         RowBox[{"6", "GM"}], ")"}]}]}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
       "738d1e3f-2123-444a-b6f0-3ad16d867b2b"],
      "."
-    }], "TableText",ExpressionUUID->"e38674c9-11b7-4be2-987e-01fd6f87a4b1"]}
+    }], "TechNoteTableText",ExpressionUUID->
+     "e38674c9-11b7-4be2-987e-01fd6f87a4b1"]}
   }]], "DefinitionBox3Col",
- CellChangeTimes->{{3.940598554578792*^9, 3.940598604944215*^9}, {
-  3.9405986551443996`*^9, 3.9405987060219493`*^9}, {3.9405992959631453`*^9, 
-  3.9405992959631453`*^9}, {3.940599570565757*^9, 3.9405996759105434`*^9}},
  CellID->211394401,ExpressionUUID->"ede13088-28f7-488c-a9b4-1a4bb70bca46"],
 
-Cell["The function returns an association with the following keys:", "Text",
- CellChangeTimes->{{3.9405987264721575`*^9, 3.940598744677018*^9}},
+Cell["The function returns an association with the following keys:", \
+"TechNoteText",
  CellID->177184723,ExpressionUUID->"d8207f2e-6a5b-4131-8eed-3160dacbd903"],
 
 Cell[BoxData[GridBox[{
    {"\"\<Temperature\>\"", Cell["\<\
 This returns the surface temperature of the disk as a function
 of the radius.\
-\>", "TableText",ExpressionUUID->"cae66580-2a20-4791-bf55-1e446884c18e"]},
-   {Cell[" \"SpectralFluxDensity\"", "TableText",ExpressionUUID->
+\>", "TechNoteTableText",ExpressionUUID->
+     "cae66580-2a20-4791-bf55-1e446884c18e"]},
+   {Cell[" \"SpectralFluxDensity\"", "TechNoteTableText",ExpressionUUID->
      "80a10196-f9dd-4e85-ae37-f3fa80e158d6"], Cell["\<\
 This returns the spectral flux density of the disk\[CloseCurlyQuote]s \
 radiation as a function of the radiation\[CloseCurlyQuote]s frequency and the \
 radius.\
-\>", "TableText",ExpressionUUID->"f2085abb-2d7a-463a-a5dd-b52377681544"]},
+\>", "TechNoteTableText",ExpressionUUID->
+     "f2085abb-2d7a-463a-a5dd-b52377681544"]},
    {"\"\<FluxDensity\>\"", Cell["\<\
 This returns the integrated flux density over the spectrum
 as a function of the radius.\
-\>", "TableText",ExpressionUUID->"7bb2cb62-af7f-4bb2-84e9-410b7997d4b9"]},
+\>", "TechNoteTableText",ExpressionUUID->
+     "7bb2cb62-af7f-4bb2-84e9-410b7997d4b9"]},
    {"\"\<PeakFrequency\>\"", Cell["\<\
 This returns the frequency of the radiation at the peak of
 the spectral flux density at a given radius.\
-\>", "TableText",ExpressionUUID->"2b98fb0f-89e7-4926-927b-2b25ba4eb658"]},
+\>", "TechNoteTableText",ExpressionUUID->
+     "2b98fb0f-89e7-4926-927b-2b25ba4eb658"]},
    {"\"\<rDefinition\>\"", Cell["\<\
 This returns a factor by which the input must be multiplied if
 it is provided in the black hole mass units. This is relevant for \
 communication with other functions of the package and can be largely ignored \
 by the user.\
-\>", "TableText",ExpressionUUID->"debc5d72-84b4-434c-ba7c-c74fffc76ca0"]},
+\>", "TechNoteTableText",ExpressionUUID->
+     "debc5d72-84b4-434c-ba7c-c74fffc76ca0"]},
    {"\"\<rISCO\>\"", Cell[TextData[Cell[BoxData[Cell["\<\
 This returns the radius of the innermost stable circular orbit in the black \
 hole\[CloseCurlyQuote]s mass multiples (geometrized units).\
 \>", "TableText",ExpressionUUID->"70162d7c-93cc-444e-9376-9c596b331ad8"]],
-     CellChangeTimes->{{3.9351211519024487`*^9, 3.9351212948573017`*^9}, {
-      3.936870071794072*^9, 3.936870097101982*^9}, {3.9405988081340294`*^9, 
-      3.9405988565945888`*^9}},ExpressionUUID->
-     "b9fad464-5830-4774-a899-237049cce6ec"]], "TableText",ExpressionUUID->
+     ExpressionUUID->"b9fad464-5830-4774-a899-237049cce6ec"]], 
+     "TechNoteTableText",ExpressionUUID->
      "dee62c1b-de4a-4312-aa64-6a880ab1752f"]}
   }]], "DefinitionBox",
- CellChangeTimes->{{3.9405987711042976`*^9, 3.9405988765688305`*^9}, {
-  3.9406003211055727`*^9, 3.9406003211055727`*^9}, {3.9407630385711117`*^9, 
-  3.940763040585126*^9}},
  CellID->297993966,ExpressionUUID->"1dda1625-c7ed-478b-bb09-ff2bcb6b76be"],
 
-Cell["", "Text",
- CellChangeTimes->{3.9405988974591413`*^9},
+Cell["", "TechNoteText",
  CellID->175221802,ExpressionUUID->"06d65536-b85d-4f63-a2cc-588ff5c043ec"],
-
-Cell[CellGroupData[{
 
 Cell[TextData[{
  "As an example, let us generate the accretion disk near a black hole with \
 the spin parameter ",
  Cell[BoxData[
   RowBox[{"a", "=", " ", "0.6"}]], "InlineFormula",
-  FormatType->StandardForm,ExpressionUUID->
+  FontFamily->"Source Sans Pro",ExpressionUUID->
   "39d1ecff-fa6f-4486-84ea-2484ec26427b"],
  ", and the solar mass. The disk should be specified by the alpha parameter ",
  Cell[BoxData[
   RowBox[{"\[Alpha]", "=", "0.1"}]], "InlineFormula",
-  FormatType->StandardForm,ExpressionUUID->
+  FontFamily->"Source Sans Pro",ExpressionUUID->
   "307807d7-ed15-432c-9ec4-924321cf65df"],
  ", and the mass influx  10^14 kg /s:"
-}], "Text",
- CellChangeTimes->{{3.940598908554415*^9, 3.94059891875871*^9}, {
-  3.940599129580553*^9, 3.9405993062158985`*^9}},
+}], "TechNoteText",
  CellID->175345293,ExpressionUUID->"2cd2dfd3-f0ce-470d-973f-bf4a90e1c5ac"],
 
 Cell[BoxData[
@@ -384,17 +503,10 @@ Cell[BoxData[
    RowBox[{"DiskParams", "[", 
     RowBox[{"0.6", ",", " ", "0.1", ",", " ", "1500", ",", " ", "1"}], 
     "]"}]}], ";"}]], "Input",
- CellChangeTimes->{{3.940599322735894*^9, 3.9405993645257235`*^9}},
  CellLabel->"In[2]:=",
- CellID->67958994,ExpressionUUID->"d365528b-cd40-47ce-9941-e8ea84d4ca99"]
-}, Open  ]],
+ CellID->67958994,ExpressionUUID->"d365528b-cd40-47ce-9941-e8ea84d4ca99"],
 
-Cell[CellGroupData[{
-
-Cell["The disk looses its stability at:", "Text",
- CellChangeTimes->{{3.9405993089408665`*^9, 3.9405993129008584`*^9}, {
-  3.9405993679100904`*^9, 3.9405993844180503`*^9}, {3.9405996920957174`*^9, 
-  3.940599692806201*^9}},
+Cell["The disk looses its stability at:", "TechNoteText",
  CellID->233213388,ExpressionUUID->"54d6d6ab-15ac-4be7-896f-e7373de0a85f"],
 
 Cell[CellGroupData[{
@@ -407,7 +519,6 @@ Cell[BoxData[{
  RowBox[{"Print", "[", 
   RowBox[{"\"\<\!\(\*SubscriptBox[\(R\), \(ISCO\)]\) = \>\"", ",", " ", 
    RowBox[{"1500", " ", "rISCO"}], ",", " ", "\"\< m\>\""}], "]"}]}], "Input",
- CellChangeTimes->{{3.9405993938857145`*^9, 3.940599481357724*^9}},
  CellLabel->"In[3]:=",
  CellID->164785652,ExpressionUUID->"40cc29c9-38fd-44aa-849e-b96e16bb28fb"],
 
@@ -419,31 +530,25 @@ Cell[BoxData[
   SequenceForm[
   "\!\(\*SubscriptBox[\(R\), \(ISCO\)]\) = ", 5743.604128219727, " m"],
   Editable->False]], "Print",
- CellChangeTimes->{3.940599483600584*^9},
  CellLabel->"During evaluation of In[3]:=",
  CellID->288803599,ExpressionUUID->"f5b2a613-a672-4ceb-8428-61e856f7e032"]
-}, Open  ]]
 }, Open  ]],
-
-Cell[CellGroupData[{
 
 Cell[TextData[{
  "We can plot the temperature of the disk from ",
  Cell[BoxData[
   SubscriptBox["R", "ISCO"]], "InlineFormula",
-  FormatType->StandardForm,ExpressionUUID->
+  FontFamily->"Source Sans Pro",ExpressionUUID->
   "1c73a5b5-adc9-478d-9095-d55e5ecb3755"],
  " to ",
  Cell[BoxData[
   RowBox[{
    SuperscriptBox["10", "4"], " ", 
    SubscriptBox["R", "ISCO"]}]], "InlineFormula",
-  FormatType->StandardForm,ExpressionUUID->
+  FontFamily->"Source Sans Pro",ExpressionUUID->
   "4ca22ccf-6679-41d4-aac3-9fd6805dd1af"],
  " on a logarithmic plot:"
-}], "Text",
- CellChangeTimes->{{3.940599859945939*^9, 3.940599936815485*^9}, {
-  3.940600068045667*^9, 3.9406000697377*^9}},
+}], "TechNoteText",
  CellID->1058003,ExpressionUUID->"e9064b65-001b-4aa2-9473-82db5844bab6"],
 
 Cell[CellGroupData[{
@@ -462,9 +567,6 @@ Cell[BoxData[
     RowBox[{"{", 
      RowBox[{"\"\<R/m\>\"", ",", " ", "\"\<T/K\>\""}], "}"}]}]}], 
   "]"}]], "Input",
- CellChangeTimes->{{3.940599958269043*^9, 3.940600078045936*^9}, {
-  3.9406002265797358`*^9, 3.9406002616198645`*^9}, {3.9406002987395496`*^9, 
-  3.9406003062258654`*^9}},
  CellLabel->"In[17]:=",
  CellID->167228159,ExpressionUUID->"8dc07323-9c3b-483e-ab7f-aeb89fb231fc"],
 
@@ -714,64 +816,62 @@ P+9dFzs=
        FormBox[
         TemplateBox[{0, 0}, "Spacer2"], TraditionalForm], {0.005, 
        0.}}}}]]], "Output",
- CellChangeTimes->{{3.9406000348256*^9, 3.9406000630188055`*^9}, 
-   3.94060030692632*^9},
  CellLabel->"Out[17]=",
  CellID->302470491,ExpressionUUID->"07e657ce-d061-430e-bbce-f47c2186da1b"]
-}, Open  ]]
 }, Open  ]],
 
-Cell["", "Text",
- CellChangeTimes->{{3.940600506196049*^9, 3.940600507402248*^9}},
+Cell["", "TechNoteText",
  CellID->140563531,ExpressionUUID->"9c83a72a-caab-4a93-a2c6-ed2b1a099474"],
 
 Cell[TextData[{
  "For generating images of the disk, it is necessary to connect the disk \
 elements with the observer via a null geodesic. For this purpose, the ",
  Cell[BoxData[
-  ButtonBox["ObservedDiskElement",
-   BaseStyle->"Link",
-   ButtonData->"paclet:BlackHoleImages/ref/ObservedDiskElement"]], 
-  "InlineFormula",ExpressionUUID->"af93bd61-9a18-4e26-9396-16cd26516390"],
+  TemplateBox[{
+    Cell[
+     TextData["ObservedDiskElement"]], 
+    "paclet:BlackHoleImages/ref/ObservedDiskElement", 
+    "BlackHoleImages Package Symbol"},
+   "PackageLink",
+   BaseStyle->"InlineFormula"]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "af93bd61-9a18-4e26-9396-16cd26516390"],
  " function is implemented. This function is independent of the underlying \
 disk model, provided the disk remains equatorial. The parameters of this \
 function are: "
-}], "Text",
- CellChangeTimes->{{3.940600514407817*^9, 3.940600785070237*^9}, 
-   3.940601160486369*^9},
+}], "TechNoteText",
  CellID->435826263,ExpressionUUID->"ef8c2339-3611-4866-a350-918fd119e8f6"],
 
 Cell[BoxData[GridBox[{
    {
     StyleBox["disk",
      FontSlant->"Italic"], 
-    StyleBox[
-     RowBox[{"Association", " ", "generated", " ", "by", " ", "the", " ", 
-      ButtonBox["DiskParams",
-       BaseStyle->"Link",
-       ButtonData->"paclet:BlackHoleImages/ref/DiskParams"], "function", " ", 
-      "or", " ", 
-      RowBox[{"equivalent", "."}]}],
-     FontFamily->"Source Sans Pro"]},
+    RowBox[{"Association", " ", "generated", " ", "by", " ", "the", " ", 
+     TemplateBox[{
+       Cell[
+        TextData["DiskParams"]], "paclet:BlackHoleImages/ref/DiskParams", 
+       "BlackHoleImages Package Symbol"},
+      "PackageLink",
+      BaseStyle->{"DefinitionBox", CellFrame -> 0}], "function", " ", "or", 
+     " ", 
+     RowBox[{"equivalent", "."}]}]},
    {
     StyleBox["geodesic",
      FontSlant->"Italic"], 
-    StyleBox[
-     RowBox[{"Association", " ", "generated", " ", "by", " ", "the", " ", 
-      ButtonBox["KerrNullGeoDistant",
-       BaseStyle->"Link",
-       ButtonData->"paclet:BlackHoleImages/ref/KerrNullGeoDistant"], " ", 
-      "function", " ", "or", " ", 
-      RowBox[{"equivalent", "."}]}],
-     FontFamily->"Source Sans Pro"]}
+    RowBox[{"Association", " ", "generated", " ", "by", " ", "the", " ", 
+     TemplateBox[{
+       Cell[
+        TextData["KerrNullGeoDistant"]], 
+       "paclet:BlackHoleImages/ref/KerrNullGeoDistant", 
+       "BlackHoleImages Package Symbol"},
+      "PackageLink",
+      BaseStyle->{"DefinitionBox", CellFrame -> 0}], " ", "function", " ", 
+     "or", " ", 
+     RowBox[{"equivalent", "."}]}]}
   }]], "DefinitionBox",
- CellChangeTimes->{{3.9406007915203705`*^9, 3.940600809309742*^9}, {
-  3.9406008407800865`*^9, 3.9406009592110023`*^9}, {3.940601045196278*^9, 
-  3.9406011547618318`*^9}, {3.940763093618001*^9, 3.9407630960887947`*^9}},
  CellID->930980938,ExpressionUUID->"ecb5e25b-1318-41c2-ac21-cae42835432c"],
 
-Cell["The following option can be given:", "Text",
- CellChangeTimes->{{3.9406011718867006`*^9, 3.940601180707669*^9}},
+Cell["The following option can be given:", "TechNoteText",
  CellID->458070071,ExpressionUUID->"4ad5779a-0f09-4cfc-b481-31bd0c44ef8a"],
 
 Cell[BoxData[GridBox[{
@@ -780,78 +880,66 @@ Cell[BoxData[GridBox[{
      FontWeight->"Bold"], 
     StyleBox["Default",
      FontWeight->"Bold"], Cell[TextData[StyleBox["Description",
-     FontWeight->"Bold"]], "TableText",ExpressionUUID->
+     FontWeight->"Bold"]], "TechNoteTableText",ExpressionUUID->
      "8f250cf0-8ae8-4371-8f8f-2bb3f7377fd2"]},
    {"\"\<Grid\>\"", "True", Cell[TextData[{
      "Specifies whether a grid of lines of constant ",
-     Cell[BoxData[
-     "r"], "InlineFormula",ExpressionUUID->
+     Cell[BoxData["r"], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
       "7367cbda-1f68-4057-a893-e968b1c141a1"],
      " and ",
-     Cell[BoxData[
-     "\[CurlyPhi]"], "InlineFormula",ExpressionUUID->
+     Cell[BoxData["\[CurlyPhi]"], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
       "3bbcadbc-4567-44f2-9425-2f4098d7b743"],
      " should be generated over the data. Takes a Boolean value."
-    }], "TableText",ExpressionUUID->"76fa8d97-e224-4a27-9b7e-c1d8befb353c"]}
+    }], "TechNoteTableText",ExpressionUUID->
+     "76fa8d97-e224-4a27-9b7e-c1d8befb353c"]}
   }]], "DefinitionBox3Col",
- CellChangeTimes->{{3.9406012048706503`*^9, 3.940601267065159*^9}, {
-  3.9407631107852077`*^9, 3.9407631112602377`*^9}},
  CellID->148399201,ExpressionUUID->"6f045f00-ff90-480d-822c-3bec40d93c57"],
 
-Cell["The function returns an association with the following keys:", "Text",
- CellChangeTimes->{{3.94060128138976*^9, 3.9406012939875345`*^9}},
+Cell["The function returns an association with the following keys:", \
+"TechNoteText",
  CellID->96472063,ExpressionUUID->"3af2c52b-35f8-42a7-a3f1-e7d8c4e47861"],
 
 Cell[BoxData[GridBox[{
    {"\"\<PhysicalTemperature\>\"", Cell["\<\
 This returns the surface temperature at the coordinates passed to the \
 function through the geodesic object in geodesic[\"EmissionCoordinates\"] .\
-\>", "TableText",ExpressionUUID->"c036edd2-8f12-4f77-bc40-a99e13b42e88"]},
+\>", "TechNoteTableText",ExpressionUUID->
+     "c036edd2-8f12-4f77-bc40-a99e13b42e88"]},
    {"\"\<EffectiveTemperature\>\"", Cell["\<\
 This returns the temperature at which a black body with the observed \
 intensity would raiate according to the Stefan-Boltzmann law.\
-\>", "TableText",ExpressionUUID->"a7744db2-0f0c-4ef7-9da1-a6e8c33fa475"]},
+\>", "TechNoteTableText",ExpressionUUID->
+     "a7744db2-0f0c-4ef7-9da1-a6e8c33fa475"]},
    {"\"\<SpecificIntensity\>\"", Cell[TextData[Cell[BoxData[Cell["\<\
 Returns the specific intensity calculated from disk[\"SpectralFluxDensity\"] \
 at the radius given by geodesic[\"EmissionCoordinates\"] as a function of \
 frequency, as it would be measured by the observer.\
 \>", "TableText",ExpressionUUID->"fd7ca6a9-4cba-4cf2-bdc8-992d037f2944"]],
-     CellChangeTimes->{{3.935121655979823*^9, 3.935121786636801*^9}, {
-      3.9368701514529285`*^9, 3.9368701623664017`*^9}, {
-      3.9405919343773556`*^9, 3.9405919935274773`*^9}, {
-      3.9405921326489415`*^9, 3.940592154659334*^9}, {3.9406013368796687`*^9, 
-      3.940601349206745*^9}, {3.94060140131602*^9, 3.9406014084124594`*^9}},
-     ExpressionUUID->"660e9955-4378-46a6-b649-f7328be34465"]], "TableText",
-     ExpressionUUID->"bead83c2-cd71-4419-b0d1-6dd2e26aabf0"]},
+     ExpressionUUID->"660e9955-4378-46a6-b649-f7328be34465"]], 
+     "TechNoteTableText",ExpressionUUID->
+     "bead83c2-cd71-4419-b0d1-6dd2e26aabf0"]},
    {"\"\<Intensity\>\"", Cell[TextData[Cell[BoxData[Cell["\<\
 Returns the integrated specific intensity given by
 disk[\"FluxDensity\"]/\[Pi] at the radius given by \
 geodesic[\"EmissionCoordinates\"]
 as it would be measured by the observer.\
 \>", "TableText",ExpressionUUID->"a32349a7-8c87-4812-bb79-29c9d12b6533"]],
-     CellChangeTimes->{{3.935121655979823*^9, 3.935121786636801*^9}, {
-      3.9368701514529285`*^9, 3.9368701623664017`*^9}, {
-      3.9405919343773556`*^9, 3.9405919935274773`*^9}, {
-      3.9405921326489415`*^9, 3.940592154659334*^9}, {3.9406013368796687`*^9, 
-      3.940601349206745*^9}, {3.94060140131602*^9, 3.9406014084124594`*^9}},
-     ExpressionUUID->"c80efa38-b419-4de0-88a8-a1b27e0d9bdc"]], "TableText",
-     ExpressionUUID->"377c4eb2-0790-4ea5-956a-348cf68f5c77"]},
+     ExpressionUUID->"c80efa38-b419-4de0-88a8-a1b27e0d9bdc"]], 
+     "TechNoteTableText",ExpressionUUID->
+     "377c4eb2-0790-4ea5-956a-348cf68f5c77"]},
    {"\"\<PeakFrequency\>\"", Cell["\<\
 Returns the peak frequency given by given by disk[\"PeakFrequency\"] at the \
 radius given by geodesic[\"EmissionCoordinates\"] as it would be measured by \
 the observer.\
-\>", "TableText",ExpressionUUID->"a4c44236-205d-431b-9e6a-e984aa9fff16"]}
+\>", "TechNoteTableText",ExpressionUUID->
+     "a4c44236-205d-431b-9e6a-e984aa9fff16"]}
   }]], "DefinitionBox",
- CellChangeTimes->{{3.9406013108823586`*^9, 3.9406013815575547`*^9}, {
-  3.940601414448455*^9, 3.9406014382141356`*^9}, {3.9406015172808757`*^9, 
-  3.940601528262223*^9}},
  CellID->404938771,ExpressionUUID->"1bad0977-6969-40b4-aa10-484c1ba44755"],
 
-Cell["", "Text",
- CellChangeTimes->{3.9406015540726786`*^9},
+Cell["", "TechNoteText",
  CellID->506393254,ExpressionUUID->"1a88e94d-73a5-49b7-83a2-ad051acc473d"],
-
-Cell[CellGroupData[{
 
 Cell[TextData[{
  "As an example, let us use the same disk we generated in the previous \
@@ -860,18 +948,17 @@ observer at the polar coordinate ",
  Cell[BoxData[
   RowBox[{"\[Theta]o", " ", "=", " ", 
    RowBox[{"\[Pi]", "/", "4"}]}]], "InlineFormula",
-  FormatType->StandardForm,ExpressionUUID->
+  FontFamily->"Source Sans Pro",ExpressionUUID->
   "7e7b1a89-6252-48e1-9ba5-ae5767b1bee7"],
  " who looks in the direction of a null geodesic specified by the Bardeen \
 coordinates ",
  Cell[BoxData[
   RowBox[{"(", 
    RowBox[{"10", ",", " ", "10"}], ")"}]], "InlineFormula",
-  FormatType->StandardForm,ExpressionUUID->
+  FontFamily->"Source Sans Pro",ExpressionUUID->
   "2b827c98-609a-4d48-b4ec-46b1ed094990"],
  ":"
-}], "Text",
- CellChangeTimes->{{3.940601559652026*^9, 3.9406017389436336`*^9}},
+}], "TechNoteText",
  CellID->172394326,ExpressionUUID->"63fcd9d9-34c0-4866-8e77-6bcff2b91f81"],
 
 Cell[BoxData[{
@@ -886,19 +973,13 @@ Cell[BoxData[{
    RowBox[{"ObservedDiskElement", "[", 
     RowBox[{"disk", ",", " ", "geodesic", ",", " ", 
      RowBox[{"\"\<Grid\>\"", "->", "False"}]}], "]"}]}], ";"}]}], "Input",
- CellChangeTimes->{{3.9406017532994604`*^9, 3.940601815565695*^9}, {
-  3.940602349884306*^9, 3.9406023590963717`*^9}},
  CellLabel->"In[29]:=",
- CellID->417483269,ExpressionUUID->"eb872ce3-6278-4a0c-b88e-3d994050b4bb"]
-}, Open  ]],
-
-Cell[CellGroupData[{
+ CellID->417483269,ExpressionUUID->"eb872ce3-6278-4a0c-b88e-3d994050b4bb"],
 
 Cell["\<\
 We can compare the physical temperature of the disk and the effective \
 temperature:\
-\>", "Text",
- CellChangeTimes->{{3.9406018396562014`*^9, 3.940601897763527*^9}},
+\>", "TechNoteText",
  CellID->184565205,ExpressionUUID->"72ad5af5-980e-4f6c-b547-bde5ffe991f3"],
 
 Cell[CellGroupData[{
@@ -917,7 +998,6 @@ Cell[BoxData[{
   "\"\<\!\(\*SubscriptBox[\(T\), \(phys\)]\) = \>\"", ",", " ", "Tphys", ",", 
    " ", "\"\< K > \>\"", ",", " ", "Teff", ",", " ", 
    "\"\< K = \!\(\*SubscriptBox[\(T\), \(eff\)]\)\>\""}], "]"}]}], "Input",
- CellChangeTimes->{{3.940601918053362*^9, 3.9406020242638454`*^9}},
  CellLabel->"In[31]:=",
  CellID->112568296,ExpressionUUID->"83af0f63-cf16-408b-a0d1-01af4d7aca86"],
 
@@ -933,25 +1013,18 @@ Cell[BoxData[
   "\!\(\*SubscriptBox[\(T\), \(phys\)]\) = ", 5.295332057106593*^6, " K > ", 
    4.142845042514817*^6, " K = \!\(\*SubscriptBox[\(T\), \(eff\)]\)"],
   Editable->False]], "Print",
- CellChangeTimes->{{3.940602011076523*^9, 3.940602024839347*^9}, 
-   3.940602363353058*^9},
  CellLabel->"During evaluation of In[31]:=",
  CellID->773424864,ExpressionUUID->"613b748a-40ef-4a76-81a4-69c5bbb4c770"]
-}, Open  ]]
 }, Open  ]],
 
 Cell["\<\
 Since the physical temperature is larger, we can guess, that the elements \
 moves away from the observer, although since the radiation is not Planckian \
 all over the disk, this cannot be said for sure without a larger picture.\
-\>", "Text",
- CellChangeTimes->{{3.940602119429564*^9, 3.94060226204589*^9}},
+\>", "TechNoteText",
  CellID->245415575,ExpressionUUID->"557d730d-d29d-4bb0-a205-21189b0c6335"],
 
-Cell[CellGroupData[{
-
-Cell["The measured intensity coming from the disk element is:", "Text",
- CellChangeTimes->{{3.940602285257852*^9, 3.9406023102559414`*^9}},
+Cell["The measured intensity coming from the disk element is:", "TechNoteText",
  CellID->473321793,ExpressionUUID->"bb9a977e-3d6b-46ec-aab8-c4e3eb7bb271"],
 
 Cell[CellGroupData[{
@@ -967,8 +1040,6 @@ Cell[BoxData[{
    "\"\<Q = \>\"", ",", " ", "Q", ",", " ", 
     "\"\< J/\!\(\*SuperscriptBox[\(cm\), \(2\)]\)/s/ster\>\""}], "]"}], 
   " "}]}], "Input",
- CellChangeTimes->{{3.940602324569901*^9, 3.940602380100035*^9}, {
-  3.9406024606680813`*^9, 3.9406024804648595`*^9}},
  CellLabel->"In[34]:=",
  CellID->155084311,ExpressionUUID->"aaba6629-814b-48d6-8c70-44e4e3541d77"],
 
@@ -981,19 +1052,14 @@ Cell[BoxData[
   "Q = ", 5.31687014202304*^18, 
    " J/\!\(\*SuperscriptBox[\(cm\), \(2\)]\)/s/ster"],
   Editable->False]], "Print",
- CellChangeTimes->{3.940602508108179*^9},
  CellLabel->"During evaluation of In[34]:=",
  CellID->114199077,ExpressionUUID->"df159dce-3aec-4691-bd53-b6b93a63002a"]
-}, Open  ]]
 }, Open  ]],
-
-Cell[CellGroupData[{
 
 Cell["\<\
 We can plot the specific intensity as a function of the frequency and verify \
 that the calculated peak frequency maches the plot's peak:\
-\>", "Text",
- CellChangeTimes->{{3.9406025165532265`*^9, 3.9406026128236423`*^9}},
+\>", "TechNoteText",
  CellID->110799642,ExpressionUUID->"923a5c5c-ad1d-4364-9ee5-903cb3fd965d"],
 
 Cell[CellGroupData[{
@@ -1022,9 +1088,6 @@ Cell[BoxData[
       "\"\<\[Nu] [\!\(\*SuperscriptBox[\(10\), \(16\)]\) Hz]\>\"", ",", 
        "\"\<I [J/\!\(\*SuperscriptBox[\(cm\), \(2\)]\)/s/ster/Hz]\>\""}], 
       "}"}]}]}], "]"}], " "}]], "Input",
- CellChangeTimes->{{3.940602633059717*^9, 3.9406026703473616`*^9}, {
-  3.940602722187729*^9, 3.94060272849761*^9}, {3.9406027762234173`*^9, 
-  3.9406028079230456`*^9}, {3.9406029197434435`*^9, 3.940603066873573*^9}},
  CellLabel->"In[41]:=",
  CellID->178388719,ExpressionUUID->"3e2b4034-7587-48aa-a473-c07c4f89c775"],
 
@@ -1176,109 +1239,110 @@ Ksn/ASisoxg=
      Scaled[0.05], 
      Scaled[0.05]}},
   Ticks->{Automatic, Automatic}]], "Output",
- CellChangeTimes->{{3.940602961508277*^9, 3.9406029874735985`*^9}, {
-  3.9406030303235145`*^9, 3.940603067523507*^9}},
  CellLabel->"Out[41]=",
  CellID->206319067,ExpressionUUID->"2c2755ff-928c-496d-b942-17f644e56a93"]
 }, Open  ]]
-}, Open  ]]
 }, Open  ]],
 
-Cell[CellGroupData[{
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, "RelatedGuide.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"Related", " ", "Guides"}], "TutorialMoreAboutSection"]},
+      {
+       RowBox[{
+       "\[FilledVerySmallSquare]", Cell[TextData[ButtonBox["AlphaDiskModel",
+         BaseStyle->"Link",
+         ButtonData->"paclet:BlackHoleImages/guide/AlphaDiskModel"]], 
+         "TutorialMoreAbout",ExpressionUUID->
+         "c9b15e5e-7410-4adf-8648-a9a5b72fdf53"]}]}
+     }]}
+  }]], "TutorialMoreAboutSection",ExpressionUUID->"73dc1bed-9e71-467f-8e00-\
+5c3341984533"],
 
-Cell["Related Guides", "TutorialMoreAboutSection",
- CellChangeTimes->{{3.843042384656711*^9, 3.843042386024461*^9}},
- CellID->303544878,ExpressionUUID->"3bf8d1f3-670c-445f-b675-c128f5de6caa"],
-
-Cell[TextData[ButtonBox["AlphaDiskModel",
- BaseStyle->"Link",
- ButtonData->
-  "paclet:BlackHoleImages/guide/AlphaDiskModel"]], "TutorialMoreAbout",
- CellChangeTimes->{{3.9405925201951895`*^9, 3.9405925267356*^9}},
- CellID->191675542,ExpressionUUID->"c9b15e5e-7410-4adf-8648-a9a5b72fdf53"]
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, 
+       "RelatedTutorial.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"Related", " ", "Tech", " ", "Notes"}], 
+        "RelatedTutorialsSection"]},
+      {
+       RowBox[{
+       "\[FilledVerySmallSquare]", Cell[TextData[ButtonBox["KerrImages",
+         BaseStyle->"Link",
+         ButtonData->"paclet:BlackHoleImages/tutorial/KerrImages"]], 
+         "RelatedTutorials",ExpressionUUID->
+         "1f5ddf36-f029-43ef-acb5-bfd6fb1c3998"]}]},
+      {
+       RowBox[{
+       "\[FilledVerySmallSquare]", Cell[TextData[ButtonBox["KerrNullGeodesics",
+         BaseStyle->"Link",
+         ButtonData->"paclet:BlackHoleImages/tutorial/KerrNullGeodesics"]], 
+         "RelatedTutorials",ExpressionUUID->
+         "ed892d87-a995-4cd0-a999-8feb24fe7250"]}]}
+     }]}
+  }]], "RelatedTutorialsSection",ExpressionUUID->"05b241e1-adc8-4efd-aa2a-\
+bf14a1452ae5"]
 }, Open  ]],
 
-Cell[CellGroupData[{
-
-Cell["Related Tech Notes", "RelatedTutorialsSection",
- CellID->13194869,ExpressionUUID->"e412912b-3f94-4800-834d-9a2fae094278"],
-
-Cell[TextData[ButtonBox["KerrImages",
- BaseStyle->"Link",
- ButtonData->
-  "paclet:BlackHoleImages/tutorial/KerrImages"]], "RelatedTutorials",
- CellChangeTimes->{{3.940592528841303*^9, 3.9405925817188773`*^9}, {
-  3.9405927605025897`*^9, 3.940592771756896*^9}},
- CellID->915458391,ExpressionUUID->"1f5ddf36-f029-43ef-acb5-bfd6fb1c3998"],
-
-Cell[TextData[ButtonBox["KerrNullGeodesics",
- BaseStyle->"Link",
- ButtonData->
-  "paclet:BlackHoleImages/tutorial/KerrNullGeodesics"]], "RelatedTutorials",
- CellChangeTimes->{{3.940592528841303*^9, 3.9405925817188773`*^9}, {
-  3.9405927605025897`*^9, 3.94059280801038*^9}},
- CellID->105927707,ExpressionUUID->"ed892d87-a995-4cd0-a999-8feb24fe7250"]
-}, Open  ]]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell["Metadata", "MetadataSection",
- CellID->746288971,ExpressionUUID->"9164cdbc-d79a-41a6-9e23-89b3cd081b2e"],
-
-Cell[TextData[{
- "New in: ",
- Cell["XX", "HistoryData",
-  CellTags->"New",ExpressionUUID->"914f1990-5ca8-485e-a533-00246f22905c"],
- " | Modified in: ",
- Cell[" ", "HistoryData",
-  CellTags->"Modified",ExpressionUUID->"a0be527a-c32d-4acf-916a-66a9903ec24d"],
- " | Obsolete in: ",
- Cell[" ", "HistoryData",
-  CellTags->"Obsolete",ExpressionUUID->"af92de7b-ddba-4725-8dea-5f930d20c70e"]
-}], "History",
- CellID->645088867,ExpressionUUID->"9e1097d4-c251-4fc2-ad63-4bbd0c8d8907"],
-
-Cell[CellGroupData[{
-
-Cell["Categorization", "CategorizationSection",
- CellID->84260433,ExpressionUUID->"a461b8a9-fe73-4162-9828-9a1392276d32"],
-
-Cell["Tech Note", "Categorization",
- CellLabel->"Entity Type",
- CellID->104060084,ExpressionUUID->"a26a9520-cac8-4d55-a593-6f8f81e2e654"],
-
-Cell["BlackHoleImages", "Categorization",
- CellLabel->"Paclet Name",
- CellID->767876694,ExpressionUUID->"886fffb2-9083-4237-be8d-43133c1983e9"],
-
-Cell["BlackHoleImages`", "Categorization",
- CellLabel->"Context",
- CellID->55517608,ExpressionUUID->"fc56fc92-0ecb-4c05-86a4-cb0ccf6ba037"],
-
-Cell["BlackHoleImages/tutorial/AlphaDiskModel", "Categorization",
- CellLabel->"URI",
- CellID->185057737,ExpressionUUID->"368b4ec5-ec4b-482c-9c7b-ca056a724dd5"]
-}, Closed]],
-
-Cell[CellGroupData[{
-
-Cell["Keywords", "KeywordsSection",
- CellID->518442159,ExpressionUUID->"b8f9fcb0-e628-4745-a11a-4cde4def7c24"],
-
-Cell["XXXX", "Keywords",
- CellID->92590714,ExpressionUUID->"b4e45405-a061-4a55-a74c-01d1b1b472eb"]
-}, Closed]]
-}, Open  ]]
+Cell[" ", "FooterCell",ExpressionUUID->"01926e7a-cf62-4e37-8bba-b8c6307bcb9d"]
 },
-WindowSize->{1141.2, 568.8},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900., 604.8},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
-TaggingRules-><|"Paclet" -> "BlackHoleImages"|>,
-Magnification:>1. Inherited,
+WindowTitle->"AlphaDiskModel",
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, "ExampleSection" -> {"0" -> Open}}, 
+  "NewStyles" -> True, "CitationPopupData" -> {$Failed, ""}, "ShowCitation" -> 
+  False, "RootCaptions" -> "", 
+  "Metadata" -> {
+   "built" -> "{2025, 2, 21, 16, 51, 13.2974836}", 
+    "history" -> {"XX", "", "", ""}, "context" -> "BlackHoleImages`", 
+    "keywords" -> {}, "specialkeywords" -> {}, 
+    "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
+    "Black Hole Images Tech Note", "language" -> "en", "paclet" -> 
+    "BlackHoleImages", "status" -> "None", "summary" -> 
+    "The AlphaDiskModel` package contains function for generating the alpha \
+disk model as described by Shakura and Sunyaev (1972), and Novikov and Thorne \
+in their Les Houches lecture (1973), as well as its observed properties. The \
+public functions in this package are: First, load the paclet:", 
+    "synonyms" -> {}, "tabletags" -> 
+    DocumentationBuild`Make`Private`tabletaggingrules$28791, "title" -> 
+    "AlphaDiskModel", "titlemodifier" -> "", "metadescription" -> "", 
+    "windowtitle" -> "AlphaDiskModel", "type" -> "Tech Note", "uri" -> 
+    "BlackHoleImages/tutorial/AlphaDiskModel"}},
 FrontEndVersion->"13.2 for Microsoft Windows (64-bit) (January 30, 2023)",
-StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "TechNotePageStylesExt.nb", 
-  CharacterEncoding -> "UTF-8"],
-ExpressionUUID->"deb38e47-3d4b-4587-9f15-77e7d94b5603"
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[
+    StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, "Reference.nb"]]], 
+   Cell[
+    StyleData["Input"], CellContext -> Notebook], 
+   Cell[
+    StyleData["Output"], CellContext -> Notebook], 
+   Cell[
+    StyleData["TutorialMoreAboutSection"], 
+    CellGroupingRules -> {"SectionGrouping", 30}], 
+   Cell[
+    StyleData["RelatedTutorialsSection"], 
+    CellGroupingRules -> {"SectionGrouping", 30}], 
+   Cell[
+    StyleData["TutorialRelatedLinksSection"], 
+    CellGroupingRules -> {"SectionGrouping", 30}]}, Visible -> False, 
+  FrontEndVersion -> "13.2 for Microsoft Windows (64-bit) (January 30, 2023)",
+   StyleDefinitions -> "Default.nb"],
+ExpressionUUID->"c97e9972-e4d5-4fe7-a579-42b91ca051a5"
 ]
 (* End of Notebook Content *)
 
@@ -1291,169 +1355,123 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
+Cell[586, 21, 3438, 79, 56, "AnchorBarGrid",ExpressionUUID->"498349a2-f6e0-472f-a7f7-4fbabaae7e83",
+ CellID->1],
 Cell[CellGroupData[{
-Cell[580, 22, 106, 1, 114, "Title",ExpressionUUID->"96aeec83-2149-48ce-97bf-7963d45e1514",
+Cell[4049, 104, 114, 1, 68, "TechNoteTitle",ExpressionUUID->"96aeec83-2149-48ce-97bf-7963d45e1514",
  CellID->876156861],
-Cell[689, 25, 571, 11, 63, "Text",ExpressionUUID->"fa1736de-68f5-49a8-b9fc-3fb59e3ad7be",
+Cell[4166, 107, 1829, 41, 65, "TechNoteJumpBox",ExpressionUUID->"89aa19b7-0efb-4be7-9b91-e62af479ba3e"],
+Cell[5998, 150, 516, 10, 84, "TechNoteText",ExpressionUUID->"fa1736de-68f5-49a8-b9fc-3fb59e3ad7be",
  CellID->396820302],
-Cell[1263, 38, 1820, 42, 220, "DefinitionBox",ExpressionUUID->"4f02ed71-6c70-4455-b62b-e5695673912f",
+Cell[6517, 162, 2400, 61, 197, "DefinitionBox",ExpressionUUID->"4f02ed71-6c70-4455-b62b-e5695673912f",
  CellID->30968840],
-Cell[3086, 82, 161, 2, 25, "Text",ExpressionUUID->"814aa6fb-6c24-4a6e-9bb7-1629bbbf2222",
+Cell[8920, 225, 99, 1, 36, "TechNoteText",ExpressionUUID->"814aa6fb-6c24-4a6e-9bb7-1629bbbf2222",
  CellID->110172382],
-Cell[CellGroupData[{
-Cell[3272, 88, 178, 2, 25, "Text",ExpressionUUID->"648602ca-4b0c-46ab-b719-ab9892ab20b9",
+Cell[9022, 228, 120, 1, 36, "TechNoteText",ExpressionUUID->"648602ca-4b0c-46ab-b719-ab9892ab20b9",
  CellID->9488137],
-Cell[3453, 92, 244, 4, 25, "Input",ExpressionUUID->"88e54d2a-b67c-45ea-8df8-9c6f247182c7",
- CellID->78760878]
-}, Open  ]],
+Cell[9145, 231, 178, 3, 26, "Input",ExpressionUUID->"88e54d2a-b67c-45ea-8df8-9c6f247182c7",
+ CellID->78760878],
 Cell[CellGroupData[{
-Cell[3734, 101, 191, 2, 45, "Section",ExpressionUUID->"2977e860-b012-46fb-9943-2daa56d7b38f",
+Cell[9348, 238, 133, 1, 80, "TechNoteSection",ExpressionUUID->"2977e860-b012-46fb-9943-2daa56d7b38f",
  CellID->749492365],
-Cell[3928, 105, 1672, 27, 196, "Text",ExpressionUUID->"d454feee-b376-43e2-8db1-86be61d84ff1",
+Cell[9484, 241, 1393, 23, 70, "TechNoteText",ExpressionUUID->"d454feee-b376-43e2-8db1-86be61d84ff1",
  CellID->247634746],
-Cell[5603, 134, 1018, 26, 45, "Text",ExpressionUUID->"18818331-a45c-4a0d-90b5-b24cca9b9560",
+Cell[10880, 266, 982, 25, 70, "TechNoteText",ExpressionUUID->"18818331-a45c-4a0d-90b5-b24cca9b9560",
  CellID->193396969],
-Cell[6624, 162, 609, 12, 44, "Text",ExpressionUUID->"2e95f0e4-2fab-4f07-ad83-377b0a350c2e",
+Cell[11865, 293, 566, 12, 70, "TechNoteText",ExpressionUUID->"2e95f0e4-2fab-4f07-ad83-377b0a350c2e",
  CellID->58131572]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7270, 179, 175, 2, 45, "Section",ExpressionUUID->"96e88029-f92f-4855-a969-576ace588609",
+Cell[12468, 310, 115, 1, 70, "TechNoteSection",ExpressionUUID->"96e88029-f92f-4855-a969-576ace588609",
  CellID->124831384],
-Cell[7448, 183, 516, 11, 47, "Text",ExpressionUUID->"1df820f9-4cd0-4594-b4c6-63f539604c82",
+Cell[12586, 313, 571, 14, 70, "TechNoteText",ExpressionUUID->"1df820f9-4cd0-4594-b4c6-63f539604c82",
  CellID->102204837],
-Cell[7967, 196, 1419, 31, 147, "DefinitionBox",ExpressionUUID->"cfe24e4f-125a-404e-b074-fea669babe8e",
+Cell[13160, 329, 1073, 26, 70, "DefinitionBox",ExpressionUUID->"cfe24e4f-125a-404e-b074-fea669babe8e",
  CellID->1226667],
-Cell[9389, 229, 189, 2, 25, "Text",ExpressionUUID->"edfb5b06-dd11-4495-a2e1-a92fdfd9432e",
+Cell[14236, 357, 131, 1, 70, "TechNoteText",ExpressionUUID->"edfb5b06-dd11-4495-a2e1-a92fdfd9432e",
  CellID->630345452],
-Cell[9581, 233, 3939, 77, 706, "DefinitionBox3Col",ExpressionUUID->"ede13088-28f7-488c-a9b4-1a4bb70bca46",
+Cell[14370, 360, 3574, 74, 70, "DefinitionBox3Col",ExpressionUUID->"ede13088-28f7-488c-a9b4-1a4bb70bca46",
  CellID->211394401],
-Cell[13523, 312, 219, 2, 25, "Text",ExpressionUUID->"d8207f2e-6a5b-4131-8eed-3160dacbd903",
+Cell[17947, 436, 161, 2, 70, "TechNoteText",ExpressionUUID->"d8207f2e-6a5b-4131-8eed-3160dacbd903",
  CellID->177184723],
-Cell[13745, 316, 2194, 38, 352, "DefinitionBox",ExpressionUUID->"1dda1625-c7ed-478b-bb09-ff2bcb6b76be",
+Cell[18111, 440, 1928, 38, 70, "DefinitionBox",ExpressionUUID->"1dda1625-c7ed-478b-bb09-ff2bcb6b76be",
  CellID->297993966],
-Cell[15942, 356, 135, 2, 25, "Text",ExpressionUUID->"06d65536-b85d-4f63-a2cc-588ff5c043ec",
+Cell[20042, 480, 99, 1, 70, "TechNoteText",ExpressionUUID->"06d65536-b85d-4f63-a2cc-588ff5c043ec",
  CellID->175221802],
-Cell[CellGroupData[{
-Cell[16102, 362, 745, 16, 44, "Text",ExpressionUUID->"2cd2dfd3-f0ce-470d-973f-bf4a90e1c5ac",
+Cell[20144, 483, 647, 14, 70, "TechNoteText",ExpressionUUID->"2cd2dfd3-f0ce-470d-973f-bf4a90e1c5ac",
  CellID->175345293],
-Cell[16850, 380, 355, 8, 25, "Input",ExpressionUUID->"d365528b-cd40-47ce-9941-e8ea84d4ca99",
- CellID->67958994]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[17242, 393, 298, 4, 25, "Text",ExpressionUUID->"54d6d6ab-15ac-4be7-896f-e7373de0a85f",
+Cell[20794, 499, 287, 7, 70, "Input",ExpressionUUID->"d365528b-cd40-47ce-9941-e8ea84d4ca99",
+ CellID->67958994],
+Cell[21084, 508, 132, 1, 70, "TechNoteText",ExpressionUUID->"54d6d6ab-15ac-4be7-896f-e7373de0a85f",
  CellID->233213388],
 Cell[CellGroupData[{
-Cell[17565, 401, 485, 10, 43, "Input",ExpressionUUID->"40cc29c9-38fd-44aa-849e-b96e16bb28fb",
+Cell[21241, 513, 417, 9, 70, "Input",ExpressionUUID->"40cc29c9-38fd-44aa-849e-b96e16bb28fb",
  CellID->164785652],
-Cell[18053, 413, 470, 10, 20, "Print",ExpressionUUID->"f5b2a613-a672-4ceb-8428-61e856f7e032",
+Cell[21661, 524, 428, 9, 70, "Print",ExpressionUUID->"f5b2a613-a672-4ceb-8428-61e856f7e032",
  CellID->288803599]
-}, Open  ]]
 }, Open  ]],
-Cell[CellGroupData[{
-Cell[18572, 429, 647, 17, 25, "Text",ExpressionUUID->"e9064b65-001b-4aa2-9473-82db5844bab6",
+Cell[22104, 536, 552, 15, 70, "TechNoteText",ExpressionUUID->"e9064b65-001b-4aa2-9473-82db5844bab6",
  CellID->1058003],
 Cell[CellGroupData[{
-Cell[19244, 450, 739, 18, 43, "Input",ExpressionUUID->"8dc07323-9c3b-483e-ab7f-aeb89fb231fc",
+Cell[22681, 555, 567, 15, 70, "Input",ExpressionUUID->"8dc07323-9c3b-483e-ab7f-aeb89fb231fc",
  CellID->167228159],
-Cell[19986, 470, 11990, 249, 249, "Output",ExpressionUUID->"07e657ce-d061-430e-bbce-f47c2186da1b",
+Cell[23251, 572, 11899, 247, 260, "Output",ExpressionUUID->"07e657ce-d061-430e-bbce-f47c2186da1b",
  CellID->302470491]
-}, Open  ]]
 }, Open  ]],
-Cell[32003, 723, 157, 2, 25, "Text",ExpressionUUID->"9c83a72a-caab-4a93-a2c6-ed2b1a099474",
+Cell[35165, 822, 99, 1, 70, "TechNoteText",ExpressionUUID->"9c83a72a-caab-4a93-a2c6-ed2b1a099474",
  CellID->140563531],
-Cell[32163, 727, 725, 14, 85, "Text",ExpressionUUID->"ef8c2339-3611-4866-a350-918fd119e8f6",
+Cell[35267, 825, 761, 17, 70, "TechNoteText",ExpressionUUID->"ef8c2339-3611-4866-a350-918fd119e8f6",
  CellID->435826263],
-Cell[32891, 743, 1107, 27, 91, "DefinitionBox",ExpressionUUID->"ecb5e25b-1318-41c2-ac21-cae42835432c",
+Cell[36031, 844, 999, 27, 70, "DefinitionBox",ExpressionUUID->"ecb5e25b-1318-41c2-ac21-cae42835432c",
  CellID->930980938],
-Cell[34001, 772, 193, 2, 25, "Text",ExpressionUUID->"4ad5779a-0f09-4cfc-b481-31bd0c44ef8a",
+Cell[37033, 873, 133, 1, 70, "TechNoteText",ExpressionUUID->"4ad5779a-0f09-4cfc-b481-31bd0c44ef8a",
  CellID->458070071],
-Cell[34197, 776, 978, 22, 114, "DefinitionBox3Col",ExpressionUUID->"6f045f00-ff90-480d-822c-3bec40d93c57",
+Cell[37169, 876, 941, 21, 70, "DefinitionBox3Col",ExpressionUUID->"6f045f00-ff90-480d-822c-3bec40d93c57",
  CellID->148399201],
-Cell[35178, 800, 217, 2, 25, "Text",ExpressionUUID->"3af2c52b-35f8-42a7-a3f1-e7d8c4e47861",
+Cell[38113, 899, 160, 2, 70, "TechNoteText",ExpressionUUID->"3af2c52b-35f8-42a7-a3f1-e7d8c4e47861",
  CellID->96472063],
-Cell[35398, 804, 2732, 43, 440, "DefinitionBox",ExpressionUUID->"1bad0977-6969-40b4-aa10-484c1ba44755",
+Cell[38276, 903, 1948, 35, 70, "DefinitionBox",ExpressionUUID->"1bad0977-6969-40b4-aa10-484c1ba44755",
  CellID->404938771],
-Cell[38133, 849, 135, 2, 25, "Text",ExpressionUUID->"1a88e94d-73a5-49b7-83a2-ad051acc473d",
+Cell[40227, 940, 99, 1, 70, "TechNoteText",ExpressionUUID->"1a88e94d-73a5-49b7-83a2-ad051acc473d",
  CellID->506393254],
-Cell[CellGroupData[{
-Cell[38293, 855, 820, 19, 63, "Text",ExpressionUUID->"63fcd9d9-34c0-4866-8e77-6bcff2b91f81",
+Cell[40329, 943, 770, 18, 70, "TechNoteText",ExpressionUUID->"63fcd9d9-34c0-4866-8e77-6bcff2b91f81",
  CellID->172394326],
-Cell[39116, 876, 675, 15, 43, "Input",ExpressionUUID->"eb872ce3-6278-4a0c-b88e-3d994050b4bb",
- CellID->417483269]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[39828, 896, 251, 5, 25, "Text",ExpressionUUID->"72ad5af5-980e-4f6c-b547-bde5ffe991f3",
+Cell[41102, 963, 556, 13, 70, "Input",ExpressionUUID->"eb872ce3-6278-4a0c-b88e-3d994050b4bb",
+ CellID->417483269],
+Cell[41661, 978, 191, 4, 70, "TechNoteText",ExpressionUUID->"72ad5af5-980e-4f6c-b547-bde5ffe991f3",
  CellID->184565205],
 Cell[CellGroupData[{
-Cell[40104, 905, 717, 16, 62, "Input",ExpressionUUID->"83af0f63-cf16-408b-a0d1-01af4d7aca86",
+Cell[41877, 986, 649, 15, 70, "Input",ExpressionUUID->"83af0f63-cf16-408b-a0d1-01af4d7aca86",
  CellID->112568296],
-Cell[40824, 923, 742, 15, 23, "Print",ExpressionUUID->"613b748a-40ef-4a76-81a4-69c5bbb4c770",
+Cell[42529, 1003, 650, 13, 70, "Print",ExpressionUUID->"613b748a-40ef-4a76-81a4-69c5bbb4c770",
  CellID->773424864]
-}, Open  ]]
 }, Open  ]],
-Cell[41593, 942, 391, 6, 63, "Text",ExpressionUUID->"557d730d-d29d-4bb0-a205-21189b0c6335",
+Cell[43194, 1019, 334, 5, 70, "TechNoteText",ExpressionUUID->"557d730d-d29d-4bb0-a205-21189b0c6335",
  CellID->245415575],
-Cell[CellGroupData[{
-Cell[42009, 952, 214, 2, 25, "Text",ExpressionUUID->"bb9a977e-3d6b-46ec-aab8-c4e3eb7bb271",
+Cell[43531, 1026, 154, 1, 70, "TechNoteText",ExpressionUUID->"bb9a977e-3d6b-46ec-aab8-c4e3eb7bb271",
  CellID->473321793],
 Cell[CellGroupData[{
-Cell[42248, 958, 549, 14, 46, "Input",ExpressionUUID->"aaba6629-814b-48d6-8c70-44e4e3541d77",
+Cell[43710, 1031, 430, 12, 70, "Input",ExpressionUUID->"aaba6629-814b-48d6-8c70-44e4e3541d77",
  CellID->155084311],
-Cell[42800, 974, 497, 11, 21, "Print",ExpressionUUID->"df159dce-3aec-4691-bd53-b6b93a63002a",
+Cell[44143, 1045, 455, 10, 70, "Print",ExpressionUUID->"df159dce-3aec-4691-bd53-b6b93a63002a",
  CellID->114199077]
-}, Open  ]]
 }, Open  ]],
-Cell[CellGroupData[{
-Cell[43346, 991, 306, 5, 44, "Text",ExpressionUUID->"923a5c5c-ad1d-4364-9ee5-903cb3fd965d",
+Cell[44613, 1058, 244, 4, 70, "TechNoteText",ExpressionUUID->"923a5c5c-ad1d-4364-9ee5-903cb3fd965d",
  CellID->110799642],
 Cell[CellGroupData[{
-Cell[43677, 1000, 1162, 28, 65, "Input",ExpressionUUID->"3e2b4034-7587-48aa-a473-c07c4f89c775",
+Cell[44882, 1066, 945, 25, 70, "Input",ExpressionUUID->"3e2b4034-7587-48aa-a473-c07c4f89c775",
  CellID->178388719],
-Cell[44842, 1030, 7799, 151, 128, "Output",ExpressionUUID->"2c2755ff-928c-496d-b942-17f644e56a93",
+Cell[45830, 1093, 7680, 149, 139, "Output",ExpressionUUID->"2c2755ff-928c-496d-b942-17f644e56a93",
  CellID->206319067]
 }, Open  ]]
-}, Open  ]]
 }, Open  ]],
-Cell[CellGroupData[{
-Cell[52702, 1188, 191, 2, 74, "TutorialMoreAboutSection",ExpressionUUID->"3bf8d1f3-670c-445f-b675-c128f5de6caa",
- CellID->303544878],
-Cell[52896, 1192, 288, 5, 24, "TutorialMoreAbout",ExpressionUUID->"c9b15e5e-7410-4adf-8648-a9a5b72fdf53",
- CellID->191675542]
+Cell[53537, 1246, 694, 17, 70, "TutorialMoreAboutSection",ExpressionUUID->"73dc1bed-9e71-467f-8e00-5c3341984533"],
+Cell[54234, 1265, 1025, 26, 70, "RelatedTutorialsSection",ExpressionUUID->"05b241e1-adc8-4efd-aa2a-bf14a1452ae5"]
 }, Open  ]],
-Cell[CellGroupData[{
-Cell[53221, 1202, 127, 1, 74, "RelatedTutorialsSection",ExpressionUUID->"e412912b-3f94-4800-834d-9a2fae094278",
- CellID->13194869],
-Cell[53351, 1205, 335, 6, 24, "RelatedTutorials",ExpressionUUID->"1f5ddf36-f029-43ef-acb5-bfd6fb1c3998",
- CellID->915458391],
-Cell[53689, 1213, 348, 6, 24, "RelatedTutorials",ExpressionUUID->"ed892d87-a995-4cd0-a999-8feb24fe7250",
- CellID->105927707]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[54086, 1225, 110, 1, 72, "MetadataSection",ExpressionUUID->"9164cdbc-d79a-41a6-9e23-89b3cd081b2e",
- CellID->746288971],
-Cell[54199, 1228, 473, 11, 26, "History",ExpressionUUID->"9e1097d4-c251-4fc2-ad63-4bbd0c8d8907",
- CellID->645088867],
-Cell[CellGroupData[{
-Cell[54697, 1243, 121, 1, 21, "CategorizationSection",ExpressionUUID->"a461b8a9-fe73-4162-9828-9a1392276d32",
- CellID->84260433],
-Cell[54821, 1246, 137, 2, 70, "Categorization",ExpressionUUID->"a26a9520-cac8-4d55-a593-6f8f81e2e654",
- CellID->104060084],
-Cell[54961, 1250, 143, 2, 70, "Categorization",ExpressionUUID->"886fffb2-9083-4237-be8d-43133c1983e9",
- CellID->767876694],
-Cell[55107, 1254, 139, 2, 70, "Categorization",ExpressionUUID->"fc56fc92-0ecb-4c05-86a4-cb0ccf6ba037",
- CellID->55517608],
-Cell[55249, 1258, 159, 2, 70, "Categorization",ExpressionUUID->"368b4ec5-ec4b-482c-9c7b-ca056a724dd5",
- CellID->185057737]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[55445, 1265, 110, 1, 21, "KeywordsSection",ExpressionUUID->"b8f9fcb0-e628-4745-a11a-4cde4def7c24",
- CellID->518442159],
-Cell[55558, 1268, 98, 1, 70, "Keywords",ExpressionUUID->"b4e45405-a061-4a55-a74c-01d1b1b472eb",
- CellID->92590714]
-}, Closed]]
-}, Open  ]]
+Cell[55274, 1294, 78, 0, 70, "FooterCell",ExpressionUUID->"01926e7a-cf62-4e37-8bba-b8c6307bcb9d"]
 }
 ]
 *)
+
+(* End of internal cache information *)
 

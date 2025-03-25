@@ -1,0 +1,753 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     28925,        743]
+NotebookOptionsPosition[     23483,        634]
+NotebookOutlinePosition[     25880,        692]
+CellTagsIndexPosition[     25795,        687]
+WindowTitle->KerrNullGeo
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell["BLACK HOLE IMAGES SYMBOL", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "c6c4e0ef-8e92-46fd-bb2f-a90de37d11f7"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "0d4c07d3-0e77-4422-ae02-f76aac792ac9"],
+        Background->RGBColor[0.490196, 0.576471, 0.690196],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[{
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "See Also",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "7b723fda-2d0f-46a3-9575-efbcaa1589e2"]
+         }],ExpressionUUID->"9981dbff-b363-4729-a90d-0f762d7b39d8"],
+         StripOnInput->False], {"\<\"KerrNullGeoDistant\"\>":>
+        Documentation`HelpLookup[
+        "paclet:BlackHoleImages/ref/KerrNullGeoDistant"], \
+"\<\"KerrNullGeoFunction\"\>":>Documentation`HelpLookup[
+        "paclet:BlackHoleImages/ref/KerrNullGeoFunction"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"SeeAlso"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "a0372ae1-21c7-47b0-b30d-89c1ba05ae16"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "Related Guides",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "d9ca1635-7f1f-4665-8aa2-8bed173762f1"]
+         }],ExpressionUUID->"8733ff43-d0ad-479b-88b5-f25b41f24507"],
+         StripOnInput->False], {"\<\"KerrNullGeodesics\"\>":>
+        Documentation`HelpLookup[
+        "paclet:BlackHoleImages/guide/KerrNullGeodesics"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"MoreAbout"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "9dae0956-2217-4601-a0bf-c837eb8ee622"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "Tech Notes",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "b316b640-215a-4e3c-886a-590f297c8ae6"]
+         }],ExpressionUUID->"c0c9cf5c-8f79-4cf1-9280-b805c035975d"],
+         StripOnInput->False], {"\<\"KerrNullGeodesics\"\>":>
+        Documentation`HelpLookup[
+        "paclet:BlackHoleImages/tutorial/KerrNullGeodesics"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"Tutorials"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "96ec0118-113d-4492-9ca0-c805b3240e19"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "URL",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "68b300cc-09a1-4672-b7eb-a1a6425be99e"]
+         }],ExpressionUUID->"318f8ac3-ac33-4660-b718-c27be0e99e9a"],
+         StripOnInput->False], {"\<\"BlackHoleImages/ref/KerrNullGeo\"\>":>
+        None, "\<\"Copy Wolfram Documentation Center URL\"\>":>
+        Module[{DocumentationSearch`Private`nb$}, 
+         DocumentationSearch`Private`nb$ = NotebookPut[
+            Notebook[{
+              Cell["BlackHoleImages/ref/KerrNullGeo"]}, Visible -> False]]; 
+         SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+         FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+         NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+        Delimiter, "\<\"Copy web URL\"\>":>
+        Module[{DocumentationSearch`Private`nb$}, 
+         DocumentationSearch`Private`nb$ = NotebookPut[
+            Notebook[{
+              Cell[
+               BoxData[
+                MakeBoxes[
+                 Hyperlink[
+                 "http://reference.wolfram.com/language/BlackHoleImages/ref/\
+KerrNullGeo.html"], StandardForm]], "Input", TextClipboardType -> 
+               "PlainText"]}, Visible -> False]]; 
+         SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+         FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+         NotebookClose[DocumentationSearch`Private`nb$]; 
+         Null], "\<\"Go to web URL\"\>":>FrontEndExecute[{
+          NotebookLocate[{
+            URL[If[
+               TrueQ[DocumentationBuild`Make`Private`wsmlinkQ$27238], 
+               "http://reference.wolfram.com/system-modeler/", 
+               "http://reference.wolfram.com/language/"] <> 
+             "BlackHoleImages/ref/KerrNullGeo" <> ".html"], None}]}]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"URLMenu"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "1f78c7b4-08d3-477f-9fd5-cb0c6e421775"]
+    }], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "21407b5d-474e-420c-9710-ae4a787e6a1a"]}
+  }]], "AnchorBarGrid",
+ CellID->1,ExpressionUUID->"21393469-78cc-4809-b27b-21b8e04e2203"],
+
+Cell["BlackHoleImages`", "ContextNameCell",ExpressionUUID->"ccd8e280-cc4f-438b-a05c-af64dd1cda5a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[GridBox[{
+   {Cell[TextData[{
+     Cell[
+     "KerrNullGeo", "ObjectName",ExpressionUUID->
+      "8d61d493-f5c4-406f-8ea7-9306bc5e9970"],
+     Cell[BoxData[
+      TemplateBox[{8},
+       "Spacer1"]],ExpressionUUID->"f40b5db7-9a2f-484b-9135-587dab893edd"],
+     Cell[BoxData[
+     ""], "ObjectNameTranslation",ExpressionUUID->
+      "6db6e562-8e17-42b8-94bf-b843bc19b892"]
+    }],ExpressionUUID->"6f6e89c7-b08e-4201-891f-361160e9891a"], 
+    "\[SpanFromLeft]"}
+  }]], "ObjectNameGrid",ExpressionUUID->"310651ba-e5e8-498a-be16-\
+52e2f30fa089"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       TemplateBox[{
+         Cell[
+          TextData["KerrNullGeo"]], 
+         "paclet:BlackHoleImagesKerrNullGeodesics/ref/KerrNullGeo", 
+         "BlackHoleImagesKerrNullGeodesics Package Symbol"},
+        "PackageLink",
+        BaseStyle->"InlineFormula"], "[", 
+       RowBox[{
+        StyleBox["a", "TI"], ",", 
+        StyleBox["xs", "TI"], ",", 
+        StyleBox["ps", "TI"]}], "]"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "04c857d3-15ce-4044-aa35-7c0899a47a70"],
+     "\[LineSeparator]returns a KerrNullGeoFunction which stores information \
+about the trajectory of a light-ray starting from specified initial \
+conditions. The black hole spin ",
+     Cell[BoxData[
+      StyleBox["a", "TI"]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "960a5591-d71c-41ff-ae4f-a06a06290adc"],
+     ", position ",
+     Cell[BoxData[
+      StyleBox["xs", "TI"]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "4252b036-b7dc-49ef-b885-2561a64f017d"],
+     ", and wavevector ",
+     Cell[BoxData[
+      StyleBox["ps", "TI"]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "ba5e2070-f1b1-45bf-b2d3-b3c122a5906f"],
+     " are assumed to be given in units of the BH mass, unless mass M is \
+specified (optional argument)."
+    }],ExpressionUUID->"afaf2de9-aa48-41d0-b327-70ef70a1269a"]}
+  }]], "Usage",
+ CellID->549246345,ExpressionUUID->"c54d3b67-4f25-487d-bc57-7f1b36cde86b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[Cell[BoxData[
+ ButtonBox[Cell[TextData[{
+   Cell[BoxData[
+    DynamicBox[ToBoxes[
+      If[
+       MatchQ[
+        CurrentValue[
+         EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, 
+         Closed], 
+        Alternatives[Open, True]], 
+       Style[
+        Graphics[{
+          Thickness[0.18], 
+          RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+          Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+         PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+        0.68 Inherited], 
+       Rotate[
+        Style[
+         Graphics[{
+           Thickness[0.18], 
+           RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+           Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+          PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+         0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+     ImageSizeCache->{
+      13.600000000000001`, {0.5800000000000001, 13.020000000000001`}}]],
+    ExpressionUUID->"050f0d99-c6ce-45c3-976d-626c8f77c5b9"],
+   Cell[BoxData[
+    TemplateBox[{1},
+     "Spacer1"]],ExpressionUUID->"b34f40f5-53c9-49bb-b521-bdb2d5e01e23"],
+   "Details and Options"
+  }], "NotesFrameText",ExpressionUUID->"f0ac50f6-abed-455d-96cc-166f12bfed96"],
+  Appearance->{Automatic, None, "Normal", Automatic},
+  BaseStyle->None,
+  ButtonFunction:>(FrontEndExecute[{
+     FrontEnd`SelectionMove[
+      FrontEnd`SelectedNotebook[], All, ButtonCell], 
+     FrontEndToken["OpenCloseGroup"], 
+     FrontEnd`SelectionMove[
+      FrontEnd`SelectedNotebook[], After, CellContents]}]& ),
+  Evaluator->None,
+  Method->
+   "Preemptive"]],ExpressionUUID->"1143a43e-12b3-411f-9d00-2d98967ccf5d"]], \
+"NotesSection",
+ WholeCellGroupOpener->True,
+ CellGroupingRules->{"SectionGrouping", 50},
+ CacheGraphics->False,
+ CellID->196250758,ExpressionUUID->"534552c9-9eb2-4142-8bab-d8bbb84a2600"],
+
+Cell["The following options can be given: ", "Notes",
+ CellID->314081812,ExpressionUUID->"f90be09e-8542-4dd2-9dd2-2c8ae2ec75ef"],
+
+Cell[BoxData[GridBox[{
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "be943675-0477-4556-a561-6e01f4287363"], 
+    RowBox[{"\"\<Momentum\>\"", " "}], "\"\<Momentum\>\"", 
+    RowBox[{
+     RowBox[{
+     "Specifies", " ", "whether", " ", "the", " ", "user", " ", "provided"}], 
+     " ", "\[IndentingNewLine]", 
+     RowBox[{"4", "-", 
+      RowBox[{"momentum", " ", "or", " ", "wave"}]}], " ", 
+     "\[IndentingNewLine]", 
+     RowBox[{"4", "-", 
+      RowBox[{"vector", " ", "as", " ", 
+       RowBox[{"ps", ".", " ", "The"}], " ", "default", " ", "option"}]}], 
+     " ", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"is", " ", "\"\<Momentum\>\""}], "->", 
+      RowBox[{
+       RowBox[{"\"\<Momentum\>\"", ".", " ", "If"}], " ", "the"}]}], "\n", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"user", " ", "provided", " ", "the", " ", "wave", " ", "4"}], 
+       "-", "vector"}], ",", 
+      RowBox[{
+       RowBox[{"the", " ", "option", " ", "\"\<Momentum\>\""}], "->", 
+       "\[IndentingNewLine]", 
+       RowBox[{"\"\<WaveVector\>\"", " ", "should"}]}]}], "\n", 
+     RowBox[{"be", " ", 
+      RowBox[{"specified", "."}]}]}]},
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "3d0b74ae-3386-45b8-8ec4-bc9058dc64c6"], "\"\<PhiRange\>\"", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "Infinity"}], ",", " ", "Infinity"}], "}"}], 
+    RowBox[{
+     RowBox[{
+     "This", " ", "sets", " ", "the", " ", "range", " ", "of", " ", "output", 
+      " ", "of"}], " ", "\[IndentingNewLine]", 
+     RowBox[{"the", " ", "azimuthal", " ", 
+      RowBox[{"angle", ".", " ", "The"}], " ", "default"}], "\n", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"is", " ", "\"\<PhiRange\>\""}], "->", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"\[Minus]", "\[Infinity]"}], ",", "\[Infinity]"}], "}"}]}], 
+      ",", 
+      RowBox[{
+      "which", " ", "starts", " ", "the", " ", "coordinate", " ", "at", " ", 
+       "0", " ", "and", " ", "does", " ", "not"}]}], "\n", 
+     RowBox[{
+     "take", " ", "the", " ", "modulus", " ", "of", " ", "it", " ", "after", 
+      " ", "full"}], " ", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"windings", ".", " ", "Typical"}], " ", "options", " ", "could",
+       " ", "be", " ", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"\[Minus]", "\[Pi]"}], ",", "\[Pi]"}], "}"}]}], "\n", 
+     RowBox[{
+      RowBox[{"or", " ", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", 
+         RowBox[{"2", "\[Pi]"}]}], "}"}]}], ",", 
+      RowBox[{
+      "but", " ", "other", " ", "option", " ", "values", " ", "in"}]}], " ", 
+     "\[IndentingNewLine]", 
+     RowBox[{"the", " ", "format", " ", 
+      RowBox[{"{", 
+       RowBox[{"bottomvalue", ",", "topvalue"}], "}"}]}], "\n", 
+     RowBox[{"are", " ", "valid", " ", "as", " ", 
+      RowBox[{"well", "."}]}]}]}
+  }]], "3ColumnTableMod",
+ GridBoxOptions->{
+ GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {None, {None}}},
+ GridBoxDividers->{"Rows" -> {{True, True, True}}}},
+ CellID->288463393,ExpressionUUID->"65d251c4-8dbf-410f-a617-16c68ff5dc7d"]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, Closed]]]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {
+       TaggingRules, "Openers", "PrimaryExamplesSection"}, Open], 
+      Alternatives[True, Open]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"b4a27d4d-f178-44a9-93b1-7af63a6b0fd3"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"273a9786-227f-410b-8982-5f9d214b5216"],
+ "Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "f136d1b4-ca4f-4737-b5aa-c8e460d35324"]
+}], "PrimaryExamplesSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellTags->"PrimaryExamplesSection",
+ CellID->55390162,ExpressionUUID->"8609c167-65a5-432c-958f-8ab15f26c247"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<BlackHoleImages`\>\"", "]"}]], "Input", \
+"ExampleInitialization",
+ CellLabel->"In[1]:=",
+ CellID->19279414,ExpressionUUID->"82eb052f-757f-4270-9f4b-d5bd556d11ad"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"309cf358-5e6a-4a2f-bd41-0567649187c3"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"4032018b-6130-4382-9694-84e41edd654d"],
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "94cb01cb-da82-4e8a-bada-b653ec24f4bf"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->262670356,ExpressionUUID->"f17dd1d6-3786-43a3-9d40-ba69da5a67e4"],
+
+Cell[TextData[{
+ "Compute a geodesic in geometry given by ",
+ StyleBox["a = 0.9",
+  FontSlant->"Italic"],
+ ", with some initial position and momentum",
+ StyleBox[":",
+  FontSlant->"Italic"]
+}], "ExampleText",
+ CellID->610472287,ExpressionUUID->"57a88eca-aa81-49b9-9892-8e91b0ee3810"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"geod", " ", "=", " ", 
+   RowBox[{"KerrNullGeo", "[", 
+    RowBox[{"0.9", ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", " ", "150", ",", " ", 
+       RowBox[{"\[Pi]", "/", "3"}], ",", " ", "0"}], "}"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "1"}], ",", " ", 
+       RowBox[{"-", "1"}], ",", " ", 
+       RowBox[{"Sqrt", "[", "10", "]"}], ",", " ", "10"}], "}"}]}], "]"}]}], 
+  ";"}]], "Input",
+ CellProlog:>Needs["BlackHoleImages`"],
+ CellLabel->"In[1]:=",
+ CellID->22108511,ExpressionUUID->"e8c47fdc-48fe-4cd4-8ee3-f08c11ee6f4a"],
+
+Cell["\<\
+Access the constant of motion \[ScriptL]  and the escape coordinates \
+\[Theta]x, \[Phi]x:\
+\>", "ExampleText",
+ CellID->833532033,ExpressionUUID->"3d9cffab-1acf-4001-884e-61870e3ebc0e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"\[ScriptL]", " ", "=", " ", 
+  RowBox[{
+   RowBox[{"geod", "[", "\"\<ConstantsOfMotion\>\"", "]"}], "[", 
+   "\"\<\[ScriptL]\>\"", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"{", 
+   RowBox[{"\[Theta]x", ",", " ", "\[Phi]x"}], "}"}], " ", "=", " ", 
+  RowBox[{"geod", "[", "\"\<EscapeCoordinates\>\"", "]"}]}]}], "Input",
+ CellProlog:>Needs["BlackHoleImages`"],
+ CellLabel->"In[2]:=",
+ CellID->2777400,ExpressionUUID->"fd739c0a-c231-4439-9c53-8feaa9e507e6"],
+
+Cell[BoxData["10"], "Output",
+ CellLabel->"Out[2]=",
+ CellID->367243797,ExpressionUUID->"ebed0dbf-41d1-4a41-8868-180fc2e84e7a"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"1.9916426856908047`", ",", "3.4956849329622357`"}], 
+  "}"}]], "Output",
+ CellLabel->"Out[2]=",
+ CellID->203872608,ExpressionUUID->"f6d7d762-4431-4673-918d-25d85691e99a"]
+}, Open  ]],
+
+Cell["Get the Boyer-Lindquist coordinates at Mino time \[Lambda]=0.1:", \
+"ExampleText",
+ CellID->129948243,ExpressionUUID->"fa38ae52-be08-4ca6-86e5-6e907451ab4f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"geod", "[", "0.1", "]"}]], "Input",
+ CellProlog:>Needs["BlackHoleImages`"],
+ CellLabel->"In[3]:=",
+ CellID->25984426,ExpressionUUID->"97441ae6-c715-457b-84d8-3ffd81bc9e71"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "151.55013426217823`", ",", "12.011107088435566`", ",", 
+   "1.6001350622030592`", ",", "1.1236356652255708`"}], "}"}]], "Output",
+ CellLabel->"Out[3]=",
+ CellID->1238395,ExpressionUUID->"fa538361-e642-497e-a732-d1eccab41d90"]
+}, Open  ]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, 
+  Closed]]]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, 
+  Closed]]]],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, 
+       "RelatedFunction.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"See", " ", "Also"}], "SeeAlsoSection"]},
+      {Cell[TextData[{
+        Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["KerrNullGeoDistant"]], 
+           "paclet:BlackHoleImages/ref/KerrNullGeoDistant", 
+           "BlackHoleImages Package Symbol"},
+          "PackageLink",
+          BaseStyle->"InlineFormula"]], "InlineFormula",
+         FontFamily->"Source Sans Pro",ExpressionUUID->
+         "3505cc86-6f94-461a-b111-3d0646c49442"],
+        "\[NonBreakingSpace]",
+        StyleBox[
+        "\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+         "InlineSeparator"],
+        " ",
+        Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["KerrNullGeoFunction"]], 
+           "paclet:BlackHoleImages/ref/KerrNullGeoFunction", 
+           "BlackHoleImages Package Symbol"},
+          "PackageLink",
+          BaseStyle->"InlineFormula"]], "InlineFormula",
+         FontFamily->"Source Sans Pro",
+         CellTags->"4ba42b4d-c3b2-4c2f-8169-c16be8b01191",ExpressionUUID->
+         "5b605e61-61e2-4e6c-8510-acef142cfb15"]
+       }], "SeeAlso",ExpressionUUID->"0c01659c-269a-4516-88e6-140c8d5ece01"]}
+     }]}
+  }]], "SeeAlsoSection",ExpressionUUID->"16aee719-9cfb-46df-aac6-\
+7ad482d4c2af"],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, 
+       "RelatedTechNote.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"Tech", " ", "Notes"}], "TechNotesSection"]},
+      {
+       RowBox[{"\[FilledVerySmallSquare]", Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["KerrNullGeodesics"]], 
+           "paclet:BlackHoleImages/tutorial/KerrNullGeodesics"},
+          "RefLinkPlain",
+          BaseStyle->{"Tutorials", FontWeight -> "Bold"}]], "Tutorials",
+         ExpressionUUID->"b0618246-e2c1-4074-a8cf-118d27b7a16a"]}]}
+     }]}
+  }]], "TechNotesSection",ExpressionUUID->"55b38493-7c5a-438d-b826-\
+fccf8a10f9f3"],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, "RelatedGuide.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"Related", " ", "Guides"}], "MoreAboutSection"]},
+      {
+       RowBox[{"\[FilledVerySmallSquare]", Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["KerrNullGeodesics"]], 
+           "paclet:BlackHoleImages/guide/KerrNullGeodesics"},
+          "RefLinkPlain",
+          BaseStyle->{"MoreAbout"}]], "MoreAbout",ExpressionUUID->
+         "d1dc3ea8-b005-4870-a02d-5bd6fbadd842"]}]}
+     }]}
+  }]], "MoreAboutSection",ExpressionUUID->"19e2558f-1cd4-43a5-a127-\
+008013306325"],
+
+Cell[" ", "FooterCell",ExpressionUUID->"ba4c1201-837d-4114-8e69-cc1de0d1d408"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900., 604.8},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"KerrNullGeo",
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "HasOptions" -> True, "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, "ExampleSection" -> {"0" -> Open}, 
+    "NotesSection" -> Closed}, "NewStyles" -> True, 
+  "CitationPopupData" -> $Failed, "ShowCitation" -> False, "RootCaptions" -> 
+  "", "Metadata" -> {
+   "built" -> "{2025, 2, 21, 16, 51, 6.2658357}", 
+    "history" -> {"XX", "", "", ""}, "context" -> "BlackHoleImages`", 
+    "keywords" -> {}, "specialkeywords" -> {}, 
+    "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
+    "Black Hole Images Symbol", "language" -> "en", "paclet" -> 
+    "BlackHoleImages", "status" -> "None", "summary" -> 
+    "KerrNullGeo[a, xs, ps] returns a KerrNullGeoFunction which stores \
+information about the trajectory of a light-ray starting from specified \
+initial conditions. The black hole spin a, position xs, and wavevector ps are \
+assumed to be given in units of the BH mass, unless mass M is specified \
+(optional argument).", "synonyms" -> {}, "tabletags" -> {}, "title" -> 
+    "KerrNullGeo", "titlemodifier" -> "", "metadescription" -> "", 
+    "windowtitle" -> "KerrNullGeo", "type" -> "Symbol", "uri" -> 
+    "BlackHoleImages/ref/KerrNullGeo"}},
+CellContext->"Global`",
+FrontEndVersion->"13.2 for Microsoft Windows (64-bit) (January 30, 2023)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[
+    StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, "Reference.nb"]]], 
+   Cell[
+    StyleData["Input"], CellContext -> "Global`"], 
+   Cell[
+    StyleData["Output"], CellContext -> "Global`"]}, Visible -> False, 
+  FrontEndVersion -> "13.2 for Microsoft Windows (64-bit) (January 30, 2023)",
+   StyleDefinitions -> "Default.nb"],
+ExpressionUUID->"71bdcf45-dbb5-4280-8771-1876ef0d2708"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "PrimaryExamplesSection"->{
+  Cell[14472, 375, 1419, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"8609c167-65a5-432c-958f-8ab15f26c247",
+   CellTags->"PrimaryExamplesSection",
+   CellID->55390162]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"PrimaryExamplesSection", 25596, 680}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[583, 21, 6335, 154, 56, "AnchorBarGrid",ExpressionUUID->"21393469-78cc-4809-b27b-21b8e04e2203",
+ CellID->1],
+Cell[6921, 177, 98, 0, 23, "ContextNameCell",ExpressionUUID->"ccd8e280-cc4f-438b-a05c-af64dd1cda5a"],
+Cell[CellGroupData[{
+Cell[7044, 181, 554, 14, 56, "ObjectNameGrid",ExpressionUUID->"310651ba-e5e8-498a-be16-52e2f30fa089"],
+Cell[7601, 197, 1579, 38, 154, "Usage",ExpressionUUID->"c54d3b67-4f25-487d-bc57-7f1b36cde86b",
+ CellID->549246345]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9217, 240, 1919, 48, 37, "NotesSection",ExpressionUUID->"534552c9-9eb2-4142-8bab-d8bbb84a2600",
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellID->196250758],
+Cell[11139, 290, 128, 1, 70, "Notes",ExpressionUUID->"f90be09e-8542-4dd2-9dd2-2c8ae2ec75ef",
+ CellID->314081812],
+Cell[11270, 293, 3075, 76, 70, "3ColumnTableMod",ExpressionUUID->"65d251c4-8dbf-410f-a617-16c68ff5dc7d",
+ CellID->288463393]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, Closed]]]],
+Cell[CellGroupData[{
+Cell[14472, 375, 1419, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"8609c167-65a5-432c-958f-8ab15f26c247",
+ CellTags->"PrimaryExamplesSection",
+ CellID->55390162],
+Cell[15894, 414, 205, 4, 26, "Input",ExpressionUUID->"82eb052f-757f-4270-9f4b-d5bd556d11ad",
+ CellID->19279414],
+Cell[CellGroupData[{
+Cell[16124, 422, 1398, 36, 30, "ExampleSection",ExpressionUUID->"f17dd1d6-3786-43a3-9d40-ba69da5a67e4",
+ CellID->262670356],
+Cell[17525, 460, 283, 8, 38, "ExampleText",ExpressionUUID->"57a88eca-aa81-49b9-9892-8e91b0ee3810",
+ CellID->610472287],
+Cell[17811, 470, 600, 16, 26, "Input",ExpressionUUID->"e8c47fdc-48fe-4cd4-8ee3-f08c11ee6f4a",
+ CellID->22108511],
+Cell[18414, 488, 196, 4, 38, "ExampleText",ExpressionUUID->"3d9cffab-1acf-4001-884e-61870e3ebc0e",
+ CellID->833532033],
+Cell[CellGroupData[{
+Cell[18635, 496, 492, 11, 42, "Input",ExpressionUUID->"fd739c0a-c231-4439-9c53-8feaa9e507e6",
+ CellID->2777400],
+Cell[19130, 509, 127, 2, 35, "Output",ExpressionUUID->"ebed0dbf-41d1-4a41-8868-180fc2e84e7a",
+ CellID->367243797],
+Cell[19260, 513, 210, 5, 35, "Output",ExpressionUUID->"f6d7d762-4431-4673-918d-25d85691e99a",
+ CellID->203872608]
+}, Open  ]],
+Cell[19485, 521, 163, 2, 38, "ExampleText",ExpressionUUID->"fa38ae52-be08-4ca6-86e5-6e907451ab4f",
+ CellID->129948243],
+Cell[CellGroupData[{
+Cell[19673, 527, 196, 4, 70, "Input",ExpressionUUID->"97441ae6-c715-457b-84d8-3ffd81bc9e71",
+ CellID->25984426],
+Cell[19872, 533, 268, 6, 35, "Output",ExpressionUUID->"fa538361-e642-497e-a732-d1eccab41d90",
+ CellID->1238395]
+}, Open  ]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, Closed]]]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, Closed]]]],
+Cell[20382, 548, 1504, 39, 70, "SeeAlsoSection",ExpressionUUID->"16aee719-9cfb-46df-aac6-7ad482d4c2af"],
+Cell[21889, 589, 769, 20, 70, "TechNotesSection",ExpressionUUID->"55b38493-7c5a-438d-b826-fccf8a10f9f3"],
+Cell[22661, 611, 737, 19, 70, "MoreAboutSection",ExpressionUUID->"19e2558f-1cd4-43a5-a127-008013306325"],
+Cell[23401, 632, 78, 0, 70, "FooterCell",ExpressionUUID->"ba4c1201-837d-4114-8e69-cc1de0d1d408"]
+}
+]
+*)
+
+(* End of internal cache information *)
+
