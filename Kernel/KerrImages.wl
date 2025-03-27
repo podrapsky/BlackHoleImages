@@ -41,12 +41,12 @@ row={};
 template={};
 
 (*show progress*)
-j=-jmax;
-Print[Dynamic[N[100 (j+jmax)/(2 jmax)]], " %"];
+i=-imax;
+Print[Dynamic[N[100 (i+imax)/(2 imax)]], " %"];
 
 (*generate the template*)
-For[j=-jmax, j<jmax,j+=step,
-	For[i=-imax, i<imax ,i+=step,
+For[i=-imax, i<imax ,i+=step,
+	For[j=-jmax, j<jmax,j+=step,
 		geod = BlackHoleImages`KerrNullGeodesics`KerrNullGeoDistant[a, \[Theta]o, i, j, shellRadius, radiusLimit, "Rotation" -> OptionValue["Rotation"],"PhiRange" -> OptionValue["PhiRange"]];
 		AppendTo[row, {geod["EmissionCoordinates"], geod["EmissionParameters"], geod["ShellIntersectionCoordinates"], geod["EscapeCoordinates"]}];
 	];
@@ -128,8 +128,8 @@ row = Table[{}, length];
 disk = BlackHoleImages`AlphaDiskModel`DiskParams[a, \[Alpha], m, mdot, "InputUnits" -> OptionValue["InputUnits"], "OutputUnits" -> OptionValue["OutputUnits"], "rUnits" -> OptionValue["rUnits"]];
 
 (*generate the requested data*)
-For[j=1, j<=jmax,j+=1,
-	For[i=1, i<=imax ,i+=1,
+For[i=1, i<=imax ,i+=1,
+	For[j=1, j<=jmax,j+=1,
 		shard = template[[j, i]];
 		element = BlackHoleImages`AlphaDiskModel`ObservedDiskElement[disk, <|"EmissionCoordinates"-> shard[[1]], "EmissionParameters" -> shard[[2]]|>, "Grid"->OptionValue["Grid"]];
 		row = MapThread[Append, {row, Table[element[OptionValue["Output"][[k]]], {k, 1, length}]}];
@@ -143,15 +143,15 @@ matrix
 ]
 
 
-StellarBackgroundFromTemplate[templateFile_, \[Theta]o_,imageFile_, angle_, shellRadius_:50, bgColor_:{0.,0.,0.}] := Module[{template, image, data, i, j, imax, jmax, Jmax, Imax, matrix, row, shard, \[Theta], \[Phi], append},
+StellarBackgroundFromTemplate[templateFile_, \[Theta]o_,imageFile_, angle_, shellRadius_:50, bgColor_:{0.,0.,0.}] := Module[{template, image, data, i, j, imax, jmax, Jmax, Imax, matrix, row, shard, \[Theta], \[Phi], \[Zeta], \[Psi], append},
 (*import the template and image*)
 template = Import[templateFile];
 image = Import[imageFile];
 data = ImageData[image];
 
 (*get the dimensions*)
-jmax = Length[template];
-imax = Length[template[[1]]];
+imax = Length[template];
+jmax = Length[template[[1]]];
 {Imax, Jmax} = ImageDimensions[image];
 
 
@@ -162,15 +162,19 @@ row = {};
 (*generate the requested data*)
 For[j=1, j<=jmax, j+=1,
 	For[i=1, i<=imax, i+=1,
-		shard = template[[j, i]];
-		\[Theta] = \[Pi]-shard[[3, 1]];
-		\[Phi] =  Mod[shard[[3, 2]] , 2\[Pi]]-\[Pi];
+		shard = template[[i, j]];
+		\[Theta] = shard[[3, 1]];
+		\[Phi] = shard[[3, 2]];
+		
+		(*rotate the coordinates to the observer ajusted spherical coordinates*)
+		\[Zeta] = ArcCos[Cos[\[Pi]/2-\[Theta]o]Cos[\[Theta]] - Sin[\[Pi]/2-\[Theta]o]Sin[\[Theta]]Cos[\[Phi]]];
+		\[Psi] = -(ArcSin[Sin[\[Theta]]Sin[\[Phi]]/Sin[\[Zeta]]] +\[Pi] HeavisideTheta[(Cos[\[Pi]/2-\[Theta]o]Sin[\[Theta]]Cos[\[Phi]]+Sin[\[Pi]/2-\[Theta]o]Cos[\[Theta]])/Sin[\[Zeta]]]);
 
 		(*if the geodesic "points" outside of the original image, the background color is used instead*)
-		If[Abs[Round[Imax \[Theta]/angle]] > Jmax/2 - 1 || Abs[Round[Imax \[Phi]/angle]] > Imax/2 - 1,
+		If[Abs[Round[Imax (\[Pi]/2-\[Zeta])/angle]]> Jmax/2 - 1 || Abs[Round[Imax \[Psi]/angle]] > Imax/2 - 1,
 			append = bgColor,
 			(*else*)
-			append = data[[Round[Jmax/2 + Imax \[Theta]/angle], Round[Imax/2 + Imax \[Phi]/angle]]]
+			append = data[[Round[1+Jmax/2- Imax (\[Pi]/2-\[Zeta])/angle], Round[Imax/2 + Imax \[Psi]/angle]]]
 		];
 		
 		If[\[Theta]==-1, append={0,0,0}];
@@ -183,7 +187,7 @@ For[j=1, j<=jmax, j+=1,
 ];
 
 (*return a list containing tables with requested output*)
-matrix
+Reverse[matrix]
 ]
 
 
