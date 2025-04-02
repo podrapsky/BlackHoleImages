@@ -169,7 +169,7 @@ z=Sqrt[(\[Omega]2+\[Omega]1-A/3)/2];
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Radial Motion*)
 
 
@@ -437,7 +437,7 @@ I\[Phi] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x |
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Equator & Shell Intersections*)
 
 
@@ -485,7 +485,7 @@ ShellIntersectionMinoTime[roots_, a_, rShell_] := Module[{r1, r2, r3, r4, k, xo,
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Emission Parameters*)
 
 
@@ -560,7 +560,7 @@ Options[KerrNullGeo] = {"Momentum" -> "Momentum", "PhiRange" -> {-\[Infinity], \
 
 KerrNullGeo[a_, xs_, ps_, M_:1, OptionsPattern[]] := Module[{ts, rs, \[Theta]s, \[Phi]s, pts, prs, p\[Theta]s, p\[Phi]s, consts, \[ScriptL], \[Eta], roots, r1, r2, r3, r4, type, r, I\[Phi], \[Lambda]x, It, \[Theta], G\[Phi], Gt, equator\[Lambda], \[Phi], t, Z1, Z2, rISCO, rem, tem, \[Theta]em, \[Phi]em, j, \[Kappa], \[Theta]loc, \[Phi]loc, \[Theta]x, \[Phi]x, assoc,prec,eps},
 If[a<=0 || a>=1, Message[KerrNullGeo::OutOfBounds, "Parameter a must be between 0 and 1."]; Return[];];
-If[OptionValue["Momentum"]=="WaveVector", ps = ps Quantity["ReducedPlanckConstant"] Quantity["GravitationalConstant"]  / (Quantity["SpeedOfLight"])^3/ M];
+If[OptionValue["Momentum"]=="WaveVector", ps = ps 2.6122803^-70 (*G\[HBar]/c^3 in SI*)/ M];
 
 If[ Length[xs]==Length[ps] == 4,
   {{ts, rs, \[Theta]s, \[Phi]s}, {pts, prs, p\[Theta]s, p\[Phi]s}} = {xs, ps};

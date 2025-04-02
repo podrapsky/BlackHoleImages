@@ -12,10 +12,10 @@ BeginPackage["BlackHoleImages`KerrImages`",
 	{"BlackHoleImages`KerrNullGeodesics`", "BlackHoleImages`AlphaDiskModel`"}
 ]
 
-GenerateTemplate::usage = "GenerateTemplate[directory, name, a, \[Theta]o, imageSize, maxBardeenCoordinate, Options] generates a template containing information about null geodesics specified by (dimensionless) a, \[Theta]o (distant observer's \[Theta]) and maximal Bardeen coordinate that is shown. The number of geodesics to be generated is specified in imageSize in the form {xsize, ysize}. The template is saved in directory/name.mx file, which can be used later with DiskImageFromTemplate.";
-DiskImage::usage = "DiskImage[a, \[Theta]o, \[Alpha], m, mdot, imageSize, maxBardeenCoordinate, Options] returns a list containing tables with information specified by the option 'Output'->{'information1', 'information2', ...}. Geodesics are specified by (dimensionless) a, \[Theta]o (distant observer's \[Theta]) and maximal Bardeen coordinate that is shown. The number of geodesics to be generated is specified in imageSize in the form {xsize, ysize}. Disk is specified by BH mass m (in solar mass by default), matter inflow mdot and parameter \[Alpha] (both in Shakura & Sunyaev definition by default).";
-DiskImageFromTemplate::usage = "DiskImageFromTemplate[file, \[Alpha], m, mdot, Options] returns a list containing tables with information specified by the option 'Output'->{'information1', 'information2', ...}. Template is passed in file. Disk is specified by BH mass m (in solar mass by default), matter inflow mdot and parameter \[Alpha] (both in Shakura & Sunyaev definition by default).";
-StellarBackgroundFromTemplate::usage = "StellarBackgroundFromTemplate[templateFile, \[Theta]o, imageFile, angle, Ratio_:0.8, bgColor_:{0.,0.,0.}] generates an image of stellar background given by imageFile distorted by geometry given by the template stored in templateFile and \[Theta]o. The image's part Ratio (default is 0.8) spans angle on the celestial sphere. The background color can be specified in bgColor as RGB list of size 3 (default is black)."
+GenerateTemplate::usage = "GenerateTemplate[directory, name, a, \[Theta]o, imageSize, maxBardeenCoordinate, shellRadius_:50, radiusLimit_:0, Options] generates a template containing information about null geodesics specified by (dimensionless) a, \[Theta]o (distant observer's \[Theta]) and maximal Bardeen coordinate that is shown. The number of geodesics to be generated is specified in imageSize in the form {xsize, ysize}. The template is saved in directory/name.mx file, which can be used later with DiskImageFromTemplate.";
+DiskImage::usage = "DiskImage[a, \[Theta]o, \[Alpha], m, mdot, imageSize, maxBardeenCoordinate, radiusLimit_:0, Options] returns a list containing tables with information specified by the option 'Output'->{'information1', 'information2', ...}. Geodesics are specified by (dimensionless) a, \[Theta]o (distant observer's \[Theta]) and maximal Bardeen coordinate that is shown. The number of geodesics to be generated is specified in imageSize in the form {xsize, ysize}. Disk is specified by BH mass m (in solar mass by default), matter inflow mdot and parameter \[Alpha] (both in Shakura & Sunyaev definition by default).";
+DiskImageFromTemplate::usage = "DiskImageFromTemplate[file, a, \[Alpha], m, mdot, Options] returns a list containing tables with information specified by the option 'Output'->{'information1', 'information2', ...}. Template is passed in file. Disk is specified by BH mass m (in solar mass by default), matter inflow mdot and parameter \[Alpha] (both in Shakura & Sunyaev definition by default).";
+StellarBackgroundFromTemplate::usage = "StellarBackgroundFromTemplate[templateFile, \[Theta]o, imageFile, angle, bgColor_:{0.,0.,0.}] generates an image of stellar background given by imageFile distorted by geometry given by the template stored in templateFile and \[Theta]o. The image's part Ratio (default is 0.8) spans angle on the celestial sphere. The background color can be specified in bgColor as RGB list of size 3 (default is black)."
 
 Begin["`Private`"];
 
@@ -63,7 +63,7 @@ Export[file, template];
 
 
 Options[DiskImage] = {"InputUnits" -> "NovikovThorne", "OutputUnits" -> "SI", "rUnits" -> "BHMass",  (*BlackHoleImages`AlphaDiskModel`DiskParams options*)
-					"Grid"->True, (*BlackHoleImages`AlphaDiskModel`ObservedDiskElement option*)
+					"Grid"->False, (*BlackHoleImages`AlphaDiskModel`ObservedDiskElement option*)
 					"Rotation" -> "Counterclockwise", "PhiRange" -> {-\[Pi], \[Pi]}, (*BlackHoleImages`KerrNullGeodesics`KerrNullGeoDistant options*)
 					"Output" -> {"PeakFrequency"} (*Specifies what information is requested in the form {"information1", "information 2",...},
 													where "informationN" must be element of the association returned by BlackHoleImages`AlphaDiskModel`ObservedDiskElement
@@ -91,7 +91,7 @@ disk = BlackHoleImages`AlphaDiskModel`DiskParams[a, \[Alpha], m, mdot, "InputUni
 (*generate the requested data*)
 For[j=-jmax, j<jmax,j+=step,
 	For[i=-imax, i<imax ,i+=step,
-		geod = BlackHoleImages`KerrNullGeodesics`KerrNullGeoDistant[a, \[Theta]o, i, j, radiusLimit, "Rotation" -> OptionValue["Rotation"],"PhiRange" -> OptionValue["PhiRange"]];
+		geod = BlackHoleImages`KerrNullGeodesics`KerrNullGeoDistant[a, \[Theta]o, i, j, 50, radiusLimit, "Rotation" -> OptionValue["Rotation"],"PhiRange" -> OptionValue["PhiRange"]];
 		element = BlackHoleImages`AlphaDiskModel`ObservedDiskElement[disk, geod, "Grid"->OptionValue["Grid"]];
 		row = MapThread[Append, {row, Table[element[OptionValue["Output"][[k]]], {k, 1, length}]}];
 	];
@@ -105,7 +105,7 @@ matrix
 
 
 Options[DiskImageFromTemplate] = {"InputUnits" -> "NovikovThorne", "OutputUnits" -> "SI", "rUnits" -> "BHMass",  (*BlackHoleImages`AlphaDiskModel`DiskParams options*)
-								  "Grid"->True, (*BlackHoleImages`AlphaDiskModel`ObservedDiskElement option*)
+								  "Grid"->False, (*BlackHoleImages`AlphaDiskModel`ObservedDiskElement option*)
 								  "Output" -> {"PeakFrequency"} (*Specifies what information is requested in the form {"information1", "information 2",...},
 																	where "informationN" must be element of the association returned by BlackHoleImages`AlphaDiskModel`ObservedDiskElement
 																	("PhysicalTemperature", "EffectiveTemperature", "SpectralFluxDensity", "FluxDensity" or "PeakFrequency") *)
@@ -143,7 +143,7 @@ matrix
 ]
 
 
-StellarBackgroundFromTemplate[templateFile_, \[Theta]o_,imageFile_, angle_, shellRadius_:50, bgColor_:{0.,0.,0.}] := Module[{template, image, data, i, j, imax, jmax, Jmax, Imax, matrix, row, shard, \[Theta], \[Phi], \[Zeta], \[Psi], append},
+StellarBackgroundFromTemplate[templateFile_, \[Theta]o_,imageFile_, angle_, bgColor_:{0.,0.,0.}] := Module[{template, image, data, i, j, imax, jmax, Jmax, Imax, matrix, row, shard, \[Theta], \[Phi], \[Zeta], \[Psi], append},
 (*import the template and image*)
 template = Import[templateFile];
 image = Import[imageFile];
