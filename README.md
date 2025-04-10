@@ -5,6 +5,7 @@
 <p align="center">
   <img src="./images/disk.png" />
 </p>
+
 ## Overview
 
 Black holes are astrophysical objects with gravitational fields so extreme that they bend even the trajectories of light. In the geometrical optics limit, light paths follow null geodesics in curved spacetime. This paclet provides analytical solutions for these geodesics and builds on them to generate realistic visualizations of black hole environments.
@@ -19,6 +20,23 @@ The paclet can be used for:
 - :crystal_ball: Generating images of stellar backgrounds distorted by black hole gravity
 - :dvd: Visualizing accretion disks near black holes using the standard α-disk model
 
+## Package Structure
+
+The paclet contains three main packages:
+
+1. **`KerrNullGeodesics`** - Implements analytical solutions for null geodesics in Kerr space-time based on Gralla & Lupsasca (2020)
+   - `KerrNullGeo` - Computes null geodesics from specified initial conditions
+   - `KerrNullGeoDistant` - Computes null geodesics from infinity using Bardeen's impact parameters
+
+2. **`AlphaDiskModel`** - Implements the radiation model of the "standard" or α accretion disk in Kerr space-time
+   - `DiskParams` - Returns information about an accretion disk's radiation properties
+   - `ObservedDiskElement` - Calculates radiation observed from disk elements
+
+3. **`KerrImages`** - Provides high-level functions to generate images
+   - `GenerateTemplate` - Creates a template of geodesics for reuse
+   - `DiskImage` - Generates images of accretion disks
+   - `DiskImageFromTemplate` - Faster image generation using precomputed templates
+   - `StellarBackgroundFromTemplate` - Generates images of stellar backgrounds distorted by black hole gravity
 
 
 ## Installation
@@ -27,30 +45,30 @@ To use the code, make sure you have Wolfram Mathematica 13.2 or higher installed
 
 After downloading the BlackHoleImages directory to a path, whose string we shall denote `path`, open a Mathematica notebook. We will need to use functions of `PacletTools`, so be sure to load them first:
 
-```
+```mathematica
 Needs["PacletTools`"]
 ```
 
 After that is done, you can build and install the paclet using the following funtions:
 
-```
+```mathematica
 PacletBuild[path<>"/BlackHoleImages"]
-PacletInstall[path<>"/BlackHoleImages/build/BlackHoleImages-1.0.0.paclet"]
+PacletInstall[path<>"/BlackHoleImages/build/BlackHoleImages-X.X.X.paclet"]
 ```
 
-The `1.0.0` denotes the version of the paclet. If you have a different version on your computer, be sure to change this.
+The `X.X.X` denotes the version of the paclet you are using.
 
 After the paclet is built and installed, you can easily load it in Mathematica by using:
 
-```
+```mathematica
 Needs["BlackHoleImages`"]
 ```
 
 You should now be able to use functions of the paclet without further specifying the context. Note that the documentation to this paclet should install automatically together with the functions.
 
-If you want to only want to use the code in a single session, using
+If you only want to use the code in a single session, using
 
-```
+```mathematica
 PacletDirectoryLoad[path<>"/BlackHoleImages"]
 Needs["BlackHoleImages`"]
 ```
@@ -61,7 +79,7 @@ For detailed installation instructions, please refer to the official [paclet ref
 
 ## Documentation
 
-The documentation is provided as Mathematica pages, which is loaded together with the rest of the paclet if the paclet is built. In the [Documentation](Documentation/English) folder, one may find guide pages and tutorials that should facilitate working with the paclet. To access function-specific documentation, press `F1`, just as you would for built-in Mathematica functions. You can also search for functions you need in the Documentation Center in Mathematica. We provide example screenshots demonstrating this:
+The documentation is provided as Mathematica pages, which are installed together with the rest of the paclet if the paclet is built. In the [Documentation](Documentation/English) folder, one may find guide pages and tutorials that should facilitate working with the paclet. To access function-specific documentation, press `F1`, just as you would for built-in Mathematica functions. You can also search for functions you need in the Documentation Center in Mathematica. We provide example screenshots demonstrating this:
 
 <p align="center">
   <img src="./images/DocumentationCenter.png" />
@@ -145,8 +163,21 @@ diskImage = DiskImageFromTemplate["templates/kerr09_60deg.mx", 0.9, 0.1, 10, 0.5
 
 (*Plot result*)
 ArrayPlot[Reverse[diskImage[[1]]], ColorFunction -> "SolarColors"]
+
+(*Image spanning a sphere*)
+(*Image due to ESA/Gaia/DPAC  (https://sci.esa.int/s/ApPJaGA)*)
+Image[Import["images/skymap.jpg"]]
+
+(*Use the same template to generate image of deformed background*)
+stellarBackground = 
+  StellarBackgroundFromTemplate["templates/kerr09_60deg.mx", Pi/3, 
+   "images/skymap.jpg", 2 \[Pi]];
+
+Image[stellarBackground]
 ```
 ![400x400 accretion disk image](images/ExampleDiskHR.png)
+![skymap](images/skymap_.jpg)
+![400x400 stellar background image](images/ExampleBackground.png)
 
 ## Citation
 
@@ -174,3 +205,9 @@ The code is licensed under the MIT license. Please refer to [LICENSE](LICENSE) f
 - Vojtěch Witzany (ORCID: 0000-0002-9209-5355)
 
 Institute of Theoretical Physics, Faculty of Mathematics and Physics, Charles University, Czech Republic
+
+
+
+<p align="center">
+  <img src="./images/stellarbackground.png" />
+</p>
