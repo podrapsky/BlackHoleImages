@@ -57,6 +57,39 @@ DistantNullConstantsOfMotion[a_, \[Theta]o_, \[Alpha]_, \[Beta]_] := <|
 
 
 (* ::Section::Closed:: *)
+(*Polar Roots & \[Nu]\[Theta]*)
+
+
+PolarRoots[a_, \[Eta]_, \[ScriptL]_] := Module[{\[CapitalDelta]\[Theta], u1, u2, return}, 
+(*Eq. (19):*)
+\[CapitalDelta]\[Theta]= 1/2 (1-(\[Eta]+\[ScriptL]^2)/a^2);
+u1=\[CapitalDelta]\[Theta]-Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2];
+u2=\[CapitalDelta]\[Theta]+Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2];
+
+<|"u1" -> u1, "u2" -> u2|>
+];
+
+
+SignP\[Theta][\[Theta]_, p\[Theta]_, a_, \[Eta]_, \[ScriptL]_, eps_] := Module[{\[Nu]\[Theta], u1, u2, \[Theta]p, \[Theta]m, return},
+\[Nu]\[Theta] = Sign[p\[Theta]];
+If[Abs[p\[Theta]] < 10 eps,
+  If[\[Eta] > 0,
+    \[Nu]\[Theta] = Sign[Pi / 2 - \[Theta]],
+    
+    {u1, u2} = {"u1", "u2"} /. PolarRoots[a, \[Eta], \[ScriptL]];
+    \[Theta]p = ArcCos[Sqrt[u2]]; \[Theta]m = ArcCos[Sqrt[u1]];
+    If[\[Theta] > Pi / 2, \[Theta]p = ArcCos[-Sqrt[u2]]; \[Theta]m = ArcCos[-Sqrt[u1]]];
+    
+    \[Nu]\[Theta] = Sign[\[Theta]m - \[Theta]p];
+    If[Abs[\[Theta] - \[Theta]m] < eps, \[Nu]\[Theta] *= -1];
+  ]
+];
+  
+\[Nu]\[Theta]
+];
+
+
+(* ::Section::Closed:: *)
 (*Polar Motion*)
 
 
@@ -64,10 +97,8 @@ DistantNullConstantsOfMotion[a_, \[Theta]o_, \[Alpha]_, \[Beta]_] := <|
 (*Polar motion takes two forms, ordinary motion, and vortical motion as described in Section III of  Gralla & Lupsasca, arXiv:1910.12881v3 (we follow their notation closely with equation numbers in comments).*)
 
 
-OrdinaryPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_] := Module[{\[CapitalDelta]\[Theta], u1, u2, EPrime, G\[Theta]o, Gto, G\[Phi]o, \[CapitalPsi], \[Theta], Gt, G\[Phi], return}, 
-(*Eq. (19):*)
-\[CapitalDelta]\[Theta]= 1/2 (1-(\[Eta]+\[ScriptL]^2)/a^2);
-u1=\[CapitalDelta]\[Theta]-Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; u2=\[CapitalDelta]\[Theta]+Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; 
+OrdinaryPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_] := Module[{u1, u2, EPrime, G\[Theta]o, Gto, G\[Phi]o, \[CapitalPsi], \[Theta], Gt, G\[Phi], return}, 
+{u1, u2} = {"u1", "u2"} /. PolarRoots[a, \[Eta], \[ScriptL]];
 (*Eq. (29):*)
 G\[Theta]o=-1/Sqrt[-u1 a^2] EllipticF[Re[ArcSin[Cos[\[Theta]o]/Sqrt[u2]]], u2/u1];
 (*Eq. (46):*)
@@ -87,10 +118,8 @@ Gt=Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Globa
 ]
 
 
-OrdinaryPolarMotionLimit[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_] := Module[{\[CapitalDelta]\[Theta], u1, u2, G\[Theta]o, Gto, G\[Phi]o, \[CapitalPsi], G\[Phi], return}, 
-(*Eq. (19):*)
-\[CapitalDelta]\[Theta]= 1/2 (1-(\[Eta]+\[ScriptL]^2)/a^2);
-u1=\[CapitalDelta]\[Theta]-Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; u2=\[CapitalDelta]\[Theta]+Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; 
+OrdinaryPolarMotionLimit[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_] := Module[{u1, u2, G\[Theta]o, Gto, G\[Phi]o, \[CapitalPsi], G\[Phi], return}, 
+{u1, u2} = {"u1", "u2"} /. PolarRoots[a, \[Eta], \[ScriptL]];
 (*Eq. (29):*)
 G\[Theta]o=-1/Sqrt[-u1 a^2] EllipticF[Re[ArcSin[Cos[\[Theta]o]/Sqrt[u2]]], u2/u1];
 (*Eq. (46):*)
@@ -109,13 +138,11 @@ G\[Phi]
 ]
 
 
-VorticalPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_] := Module[{h, \[CapitalDelta]\[Theta], u1, u2, \[CapitalUpsilon], \[CapitalUpsilon]\[Lambda], G\[Theta]o, Gto, G\[Phi]o,\[Theta], Gt, G\[Phi], return},
+VorticalPolarMotion[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_] := Module[{h, u1, u2, \[CapitalUpsilon], \[CapitalUpsilon]\[Lambda], G\[Theta]o, Gto, G\[Phi]o,\[Theta], Gt, G\[Phi], return},
 
 (*Eq. (54)*)
 h = Sign[Cos[\[Theta]o]];
-(*Eq. (19):*)
-\[CapitalDelta]\[Theta]= 1/2 (1-(\[Eta]+\[ScriptL]^2)/a^2);
-u1=\[CapitalDelta]\[Theta]-Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; u2=\[CapitalDelta]\[Theta]+Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2];
+{u1, u2} = {"u1", "u2"} /. PolarRoots[a, \[Eta], \[ScriptL]];
 (*Eq. (59):*)
 \[CapitalUpsilon][\[CapitalTheta]_] := ArcSin[Sqrt[((Cos[\[CapitalTheta]])^2-u1)/(u2-u1)]];
 (*Eq. (56):*)
@@ -125,7 +152,7 @@ G\[Theta]o = -(h/Sqrt[u1 a^2]) EllipticF[\[CapitalUpsilon][\[Theta]o], 1-u2/u1];
 
 (*Eq. (57):*)
 G\[Phi]o = -(h/((1-u1) Sqrt[u1 a^2])) EllipticPi[(u2-u1)/(1-u1), \[CapitalUpsilon][\[Theta]o], 1-u2/u1];
-G\[Phi] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[1/((1-u1) Sqrt[u1 a^2]) EllipticPi[(u2-u1)/(1-u1), \[CapitalUpsilon]\[Lambda][Global`\[Lambda]], 1-u2/u1]-\[Nu]\[Theta] G\[Phi]o]]], Listable];
+G\[Phi] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[\[ScriptL](1/((1-u1) Sqrt[u1 a^2]) EllipticPi[(u2-u1)/(1-u1), \[CapitalUpsilon]\[Lambda][Global`\[Lambda]], 1-u2/u1]-\[Nu]\[Theta] G\[Phi]o)]]], Listable];
 
 
 \[Theta] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x || Global`\[Lambda]<0, Undefined, Evaluate[ArcCos[h Sqrt[u1+(u2-u1) (Sin[\[CapitalUpsilon]\[Lambda][Global`\[Lambda]]])^2]]]]], Listable]; (*G&L (69)*)
@@ -201,10 +228,10 @@ rp = 1+Sqrt[1-a^2]; rm = 1-Sqrt[1-a^2];
 (*Eq. (B16,B20):*)
 I0s = 2/Sqrt[(r3-r1) (r4-r2)] EllipticF[ArcSin[xs], k];
 
-If[\[Nu]r<0,
-  \[Lambda]x = -(2/Sqrt[(r3-r1) (r4-r2)] EllipticF[ArcSin[Sqrt[((rp-r2) (r3-r1))/((rp-r1) (r3-r2))]], k] - I0s),
-  \[Lambda]x = 4/Sqrt[(r3-r1) (r4-r2)] EllipticK[k] - 2/Sqrt[(r3-r1) (r4-r2)] EllipticF[ArcSin[Sqrt[((rp-r2) (r3-r1))/((rp-r1) (r3-r2))]], k] - I0s;
-];
+\[Lambda]x = Re[If[\[Nu]r<0,
+  -(2/Sqrt[(r3-r1) (r4-r2)] EllipticF[ArcSin[Sqrt[((rp-r2) (r3-r1))/((rp-r1) (r3-r2))]], k] - I0s),
+  4/Sqrt[(r3-r1) (r4-r2)] EllipticK[k] - 2/Sqrt[(r3-r1) (r4-r2)] EllipticF[ArcSin[Sqrt[((rp-r2) (r3-r1))/((rp-r1) (r3-r2))]], k] - I0s
+]];
 X[\[Lambda]_] := Sqrt[(r3-r1) (r4-r2)]/2 (\[Lambda] + \[Nu]r I0s); (*G&L (B26)*)
 
 
@@ -445,10 +472,8 @@ I\[Phi] = Function[{Global`\[Lambda]}, Evaluate[If[Global`\[Lambda]>\[Lambda]x |
 (*This is a convenience function for rendering images of thin disks in the equatorial plane of the Kerr BH. Thanks to the symmetries of the elliptic integrals, one is able to find all the values of Mino time at which a null geodesic intersects the equatorial plane \[Theta]=\[Pi]/2. *)
 
 
-EquatorIntersectionMinoTimes[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_] := Module[{\[CapitalDelta]\[Theta], u1, u2, G\[Theta]o, equator\[Lambda], j0, j, t},
-(*Eq. (19):*)
-\[CapitalDelta]\[Theta]= 1/2 (1-(\[Eta]+\[ScriptL]^2)/a^2);
-u1=\[CapitalDelta]\[Theta]-Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; u2=\[CapitalDelta]\[Theta]+Sqrt[\[CapitalDelta]\[Theta]^2+\[Eta]/a^2]; 
+EquatorIntersectionMinoTimes[a_, \[Eta]_, \[ScriptL]_, \[Theta]o_, \[Nu]\[Theta]_, \[Lambda]x_] := Module[{u1, u2, G\[Theta]o, equator\[Lambda], j0, j, t},
+{u1, u2} = {"u1", "u2"} /. PolarRoots[a, \[Eta], \[ScriptL]];
 (*Eq. (29):*)
 G\[Theta]o=-1/Sqrt[-u1 a^2] EllipticF[Re[ArcSin[Cos[\[Theta]o]/Sqrt[u2]]], u2/u1]; (*Sometimes the ArcSin argument is slightly over 1 probably due to numerical errors*)
 (*Now generate the list of intersections*)
@@ -558,7 +583,7 @@ p\[Phi] = - ((\[Omega] B)/A) vecpt + B/A vecp\[Phi];
 
 Options[KerrNullGeo] = {"Momentum" -> "Momentum", "PhiRange" -> {-\[Infinity], \[Infinity]}}
 
-KerrNullGeo[a_, xs_, ps_, M_:1, OptionsPattern[]] := Module[{ts, rs, \[Theta]s, \[Phi]s, pts, prs, p\[Theta]s, p\[Phi]s, consts, \[ScriptL], \[Eta], roots, r1, r2, r3, r4, type, r, I\[Phi], \[Lambda]x, It, \[Theta], G\[Phi], Gt, equator\[Lambda], \[Phi], t, Z1, Z2, rISCO, rem, tem, \[Theta]em, \[Phi]em, j, \[Kappa], \[Theta]loc, \[Phi]loc, \[Theta]x, \[Phi]x, assoc,prec,eps},
+KerrNullGeo[a_, xs_, ps_, M_:1, OptionsPattern[]] := Module[{ts, rs, \[Theta]s, \[Phi]s, pts, prs, p\[Theta]s, p\[Phi]s, \[Nu]\[Theta], consts, \[ScriptL], \[Eta], roots, r1, r2, r3, r4, type, r, I\[Phi], \[Lambda]x, It, \[Theta], G\[Phi], Gt, equator\[Lambda], \[Phi], t, Z1, Z2, rISCO, rem, tem, \[Theta]em, \[Phi]em, j, \[Kappa], \[Theta]loc, \[Phi]loc, \[Theta]x, \[Phi]x, assoc,prec,eps},
 If[a<=0 || a>=1, Message[KerrNullGeo::OutOfBounds, "Parameter a must be between 0 and 1."]; Return[];];
 If[OptionValue["Momentum"]=="WaveVector", ps = ps 2.6122803^-70 (*G\[HBar]/c^3 in SI*)/ M];
 
@@ -601,16 +626,18 @@ If[Im[r2] != 0,
     If[r4<1+Sqrt[1-a^2] || rs>r4,
       {r, I\[Phi], \[Lambda]x, It} = {"r", "I\[Phi]", "\[Lambda]x", "It"} /. RadialMotionCase2[roots, a, \[Eta], \[ScriptL], rs, Sign[prs], "Observer"->"Regular"];
       If[r4>1+Sqrt[1-a^2], type = "PhotonEscape"],
-      {r, I\[Phi], \[Lambda]x, It} = {"r", "I\[Phi]", "\[Lambda]x", "It"} /. RadialMotionCase1[roots, a, \[Eta], \[ScriptL], rs, Sign[prs], "Observer"->"Regular"];
+      {r, I\[Phi], \[Lambda]x, It} = {"r", "I\[Phi]", "\[Lambda]x", "It"} /. RadialMotionCase1[roots, a, \[Eta], \[ScriptL], rs, Sign[prs]];
       ];
   ]
 ];
 
 
+\[Nu]\[Theta] = SignP\[Theta][\[Theta]s, p\[Theta]s, a, \[Eta], \[ScriptL], eps];
+
 If[\[Eta]>0, 
-  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. OrdinaryPolarMotion[a, \[Eta], \[ScriptL], \[Theta]s, Sign[p\[Theta]s], \[Lambda]x];
-  equator\[Lambda] = EquatorIntersectionMinoTimes[a, \[Eta], \[ScriptL], \[Theta]s, Sign[p\[Theta]s], \[Lambda]x],
-  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. VorticalPolarMotion[a, \[Eta], \[ScriptL], \[Theta]s, Sign[p\[Theta]s], \[Lambda]x]; 
+  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. OrdinaryPolarMotion[a, \[Eta], \[ScriptL], \[Theta]s, \[Nu]\[Theta], \[Lambda]x];
+  equator\[Lambda] = EquatorIntersectionMinoTimes[a, \[Eta], \[ScriptL], \[Theta]s, \[Nu]\[Theta], \[Lambda]x],
+  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. VorticalPolarMotion[a, \[Eta], \[ScriptL], \[Theta]s, \[Nu]\[Theta], \[Lambda]x]; 
   equator\[Lambda] = {};
 ];
 
@@ -618,6 +645,15 @@ If[\[Eta]>0,
 If[OptionValue["PhiRange"][[2]]===\[Infinity], 
   \[Phi]=Function[{Global`\[Lambda]}, Evaluate[I\[Phi][Global`\[Lambda]]+ G\[Phi][Global`\[Lambda]] +\[Phi]s], Listable],
   \[Phi]=Function[{Global`\[Lambda]}, Evaluate[Mod[I\[Phi][Global`\[Lambda]]+ G\[Phi][Global`\[Lambda]] + \[Phi]s, OptionValue["PhiRange"][[2]]-OptionValue["PhiRange"][[1]], OptionValue["PhiRange"][[1]]]], Listable]
+];
+
+If[\[Eta]>0 && (Quiet[\[Phi][\[Lambda]x]===ComplexInfinity] || \[ScriptL]==0),
+	G\[Phi] = OrdinaryPolarMotionLimit[a, \[Eta], \[ScriptL], \[Theta]o, -\[Nu]\[Theta], \[Lambda]x];
+	If[OptionValue["PhiRange"][[2]]===\[Infinity], 
+        \[Phi]=Function[{Global`\[Lambda]}, Evaluate[I\[Phi][Global`\[Lambda]]+G\[Phi][Global`\[Lambda]]] + \[Phi]s, Listable],
+       (*else*)
+        \[Phi]=Function[{Global`\[Lambda]}, Evaluate[Mod[I\[Phi][Global`\[Lambda]]+G\[Phi][Global`\[Lambda]] + \[Phi]s, OptionValue["PhiRange"][[2]]-OptionValue["PhiRange"][[1]], OptionValue["PhiRange"][[1]]]], Listable]
+    ];
 ];
 
 t = Function[{Global`\[Lambda]}, Evaluate[It[Global`\[Lambda]] + a^2 Gt[Global`\[Lambda]] + ts], Listable];
@@ -670,7 +706,7 @@ Keys[g_KerrNullGeoFunction]^:=Keys[g[[5]]];
 
 Options[KerrNullGeoDistant] = {"Rotation" -> "Counterclockwise", "PhiRange" -> {-\[Infinity], \[Infinity]}}
 
-KerrNullGeoDistant[a_, \[Theta]o_, \[Alpha]_, \[Beta]_, shellRadius_:50, radiusLimit_:0, OptionsPattern[]] := Module[ {consts, \[Eta], \[ScriptL], roots, r1, r2, r3, r4, rp, rm, k, r, \[Theta], \[Phi], G\[Phi], I\[Phi], \[CapitalDelta]v, Gt, RedIt, \[Lambda]x, \[Phi]x, \[Theta]x, assoc, equator\[Lambda], type, shell\[Lambda], shell\[Theta], shell\[Phi], shell\[CapitalDelta]v, Z1, Z2, rISCO, j, rem, \[CapitalDelta]vem, \[Theta]em, \[Phi]em, \[Kappa], \[Theta]loc, \[Phi]loc,prec,eps},
+KerrNullGeoDistant[a_, \[Theta]o_, \[Alpha]_, \[Beta]_, shellRadius_:50, radiusLimit_:0, OptionsPattern[]] := Module[ {consts, \[Eta], \[ScriptL], \[Nu]\[Theta], roots, r1, r2, r3, r4, rp, rm, k, r, \[Theta], \[Phi], G\[Phi], I\[Phi], \[CapitalDelta]v, Gt, RedIt, \[Lambda]x, \[Phi]x, \[Theta]x, assoc, equator\[Lambda], type, shell\[Lambda], shell\[Theta], shell\[Phi], shell\[CapitalDelta]v, Z1, Z2, rISCO, j, rem, \[CapitalDelta]vem, \[Theta]em, \[Phi]em, \[Kappa], \[Theta]loc, \[Phi]loc,prec,eps},
 
 If[a<=0 || a>=1, Message[KerrNullGeo::OutOfBounds, "Parameter a must be between 0 and 1."]; Return[];];
 If[\[Theta]o<0 || \[Theta]o>\[Pi], Message[KerrNullGeo::OutOfBounds, "Parameter \[Theta]o must be between 0 and \[Pi]."]; Return[];];
@@ -709,13 +745,13 @@ If[Im[r2] != 0,
   ]
 ];
 
-ssign[x_] := If[x<0, -1, 1];
+\[Nu]\[Theta] = SignP\[Theta][\[Theta]o, \[Beta], a, \[Eta], \[ScriptL], eps];
 
 If[\[Eta]>0, 
-  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. OrdinaryPolarMotion[a, \[Eta], \[ScriptL], \[Theta]o, -ssign[\[Beta]], \[Lambda]x];
-  equator\[Lambda] = EquatorIntersectionMinoTimes[a, \[Eta], \[ScriptL], \[Theta]o, -ssign[\[Beta]], \[Lambda]x],
+  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. OrdinaryPolarMotion[a, \[Eta], \[ScriptL], \[Theta]o, -\[Nu]\[Theta], \[Lambda]x];
+  equator\[Lambda] = EquatorIntersectionMinoTimes[a, \[Eta], \[ScriptL], \[Theta]o, -\[Nu]\[Theta], \[Lambda]x],
   (*else*)
-  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. VorticalPolarMotion[a, \[Eta], \[ScriptL], \[Theta]o, -ssign[\[Beta]], \[Lambda]x]; (*Minus Sign[\[Beta]] because we use negative Mino time*)
+  {\[Theta], G\[Phi], Gt} = {"\[Theta]", "G\[Phi]", "Gt"} /. VorticalPolarMotion[a, \[Eta], \[ScriptL], \[Theta]o, -\[Nu]\[Theta], \[Lambda]x]; (*Minus Sign[\[Beta]] because we use negative Mino time*)
   equator\[Lambda] = {}; 
 ];
 
@@ -728,7 +764,7 @@ If[OptionValue["PhiRange"][[2]]===\[Infinity],
 \[CapitalDelta]v=Function[{Global`\[Lambda]}, Evaluate[RedIt[Global`\[Lambda]]+a^2 Gt[Global`\[Lambda]] + r[Global`\[Lambda]] + 2 Log[r[Global`\[Lambda]]/2]], Listable];
 
 If[\[Eta]>0 && (Quiet[\[Phi][\[Lambda]x]===ComplexInfinity] || \[ScriptL]==0),
-	G\[Phi] = OrdinaryPolarMotionLimit[a, \[Eta], \[ScriptL], \[Theta]o, -ssign[\[Beta]], \[Lambda]x];
+	G\[Phi] = OrdinaryPolarMotionLimit[a, \[Eta], \[ScriptL], \[Theta]o, -\[Nu]\[Theta], \[Lambda]x];
 	If[OptionValue["PhiRange"][[2]]===\[Infinity], 
         \[Phi]=Function[{Global`\[Lambda]}, Evaluate[I\[Phi][Global`\[Lambda]]+G\[Phi][Global`\[Lambda]]], Listable],
        (*else*)
